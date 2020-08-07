@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    backgroundColor: "#b44b3c",
   },
   paper: {
     marginRight: theme.spacing(2),
