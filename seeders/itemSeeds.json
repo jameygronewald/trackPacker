@@ -1,0 +1,136 @@
+{
+    "error": false,
+    "data": [
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d701458adf4aad3e6e84d",
+            "name": "backpack",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d752d07d165ae028e6eae",
+            "name": "matches",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8bd2cee05db92672e869",
+            "name": "Hiking Boots",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8be5cee05db92672e86a",
+            "name": "Water Bottle",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8beecee05db92672e86b",
+            "name": "Sleeping Bag",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8bf7cee05db92672e86c",
+            "name": "Frying Pan",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Wishlist"
+                ]
+            },
+            "_id": "5f2d8c06cee05db92672e86d",
+            "name": "Climbing shoes",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Wishlist"
+                ]
+            },
+            "_id": "5f2d8c0bcee05db92672e86e",
+            "name": "Climbing rope",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8dfccee05db92672e871",
+            "name": "skis",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8e1bcee05db92672e872",
+            "name": "ski poles",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8e21cee05db92672e873",
+            "name": "ski boots",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8e2ccee05db92672e874",
+            "name": "ski pants",
+            "__v": 0
+        },
+        {
+            "status": {
+                "enum": [
+                    "Inventory"
+                ]
+            },
+            "_id": "5f2d8e33cee05db92672e875",
+            "name": "gloves",
+            "__v": 0
+        }
+    ],
+    "message": "Successfully retrieved all item data."
+}
