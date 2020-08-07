@@ -24,7 +24,7 @@ router.get("/api/excursions", (req, res) => {
 // Find an excursion and populate existing excursions
 router.get("/api/excursions/:id", (req, res) => {
   db.Excursion.findOne({ _id: req.params.id })
-    .populate("excursions")
+    .populate("items")
     .then(excursionData => {
       res.json({
         error: false,
