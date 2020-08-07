@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const ItemController = require('./controllers/ItemController');
 
 const app = express();
 
@@ -8,7 +9,12 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('client/build'));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+};
+
+app.use(ItemController);
 
 app.get("/api/config", (req, res) => {
   res.json({ success: true });
