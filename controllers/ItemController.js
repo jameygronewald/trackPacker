@@ -40,8 +40,9 @@ router.post("/api/items", (req, res) => {
     });
 });
 
+// Update an item
 router.put("/api/items/:id", (req, res) => {
-  db.Excursion.findOneAndUpdate({ _id: req.params.id }, req.body)
+  db.Item.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then((itemData) => {
       res.json({
         error: false,
@@ -58,8 +59,9 @@ router.put("/api/items/:id", (req, res) => {
     });
 });
 
+// Delete an item
 router.delete("/api/items/:id", (req, res) => {
-  db.Excursion.deleteOne({ _id: req.params.id }, req.body)
+  db.Item.deleteOne({ _id: req.params.id })
     .then((itemData) => {
       res.json({
         error: false,
