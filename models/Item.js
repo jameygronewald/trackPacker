@@ -8,9 +8,9 @@ const ItemSchema = new Schema({
     trim: true,
     required: "Item name is required.",
   },
-  wishList: {
-    type: Boolean,
-    default: false,
+  status: {
+    enum: [ "Inventory", "Wishlist"],
+    description: "can only be one of the enum values and is required"
   },
 });
 
