@@ -1,0 +1,42 @@
+{
+    "error": false,
+    "data": [
+        {
+            "items": [],
+            "_id": "5f2d750307d165ae028e6ead",
+            "name": "Yosemite",
+            "__v": 0
+        },
+        {
+            "items": [
+                "5f2d754907d165ae028e6eaf",
+                "5f2d752d07d165ae028e6eae",
+                "5f2d701458adf4aad3e6e84d"
+            ],
+            "_id": "5f2d761f07d165ae028e6eb0",
+            "name": "Grand Tetons",
+            "__v": 0
+        },
+        {
+            "items": [
+                "5f2d8e33cee05db92672e875",
+                "5f2d8e2ccee05db92672e874",
+                "5f2d8e21cee05db92672e873",
+                "5f2d8e1bcee05db92672e872",
+                "5f2d8dfccee05db92672e871"
+            ],
+            "_id": "5f2d8f41cee05db92672e876",
+            "name": "Ski trip to Tahoe",
+            "__v": 0
+        },
+        {
+            "items": [
+                "5f2d8bd2cee05db92672e869"
+            ],
+            "_id": "5f2d900dcee05db92672e877",
+            "name": "Lake trip",
+            "__v": 0
+        }
+    ],
+    "message": "Successfully retrieved all excursion data."
+}
