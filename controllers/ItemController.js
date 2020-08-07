@@ -5,14 +5,14 @@ const db = require("../models");
 // Find all items
 router.get("/api/items", (req, res) => {
   db.Item.find({})
-    .then(itemData => {
+    .then((itemData) => {
       res.json({
         error: false,
         data: itemData,
         message: "Successfully retrieved all item data.",
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
         error: true,
         data: null,
@@ -24,18 +24,54 @@ router.get("/api/items", (req, res) => {
 // Create new item
 router.post("/api/items", (req, res) => {
   db.Item.create(req.body)
-    .then(newItemData => {
+    .then((newItemData) => {
       res.json({
         error: false,
         data: newItemData,
         message: "Successfully added new item.",
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({
         error: true,
         data: null,
         message: "Error adding new item to database.",
+      });
+    });
+});
+
+router.put("/api/items/:id", (req, res) => {
+  db.Excursion.findOneAndUpdate({ _id: req.params.id }, req.body)
+    .then((itemData) => {
+      res.json({
+        error: false,
+        data: itemData,
+        message: "Successfully updated item data.",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: true,
+        data: null,
+        message: "Error retrieving item data.",
+      });
+    });
+});
+
+router.delete("/api/items/:id", (req, res) => {
+  db.Excursion.deleteOne({ _id: req.params.id }, req.body)
+    .then((itemData) => {
+      res.json({
+        error: false,
+        data: itemData,
+        message: "Successfully deleted item data.",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: true,
+        data: null,
+        message: "Error deleting item data.",
       });
     });
 });

@@ -4,16 +4,16 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuDropdown from "../MenuDropdown/MenuDropdpown";
+// import "./Nav.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
+    backgroundColor: "#b44b3c",
+    color: "#13160e",
   },
 }));
 

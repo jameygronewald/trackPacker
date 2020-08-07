@@ -6,6 +6,7 @@ import SignUP from "../src/pages/SignUp/SignUp";
 import Profile from "../src/pages/Profile/Profile";
 import Excursion from "../src/pages/Excursion/Excursion";
 import Inventory from "../src/pages/Inventory/Inventory";
+import "./App.css";
 
 function App() {
   return (
