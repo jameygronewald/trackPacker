@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-// Read all items
+// Find all items
 router.get("/api/items", (req, res) => {
   db.Item.find({})
     .then(itemData => {
@@ -21,6 +21,7 @@ router.get("/api/items", (req, res) => {
     });
 });
 
+// Create new item
 router.post("/api/items", (req, res) => {
   db.Item.create(req.body)
     .then(newItemData => {
