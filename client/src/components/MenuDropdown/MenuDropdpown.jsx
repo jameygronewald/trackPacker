@@ -8,11 +8,16 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    backgroundColor: "#b44b3c",
+
+    margin: theme.spacing(1),
+  },
+  button:{
+    margin: theme.spacing(1),
   },
   paper: {
     marginRight: theme.spacing(2),
@@ -61,8 +66,11 @@ export default function MenuListComposition() {
           aria-controls={open ? "menu-list-grow" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
+          variant="contained"
+          className={classes.button}
         >
-          Toggle Menu Grow
+           Menu 
+           <MenuIcon/>
         </Button>
         <Popper
           open={open}
