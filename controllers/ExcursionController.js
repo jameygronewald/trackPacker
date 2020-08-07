@@ -2,9 +2,29 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
-// Read all items
+// Find all excursions
 router.get("/api/excursions", (req, res) => {
   db.Excursion.find({})
+    .then(excursionData => {
+      res.json({
+        error: false,
+        data: excursionData,
+        message: "Successfully retrieved all excursion data.",
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: true,
+        data: null,
+        message: "Error retrieving excursion data.",
+      });
+    });
+});
+
+// Find an excursion and populate existing items
+router.get("/api/excursions/:id", (req, res) => {
+  db.Excursion.findOne({ _id: req.params.id })
+    .populate("items")
     .then(excursionData => {
       res.json({
         error: false,
