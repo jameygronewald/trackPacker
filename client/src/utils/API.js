@@ -10,7 +10,7 @@ export default {
   },
 
   addItem: function() {
-    return axios.post("/api/items", { name, status });
+    return axios.post("/api/items");
   },
 
   getExcursions: function() {
@@ -22,7 +22,7 @@ export default {
   },
 
   addExcursion: function() {
-    return axios.post("/api/excursions", { name });
+    return axios.post("/api/excursions");
   },
 
 
