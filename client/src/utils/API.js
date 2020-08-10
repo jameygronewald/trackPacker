@@ -9,8 +9,8 @@ export default {
     return axios.get("/api/items/:id");
   },
 
-  addItem: function() {
-    return axios.post("/api/items"/* , { name, status } */);
+  addItem: function(name) {
+    return axios.post("/api/items", { name });
   },
 
   getExcursions: function() {
