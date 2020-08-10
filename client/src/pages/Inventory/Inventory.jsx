@@ -16,6 +16,8 @@ import Typography from "@material-ui/core/Typography";
 import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddItem from "../../components/AddItem/AddItem";
+import ToggleWishlist from "../../components/ToggleWishlist/ToggleWishlist";
+import ItemSubmitBtn from "../../components/ItemSubmitBtn/ItemSubmitBtn";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,15 +51,6 @@ export default function InteractiveList() {
         <FormControlLabel
           control={
             <Checkbox
-              checked={dense}
-              onChange={(event) => setDense(event.target.checked)}
-            />
-          }
-          label="Hide Item Description"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
               checked={secondary}
               onChange={(event) => setSecondary(event.target.checked)}
             />
@@ -65,7 +58,17 @@ export default function InteractiveList() {
           label="Show Item Description"
         />
       </FormGroup>
-      <AddItem />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={4}>
+          <AddItem />
+        </Grid>
+        <Grid item xs={12} md={4}>
+        <ItemSubmitBtn />
+        </Grid>
+        <Grid item xs={12} md={4}>
+        <ToggleWishlist />
+        </Grid>
+      </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Typography variant="h6" className={classes.title}>
