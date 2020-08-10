@@ -62,7 +62,7 @@ export default function MenuListComposition() {
           aria-haspopup="true"
           onClick={handleToggle}
         >
-          Toggle Menu Grow
+          View my Profile
         </Button>
         <Popper
           open={open}
