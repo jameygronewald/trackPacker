@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 
+// Find all user data
 router.get("/api/users", (req, res) => {
   db.User.find({})
     .then(userData => {
