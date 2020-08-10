@@ -21,9 +21,8 @@ export default {
     return axios.get("/api/excursions/:id");
   },
 
-  addExcursion: function() {
-    return axios.post("/api/excursions"/*  { name } */);
+  addExcursion: function(name) {
+    return axios.post("/api/excursions", { name });
   }, 
-
 
 };
