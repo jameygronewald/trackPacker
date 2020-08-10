@@ -59,4 +59,22 @@ router.post("/api/users", (req, res) => {
     });
 });
 
+router.put("/api/users/:id", (req, res) => {
+    db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then((userData) => {
+        res.json({
+          error: false,
+          data: userData,
+          message: "Successfully updated user data.",
+        });
+      })
+      .catch((err) => {
+        res.status(500).json({
+          error: true,
+          data: null,
+          message: "Error retrieving user data.",
+        });
+      });
+  });
+
 module.exports = router;
