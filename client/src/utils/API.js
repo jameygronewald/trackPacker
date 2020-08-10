@@ -9,8 +9,8 @@ export default {
     return axios.get("/api/items/:id");
   },
 
-  addItem: function() {
-    return axios.post("/api/items");
+  addItem: function(name, status) {
+    return axios.post("/api/items", {name, status});
   },
 
   getExcursions: function() {
@@ -21,9 +21,8 @@ export default {
     return axios.get("/api/excursions/:id");
   },
 
-  addExcursion: function() {
-    return axios.post("/api/excursions");
-  },
-
+  addExcursion: function(name) {
+    return axios.post("/api/excursions", { name });
+  }, 
 
 };
