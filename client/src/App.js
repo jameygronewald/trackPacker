@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "../src/pages/Home/Home";
 import SignUP from "../src/pages/SignUp/SignUp";
 import Profile from "../src/pages/Profile/Profile";
-import Excursion from "../src/pages/Excursion/Excursion";
+import Excursions from "../src/pages/Excursions/Excursions";
 import Inventory from "../src/pages/Inventory/Inventory";
 import "./App.css";
 
@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/SignUp" component={SignUP} />
         <Route exact path="/Profile" component={Profile} />
-        <Route exact path="/Excursion" component={Excursion} />
+        <Route exact path="/Excursions" component={Excursions} />
         <Route exact path="/Inventory" component={Inventory} />
       </Router>
     </div>
