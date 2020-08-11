@@ -4,8 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuDropdown from "../MenuDropdown/MenuDropdpown";
-
-// import "./Nav.css";
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +27,7 @@ export default function ButtonAppBar() {
           <Typography variant="h2" className={classes.title}>
             TrackPacker
           </Typography>
+          <HomeIcon/>
           <MenuDropdown  />
         </Toolbar>
       </AppBar>

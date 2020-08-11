@@ -16,8 +16,8 @@ const Excursions = () => {
   }
   return <div>
     <ul>
-    {excursions.map(excursions => (
-      <li>{excursions.name}</li>
+    {excursions.map(excursion => (
+      <li>{excursion.name}</li>
     ))}
     </ul>
   </div>;
