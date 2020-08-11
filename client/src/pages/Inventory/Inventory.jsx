@@ -3,22 +3,42 @@ import API from "../../utils/API";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState('');
   useEffect(() => {
     showItems();
   }, []);
-  function showItems() {
+  const showItems = () => {
     API.getItems()
-      .then((res) => {setItems(res.data.data); console.log(res.data.data)})
-      .catch((err) => console.log(err));
+      .then(res => {
+        setItems(res.data.data);
+      })
+      .catch(err => console.log(err));
   }
 
-  return <div>
-    <ul>
-    {items.map(item => (
-      <li>{item.name}</li>
-    ))}
-    </ul>
-  </div>;
+  const handleChange = ({ target: { value } }) => {
+    setNewItem(value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    API.addItem(newItem).then(response => {
+      setItems([...items, response.data.data]);
+    });
+  };
+
+  return (
+    <div>
+<form onSubmit={handleSubmit}>
+  <input name='newItem' placeholder='Add an Item' onChange={handleChange} />
+  <button type='submit'>Submit</button>
+</form>
+      <ul>
+        {items.map(item => (
+          <li>{item.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Inventory;
