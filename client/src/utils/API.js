@@ -5,7 +5,7 @@ export default {
     return axios.get("/api/items");
   },
 
-  getItem: function () {
+  getUserItem: function () {
     return axios.get("/api/items/:id");
   },
 
