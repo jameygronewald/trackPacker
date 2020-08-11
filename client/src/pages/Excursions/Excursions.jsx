@@ -25,7 +25,7 @@ const Excursions = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     API.addExcursion(newExcursion).then((res) => {
-      setNewExcursion([...excursions, res.data.data]);
+      setExcursions([...excursions, res.data.data]);
     });
   };
 
