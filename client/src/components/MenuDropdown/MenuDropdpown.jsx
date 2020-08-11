@@ -8,7 +8,6 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
-import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
     margin: theme.spacing(1),
   },
-  button:{
+  button: {
     margin: theme.spacing(1),
   },
   paper: {
@@ -97,10 +96,20 @@ export default function MenuListComposition() {
                       <MenuItem onClick={handleClose}>Profile</MenuItem>
                     </Link>
                     <Link to="/Inventory">
-                    <MenuItem onClick={handleClose}>My Inventory</MenuItem>
+                      <MenuItem onClick={handleClose}>My Inventory</MenuItem>
                     </Link>
+<<<<<<< HEAD
+                    <Link to="/Excursion">
+                      <MenuItem onClick={handleClose}>My Excursions</MenuItem>
+                    </Link>
+                    <Link to="/ExcursionInventory">
+                      <MenuItem onClick={handleClose}>
+                        Excursion Inventory
+                      </MenuItem>
+=======
                     <Link to="/Excursions">
                     <MenuItem onClick={handleClose}>My Excursions</MenuItem>
+>>>>>>> 57e4c2817f82a272fc5844327845d51adbf9731e
                     </Link>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                   </MenuList>
