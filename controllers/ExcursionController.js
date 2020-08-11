@@ -29,7 +29,7 @@ router.get("/api/excursions/:id", (req, res) => {
       res.json({
         error: false,
         data: excursionData,
-        message: "Successfully retrieved all excursion data.",
+        message: "Successfully retrieved excursion data.",
       });
     })
     .catch(err => {
@@ -73,7 +73,7 @@ router.put("/api/excursions/:id", (req, res) => {
       res.status(500).json({
         error: true,
         data: null,
-        message: "Error retrieving excursion data.",
+        message: "Error updating excursion data.",
       });
     });
 });

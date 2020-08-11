@@ -8,7 +8,7 @@ const Excursions = () => {
     showExcursions();
   }, []);
 
-  function showExcursions() {
+  const showExcursions = () => {
     API.getExcursions()
       .then(res => {
         setExcursions(res.data.data);
@@ -26,6 +26,16 @@ const Excursions = () => {
     API.addExcursion(newExcursion).then(res => {
       setExcursions([...excursions, res.data.data]);
     });
+  };
+
+  const viewExcursion = id => {
+    API.getExcursion(id)
+      .then(response => {
+        console.log(response.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const deleteExcursion = id => {
@@ -57,6 +67,13 @@ const Excursions = () => {
         {excursions.map(excursion => (
           <div>
             <li>{excursion.name}</li>
+            <button
+              onClick={() => {
+                viewExcursion(excursion._id);
+              }}
+            >
+              View Details
+            </button>
             <button
               onClick={() => {
                 deleteExcursion(excursion._id);
