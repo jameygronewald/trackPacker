@@ -13,6 +13,10 @@ export default {
     return axios.post("/api/items", { name });
   },
 
+  deleteItem: function(id) {
+    return axios.delete('/api/items/' + id);
+  },
+
   getExcursions: function() {
     return axios.get("/api/excursions");
   },
