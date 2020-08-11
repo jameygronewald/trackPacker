@@ -98,18 +98,13 @@ export default function MenuListComposition() {
                     <Link to="/Inventory">
                       <MenuItem onClick={handleClose}>My Inventory</MenuItem>
                     </Link>
-<<<<<<< HEAD
-                    <Link to="/Excursion">
+                    <Link to="/Excursions">
                       <MenuItem onClick={handleClose}>My Excursions</MenuItem>
                     </Link>
                     <Link to="/ExcursionInventory">
                       <MenuItem onClick={handleClose}>
                         Excursion Inventory
                       </MenuItem>
-=======
-                    <Link to="/Excursions">
-                    <MenuItem onClick={handleClose}>My Excursions</MenuItem>
->>>>>>> 57e4c2817f82a272fc5844327845d51adbf9731e
                     </Link>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                   </MenuList>
