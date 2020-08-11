@@ -22,7 +22,7 @@ const SignUp = () => {
           name="confirmPassword"
         />
       </form>
-      <button>Create Account</button>
+      <button type="submit">Create Account</button>
     </div>
   );
 };
