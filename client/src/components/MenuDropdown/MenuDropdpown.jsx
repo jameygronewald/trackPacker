@@ -99,7 +99,7 @@ export default function MenuListComposition() {
                     <Link to="/Inventory">
                     <MenuItem onClick={handleClose}>My Inventory</MenuItem>
                     </Link>
-                    <Link to="/Excursion">
+                    <Link to="/Excursions">
                     <MenuItem onClick={handleClose}>My Excursions</MenuItem>
                     </Link>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
