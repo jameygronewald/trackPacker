@@ -9,7 +9,7 @@ const Inventory = () => {
   }, []);
   const showItems = () => {
     API.getItems()
-      .then(res => {
+      .then((res) => {
         setItems(res.data.data);
       })
       .catch(err => console.log(err));
@@ -21,7 +21,7 @@ const Inventory = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    API.addItem(newItem).then(response => {
+    API.addItem(newItem).then((response) => {
       setItems([...items, response.data.data]);
     });
   };
