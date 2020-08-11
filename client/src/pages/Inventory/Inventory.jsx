@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
-import List from "@material-ui/core/List";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
