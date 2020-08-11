@@ -28,5 +28,9 @@ export default {
   addExcursion: function(name) {
     return axios.post("/api/excursions", { name });
   }, 
+  
+  deleteExcursion: function(id) {
+    return axios.delete('/api/excursions/' + id);
+  },
 
 };
