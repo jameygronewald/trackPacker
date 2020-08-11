@@ -12,18 +12,33 @@ const Inventory = () => {
       .then((res) => {
         setItems(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   const handleChange = ({ target: { value } }) => {
     setNewItem(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     API.addItem(newItem).then((response) => {
       setItems([...items, response.data.data]);
     });
+  };
+
+  const deleteItem = id => {
+    API.deleteItem(id)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    API.getItems()
+      .then(res => {
+        setItems(res.data.data);
+      })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -35,10 +50,15 @@ const Inventory = () => {
           onChange={handleChange}
         />
         <button type="submit">Submit</button>
+        <input type="checkbox" id="wishlist" name="wishlist" />
+        <label for="wishlist">Add Item to Wishlist</label>
       </form>
       <ul>
-        {items.map((item) => (
-          <li>{item.name}</li>
+        {items.map(item => (
+          <div>
+            <li>{item.name}</li>
+            <button onClick={() => {deleteItem(item._id)}}>Delete Item</button>
+          </div>
         ))}
       </ul>
     </div>
