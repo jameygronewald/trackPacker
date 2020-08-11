@@ -21,12 +21,16 @@ export default {
     return axios.get("/api/excursions");
   },
 
-  getExcursion: function() {
-    return axios.get("/api/excursions/:id");
+  getExcursion: function(id) {
+    return axios.get("/api/excursions/" + id);
   },
 
   addExcursion: function(name) {
     return axios.post("/api/excursions", { name });
   }, 
+  
+  deleteExcursion: function(id) {
+    return axios.delete('/api/excursions/' + id);
+  },
 
 };

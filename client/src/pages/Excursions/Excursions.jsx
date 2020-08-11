@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
-// import List from "@material-ui/core/List";
 
 const Excursions = () => {
   const [excursions, setExcursions] = useState([]);
@@ -9,24 +8,49 @@ const Excursions = () => {
     showExcursions();
   }, []);
 
-  function showExcursions() {
+  const showExcursions = () => {
     API.getExcursions()
-      .then((res) => {
+      .then(res => {
         setExcursions(res.data.data);
         console.log(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    API.addExcursion(newExcursion).then((res) => {
+    API.addExcursion(newExcursion).then(res => {
       setExcursions([...excursions, res.data.data]);
     });
+  };
+
+  const viewExcursion = id => {
+    API.getExcursion(id)
+      .then(response => {
+        console.log(response.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const deleteExcursion = id => {
+    API.deleteExcursion(id)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    API.getExcursions()
+      .then(res => {
+        setExcursions(res.data.data);
+      })
+      .catch(err => console.log(err));
   };
 
   return (
@@ -40,8 +64,24 @@ const Excursions = () => {
         <button type="submit">Submit</button>
       </form>
       <ul>
-        {excursions.map((excursions) => (
-          <li>{excursions.name}</li>
+        {excursions.map(excursion => (
+          <div>
+            <li>{excursion.name}</li>
+            <button
+              onClick={() => {
+                viewExcursion(excursion._id);
+              }}
+            >
+              View Details
+            </button>
+            <button
+              onClick={() => {
+                deleteExcursion(excursion._id);
+              }}
+            >
+              Remove Excursion
+            </button>
+          </div>
         ))}
       </ul>
     </div>
