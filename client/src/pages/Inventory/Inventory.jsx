@@ -51,7 +51,7 @@ const Inventory = () => {
         />
         <button type="submit">Submit</button>
         <input type="checkbox" id="wishlist" name="wishlist" />
-        <label for="wishlist">Add Item to Wishlist</label>
+        <label htmlFor="wishlist">Add Item to Wishlist</label>
       </form>
       <ul>
         {items.map(item => (
