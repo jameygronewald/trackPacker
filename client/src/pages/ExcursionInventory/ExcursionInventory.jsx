@@ -24,16 +24,14 @@ const ExcursionInventory = props => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [excursion]);
 
   const addToExcursion = id => {
     excursion.items.push(id);
     let itemObj = {items: excursion.items};
-    console.log(itemObj);
-    console.log(excursion);
     API.updateExcursionInventory(excursion._id, itemObj)
       .then(response => {
-        console.log(response.data.data);
+        setExcursion(response.data.data);
       })
       .catch(err => {
         console.log(err);
@@ -66,9 +64,9 @@ const ExcursionInventory = props => {
         <Grid item xs={12} sm={6}>
           <h2>Inventory for {excursion.name}</h2>
           <ul>
-            <li>Excursion Inventory Item 1</li>
-            <li>Excursion Inventory Item 2</li>
-            <li>Excursion Inventory Item 3</li>
+          {excursion.items && excursion.items.map(item => (
+            <li>{item.name}</li>
+          ))}
           </ul>
           <br></br>
           <h2>Wishlist for {excursion.name}</h2>
