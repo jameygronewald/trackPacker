@@ -3,15 +3,23 @@ import Grid from "@material-ui/core/Grid";
 import API from "../../utils/API";
 import { useParams } from "react-router-dom";
 
-const ExcursionInventory = (props) => {
-  const { id }= useParams();
+const ExcursionInventory = props => {
+  const { id } = useParams();
 
   const [excursion, setExcursion] = useState({});
+  const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
     API.getExcursion(id)
       .then(response => {
         setExcursion(response.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    API.getItems()
+      .then(response => {
+        setInventory(response.data.data);
       })
       .catch(err => {
         console.log(err);
@@ -27,9 +35,7 @@ const ExcursionInventory = (props) => {
         <Grid item xs={12} sm={6}>
           <h2>Inventory</h2>
           <ul>
-            <li>Inventory Item 1</li>
-            <li>Inventory Item 2</li>
-            <li>Inventory Item 3</li>
+            {inventory.map(item => <li>{item.name}</li>)}
           </ul>
         </Grid>
         <Grid item xs={12} sm={6}>
