@@ -92,21 +92,7 @@ const Inventory = () => {
           label="Add to Wishlist"
         />
       </form>
-      <InventoryList/>
-      <ul>
-        {items.map((item) => (
-          <div>
-            <li>{item.name}</li>
-            <button
-              onClick={() => {
-                deleteItem(item._id);
-              }}
-            >
-              Delete Item
-            </button>
-          </div>
-        ))}
-      </ul>
+      <InventoryList deleteItem={deleteItem} inventory={items}/>
     </div>
   );
 };

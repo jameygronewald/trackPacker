@@ -1,16 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Inventory from '../../pages/Inventory/Inventory'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
 
-const useStyles = makeStyles((theme) => ({
+import IconButton from "@material-ui/core/IconButton";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Inventory from "../../pages/Inventory/Inventory";
+
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     maxWidth: 752,
@@ -24,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function generate(element) {
-  return [0, 1, 2].map((value) =>
+  return [0, 1, 2].map(value =>
     React.cloneElement(element, {
       key: value,
-    }),
+    })
   );
 }
 
@@ -43,18 +44,22 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {generate(
-                <ListItem>
-                  <ListItemText
-                    primary={"Single-line item"}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>,
-              )}
+              {props.inventory.map(item => (
+                <>
+                  <ListItem>
+                    <ListItemText primary={item.name} />
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="delete">
+                        <DeleteIcon
+                          onClick={() => {
+                            props.deleteItem(item._id);
+                          }}
+                        />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </>
+              ))}
             </List>
           </div>
         </Grid>
