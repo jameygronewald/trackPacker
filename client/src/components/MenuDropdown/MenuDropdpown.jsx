@@ -68,6 +68,8 @@ export default function MenuListComposition() {
           variant="contained"
           className={classes.button}
         >
+          {/* <MenuIcon/> */}
+          {/* View my Profile */}
         </Button>
         <Popper
           open={open}

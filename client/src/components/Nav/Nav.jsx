@@ -23,7 +23,7 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <AppBar color="transparent" position="static">
-        <Toolbar color="transparent">
+        <Toolbar color="transparent" variant="dense">
           <Typography variant="h2" className={classes.title}>
             TrackPacker
           </Typography>

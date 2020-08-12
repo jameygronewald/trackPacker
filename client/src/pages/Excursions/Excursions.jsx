@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/API";
+import { Link } from "react-router-dom";
 
 const Excursions = () => {
   const [excursions, setExcursions] = useState([]);
@@ -12,10 +13,9 @@ const Excursions = () => {
     API.getExcursions()
       .then(res => {
         setExcursions(res.data.data);
-        console.log(res.data.data);
       })
       .catch(err => console.log(err));
-  }
+  };
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
@@ -26,16 +26,6 @@ const Excursions = () => {
     API.addExcursion(newExcursion).then(res => {
       setExcursions([...excursions, res.data.data]);
     });
-  };
-
-  const viewExcursion = id => {
-    API.getExcursion(id)
-      .then(response => {
-        console.log(response.data.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
   };
 
   const deleteExcursion = id => {
@@ -67,13 +57,9 @@ const Excursions = () => {
         {excursions.map(excursion => (
           <div>
             <li>{excursion.name}</li>
-            <button
-              onClick={() => {
-                viewExcursion(excursion._id);
-              }}
-            >
-              View Details
-            </button>
+            <Link to={`/Excursions/${excursion._id}`}>
+              <button>View Details</button>
+            </Link>
             <button
               onClick={() => {
                 deleteExcursion(excursion._id);
