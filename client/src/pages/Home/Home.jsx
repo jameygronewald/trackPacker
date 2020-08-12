@@ -5,9 +5,9 @@ const Home = () => {
     return (
         <div>
             <form className="login">
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input type="text" id="email-input" />
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input type="password" id="password-input" />
                 <button type="submit">Log In</button>
                 <br></br>

@@ -23,7 +23,7 @@ const SignUp = () => {
           name="confirmPassword"
         />
       </form>
-      <button>Create Account</button>
+      <button type="submit">Create Account</button>
       <br></br>
       <br></br>
       <button><Link to="/">Back to Login</Link></button>
