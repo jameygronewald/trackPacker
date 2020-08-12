@@ -11,19 +11,22 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-   /*  backgroundColor: "#b44b3c", */
+    fontFamily: 'Montserrat'
    /*  color: "#13160e", */
+  },
+  logo: {
+    maxWidth: 100,
   },
 }));
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <AppBar color="transparent" position="static">
         <Toolbar color="transparent" variant="dense">
-          <Typography variant="h2" className={classes.title}>
+        <img src="https://i.pinimg.com/originals/60/ea/15/60ea152f0c16025e23573d9e10132d9b.png" alt="logo" className={classes.logo} />
+          <Typography variant="h5" className={classes.title}>
             TrackPacker
           </Typography>
           <MenuDropdown  />

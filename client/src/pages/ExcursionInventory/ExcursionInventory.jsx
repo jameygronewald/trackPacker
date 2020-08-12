@@ -8,6 +8,8 @@ const ExcursionInventory = props => {
 
   const [excursion, setExcursion] = useState({});
   const [inventory, setInventory] = useState([]);
+  const [exInv, setExInv] = useState([]);
+
 
   useEffect(() => {
     API.getExcursion(id)
@@ -28,11 +30,12 @@ const ExcursionInventory = props => {
 
   const addToExcursion = id => {
     excursion.items.push(id);
-    let itemObj = {items: excursion.items};
+    let itemObj = [excursion.items];
     console.log(itemObj);
     console.log(excursion);
     API.updateExcursionInventory(excursion._id, itemObj)
       .then(response => {
+         setExInv(response.data.data); 
         console.log(response.data.data);
       })
       .catch(err => {
@@ -64,12 +67,10 @@ const ExcursionInventory = props => {
           </ul>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <h2>Inventory for {excursion.name}</h2>
-          <ul>
-            <li>Excursion Inventory Item 1</li>
-            <li>Excursion Inventory Item 2</li>
-            <li>Excursion Inventory Item 3</li>
-          </ul>
+          <h2>Inventory for {exInv.name}</h2>
+          <Grid item xs={12} sm={6}>
+            {exInv.items}  
+        </Grid>
           <br></br>
           <h2>Wishlist for {excursion.name}</h2>
           <ul>
