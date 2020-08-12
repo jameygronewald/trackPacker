@@ -61,9 +61,11 @@ router.post("/api/excursions", (req, res) => {
 });
 
 router.put("/api/excursions/:id", (req, res) => {
-  db.Excursion.findOneAndUpdate({ _id: req.params.id }, req.body)
+  db.Excursion.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+    useFindAndModify: false,
+  })
     .then(excursionData => {
-      excursionData.items.push(req.body.id);
       res.json({
         error: false,
         data: excursionData,
