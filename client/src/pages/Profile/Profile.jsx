@@ -8,12 +8,23 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Button from '@material-ui/core/Button';
 
 const Profile = () => {
   const [excursions, setExcursions] = useState([]);
+  const [weather, setWeather] = useState([]);
   useEffect(() => {
     showExcursions();
+    showWeather();
   }, []);
+
+  function showWeather () {
+    API.getWeather()
+    .then(res => {
+      setWeather(res.data);
+      console.log(res.data);
+    })
+  }
 
   function showExcursions() {
     API.getExcursions()
@@ -35,7 +46,9 @@ const Profile = () => {
           />
         </Grid>
         <Grid item xs={6} sm={4}></Grid>
-        <Grid item xs={12} sm={6}></Grid>
+        <Grid item xs={12} sm={6}>
+          {weather.name}
+        </Grid>
         <Grid item xs={6} sm={3}>
           <Typography>First: Brad</Typography>
           <Typography>Last: Williams</Typography>
@@ -74,7 +87,7 @@ const Profile = () => {
                   secondary="Jan 9, 2014"
                 />
                 <Link to={`/Excursions/${excursion._id}`}>
-                  <button>View Excursion</button>
+                  <Button>View Excursion</Button>
                 </Link>
               </ListItem>
             </List>
