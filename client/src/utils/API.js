@@ -34,7 +34,7 @@ export default {
   },
 
   updateExcursionInventory: function(id, itemId) {
-    return axios.update('/api/excursions/' + id, itemId);
+    return axios.put('/api/excursions/' + id, itemId);
   }
 
 };
