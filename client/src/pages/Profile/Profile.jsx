@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -72,7 +73,9 @@ const Profile = () => {
                   primary={excursion.name}
                   secondary="Jan 9, 2014"
                 />
-                <button>View Excursion</button>
+                <Link to={`/Excursions/${excursion._id}`}>
+                  <button>View Excursion</button>
+                </Link>
               </ListItem>
             </List>
           ))}
