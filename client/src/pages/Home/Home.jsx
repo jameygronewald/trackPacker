@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+/* import { Link } from "react-router-dom"; */
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 
 const Home = () => {
   return (
@@ -35,7 +37,9 @@ const Home = () => {
               p={2}
               mx="auto"
             >
-              <Link type="submit">Log In</Link>
+              <Button type="submit">
+                <Link href="/Profile">Log In</Link>
+              </Button>
             </Box>
             <Box
               alignItems="center"
@@ -44,7 +48,9 @@ const Home = () => {
               p={2}
               mx="auto"
             >
-              <Link to="/SignUp">Sign Up!</Link>
+              <Button>
+                <Link href="/SignUp">Sign Up</Link>
+              </Button>
             </Box>
           </form>
         </Box>
