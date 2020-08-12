@@ -1,20 +1,62 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React from "react";
+/* import { Link } from "react-router-dom"; */
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 
 const Home = () => {
-    return (
-        <div>
-            <form className="login">
-                <label htmlFor="email">Email</label>
-                <input type="text" id="email-input" />
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password-input" />
-                <button type="submit">Log In</button>
-                <br></br>
-                <Link to="/SignUp">Sign Up!</Link>
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <Container maxWidth="sm">
+        <Box m="2rem" p={2} mx="auto">
+          <form className="login">
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+              p={2}
+              mx="auto"
+            >
+              <TextField id="standard-basic" label="Email" />
+            </Box>
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+              p={2}
+              mx="auto"
+            >
+              <TextField id="standard-basic" label="Password" />
+            </Box>
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+              p={2}
+              mx="auto"
+            >
+              <Button type="submit">
+                <Link href="/Profile">Log In</Link>
+              </Button>
+            </Box>
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+              p={2}
+              mx="auto"
+            >
+              <Button>
+                <Link href="/SignUp">Sign Up</Link>
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      </Container>
+    </div>
+  );
 };
 
 export default Home;
