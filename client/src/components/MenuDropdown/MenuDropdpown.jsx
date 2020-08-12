@@ -68,8 +68,7 @@ export default function MenuListComposition() {
           variant="contained"
           className={classes.button}
         >
-          {/* <MenuIcon/> */}
-          {/* View my Profile */}
+          View my Profile
         </Button>
         <Popper
           open={open}
@@ -101,11 +100,6 @@ export default function MenuListComposition() {
                     </Link>
                     <Link to="/Excursions">
                       <MenuItem onClick={handleClose}>My Excursions</MenuItem>
-                    </Link>
-                    <Link to="/ExcursionInventory">
-                      <MenuItem onClick={handleClose}>
-                        Excursion Inventory
-                      </MenuItem>
                     </Link>
                     <MenuItem onClick={handleClose}>Logout</MenuItem>
                   </MenuList>
