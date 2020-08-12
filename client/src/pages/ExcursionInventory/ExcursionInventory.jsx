@@ -27,13 +27,13 @@ const ExcursionInventory = props => {
   }, []);
 
   const addToExcursion = id => {
-    let itemObj = {};
-    itemObj.id = id;
+    excursion.items.push(id);
+    let itemObj = {items: excursion.items};
     console.log(itemObj);
     console.log(excursion);
     API.updateExcursionInventory(excursion._id, itemObj)
       .then(response => {
-        setExcursion(response.data.data);
+        console.log(response.data.data);
       })
       .catch(err => {
         console.log(err);

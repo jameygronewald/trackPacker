@@ -6,6 +6,7 @@ import SignUP from "../src/pages/SignUp/SignUp";
 import Profile from "../src/pages/Profile/Profile";
 import Excursions from "../src/pages/Excursions/Excursions";
 import Inventory from "../src/pages/Inventory/Inventory";
+import ExcursionInventory from "../src/pages/ExcursionInventory/ExcursionInventory";
 
 import "./App.css";
 
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/SignUp" component={SignUP} />
         <Route exact path="/Profile" component={Profile} />
         <Route exact path="/Excursions" component={Excursions} />
+        <Route exact path="/Excursions/:id" component={ExcursionInventory} />
         <Route exact path="/Inventory" component={Inventory} />
       </Router>
     </div>
