@@ -6,6 +6,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import Checkbox from "@material-ui/core/Checkbox";
 import API from "../../utils/API";
+import InventoryList from '../../components/InventoryList/InventoryList'
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
@@ -78,6 +79,7 @@ const Inventory = () => {
           label="Add to Wishlist"
         />
       </form>
+      <InventoryList/>
       <ul>
         {items.map((item) => (
           <div>

@@ -15,6 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Inventory from '../../pages/Inventory/Inventory'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,108 +38,22 @@ function generate(element) {
   );
 }
 
-export default function InteractiveList() {
+export default function InteractiveList(props) {
   const classes = useStyles();
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
 
   return (
     <div className={classes.root}>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <Checkbox checked={dense} onChange={(event) => setDense(event.target.checked)} />
-          }
-          label="Enable dense"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={secondary}
-              onChange={(event) => setSecondary(event.target.checked)}
-            />
-          }
-          label="Enable secondary text"
-        />
-      </FormGroup>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Typography variant="h6" className={classes.title}>
-            Text only
+            Inventory
           </Typography>
           <div className={classes.demo}>
-            <List dense={dense}>
+            <List>
               {generate(
                 <ListItem>
                   <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
-            </List>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Icon with text
-          </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
-            </List>
-          </div>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Avatar with text
-          </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
-            </List>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Avatar with text and icon
-          </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
+                    primary={"Single-line item"}
                   />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete">
