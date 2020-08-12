@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -47,6 +48,17 @@ const Inventory = () => {
       .catch((err) => console.log(err));
   };
 
+  const useStyles = makeStyles((theme) => ({
+    margin: {
+      margin: theme.spacing(1),
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1),
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -63,6 +75,7 @@ const Inventory = () => {
           variant="contained"
           size="large"
           color="secondary"
+          className={classes.margin}
         >
           Add to Inventory
         </Button>
