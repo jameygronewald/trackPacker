@@ -20,7 +20,7 @@ function App() {
         <Route exact path="/Profile" component={Profile} />
         <Route exact path="/Excursions" component={Excursions} />
         <Route exact path="/Inventory" component={Inventory} />
-        <Route exact path="/ExcursionInventory" component={ExcursionInventory} />
+        <Route exact path="/Excursions/:id" component={ExcursionInventory} />
       </Router>
     </div>
   );

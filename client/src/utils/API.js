@@ -33,4 +33,8 @@ export default {
     return axios.delete('/api/excursions/' + id);
   },
 
+  updateExcursionInventory: function(id, itemId) {
+    return axios.put('/api/excursions/' + id, itemId);
+  }
+
 };
