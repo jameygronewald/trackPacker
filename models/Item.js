@@ -9,7 +9,9 @@ const ItemSchema = new Schema({
     required: "Item name is required.",
   },
   status: {
+    type: String,
     enum: ["Inventory", "Wishlist"],
+    default: "Inventory"
   },
 });
 
