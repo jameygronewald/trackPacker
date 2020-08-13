@@ -13,8 +13,10 @@ import Box from "@material-ui/core/Box";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState("");
-  const [owned, setOwned] = useState("Inventory");
+  const [newItem, setNewItem] = useState({
+    name: '',
+    status: 'Inventory'
+  });
 
   useEffect(() => {
     showItems();
@@ -29,7 +31,7 @@ const Inventory = () => {
   };
 
   const handleChange = ({ target: { value } }) => {
-    setNewItem(value);
+    setNewItem({...newItem, name: value});
   };
 
   const handleSubmit = (event) => {
@@ -39,15 +41,14 @@ const Inventory = () => {
     });
   };
 
-  const toggleChecked = (e) => {
-    e.target.checked ? setOwned("Wishlist") : setOwned("Inventory");
-    console.log(owned);
+  const toggleChecked = e => {
+    e.target.checked ? setNewItem({...newItem, status: "Wishlist"}) : setNewItem({...newItem, status: "Inventory"});
   };
 
   const deleteItem = (id) => {
     API.deleteItem(id)
-      .then((response) => {
-        console.log(response);
+      .then(response => {
+        console.log('Item deleted.');
       })
       .catch((err) => {
         console.log(err);
