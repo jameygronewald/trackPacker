@@ -38,6 +38,8 @@ const Inventory = () => {
     event.preventDefault();
     API.addItem(newItem).then(response => {
       setItems([...items, response.data.data]);
+      console.log(event.target);
+      setNewItem({ name: "", status: "Inventory" });
     });
   };
 
@@ -47,10 +49,21 @@ const Inventory = () => {
       : setNewItem({ ...newItem, status: "Inventory" });
   };
 
+  const updateItem = item => {
+    item.status === "Wishlist" ? item.status = "Inventory" : item.status = "Wishlist";
+    API.updateItem(item)
+      .then(response => {
+        showItems();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const deleteItem = id => {
     API.deleteItem(id)
       .then(response => {
-        console.log("Item deleted.");
+        showItems();
       })
       .catch(err => {
         console.log(err);
@@ -124,7 +137,11 @@ const Inventory = () => {
         <Grid item xs={12} sm={4}></Grid>
         <Grid item xs={12} sm={3}></Grid>
         <Grid item xs={12} sm={6}>
-          <InventoryList deleteItem={deleteItem} inventory={items} />
+          <InventoryList
+            updateItem={updateItem}
+            deleteItem={deleteItem}
+            inventory={items}
+          />
         </Grid>
       </Grid>
     </div>
