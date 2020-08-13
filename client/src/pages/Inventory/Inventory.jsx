@@ -7,49 +7,57 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import Checkbox from "@material-ui/core/Checkbox";
 import API from "../../utils/API";
-import InventoryList from '../../components/InventoryList/InventoryList'
+import InventoryList from "../../components/InventoryList/InventoryList";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState("");
+  const [owned, setOwned] = useState("Inventory");
+
   useEffect(() => {
     showItems();
   }, []);
+
   const showItems = () => {
     API.getItems()
-      .then((res) => {
+      .then(res => {
         setItems(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   const handleChange = ({ target: { value } }) => {
     setNewItem(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
-    API.addItem(newItem).then((response) => {
+    API.addItem(newItem).then(response => {
       setItems([...items, response.data.data]);
     });
   };
 
-  const deleteItem = (id) => {
+  const toggleChecked = e => {
+    e.target.checked ? setOwned("Wishlist") : setOwned("Inventory");
+    console.log(owned);
+  };
+
+  const deleteItem = id => {
     API.deleteItem(id)
-      .then((response) => {
+      .then(response => {
         console.log(response);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     API.getItems()
-      .then((res) => {
+      .then(res => {
         setItems(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(theme => ({
     margin: {
       margin: theme.spacing(1),
     },
@@ -87,12 +95,13 @@ const Inventory = () => {
               checkedIcon={<Favorite />}
               name="wishlist"
               id="wishlist"
+              onChange={toggleChecked}
             />
           }
           label="Add to Wishlist"
         />
       </form>
-      <InventoryList deleteItem={deleteItem} inventory={items}/>
+      <InventoryList deleteItem={deleteItem} inventory={items} />
     </div>
   );
 };
