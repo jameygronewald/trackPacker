@@ -13,6 +13,10 @@ export default {
     return axios.post("/api/items", { name });
   },
 
+  updateInventory: function(id, item) {
+    return axios.put('/api/items/' + id, item);
+  },
+
   deleteItem: function(id) {
     return axios.delete('/api/items/' + id);
   },
