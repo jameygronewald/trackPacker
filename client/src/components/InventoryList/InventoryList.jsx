@@ -30,28 +30,57 @@ export default function InteractiveList(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="h6" className={classes.title}>
             Inventory
           </Typography>
           <div className={classes.demo}>
             <List>
-              {props.inventory.map(item => (
-                <>
-                  <ListItem>
-                    <ListItemText primary={item.name} />
-                    <ListItemSecondaryAction>
-                      <IconButton edge="end" aria-label="delete">
-                        <DeleteIcon
-                          onClick={() => {
-                            props.deleteItem(item._id);
-                          }}
-                        />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                </>
-              ))}
+              {props.inventory
+                .filter(item => item.status === "Inventory")
+                .map(item => (
+                  <>
+                    <ListItem>
+                      <ListItemText primary={item.name} />
+                      <ListItemSecondaryAction>
+                        <IconButton edge="end" aria-label="delete">
+                          <DeleteIcon
+                            onClick={() => {
+                              props.deleteItem(item._id);
+                            }}
+                          />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </>
+                ))}
+            </List>
+          </div>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+          <Typography variant="h6" className={classes.title}>
+            Wishlist
+          </Typography>
+          <div className={classes.demo}>
+            <List>
+              {props.inventory
+                .filter(item => item.status === "Wishlist")
+                .map(item => (
+                  <>
+                    <ListItem>
+                      <ListItemText primary={item.name} />
+                      <ListItemSecondaryAction>
+                        <IconButton edge="end" aria-label="delete">
+                          <DeleteIcon
+                            onClick={() => {
+                              props.deleteItem(item._id);
+                            }}
+                          />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </>
+                ))}
             </List>
           </div>
         </Grid>

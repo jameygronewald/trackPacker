@@ -9,8 +9,8 @@ export default {
     return axios.get("/api/items/:id");
   },
 
-  addItem: function(name) {
-    return axios.post("/api/items", { name });
+  addItem: function(item) {
+    return axios.post("/api/items", item);
   },
 
   deleteItem: function(id) {
@@ -33,8 +33,8 @@ export default {
     return axios.delete('/api/excursions/' + id);
   },
 
-  updateExcursionInventory: function(id, itemId) {
-    return axios.put('/api/excursions/' + id, itemId);
+  updateExcursionInventory: function(id, item) {
+    return axios.put('/api/excursions/' + id, item);
   },
 
   getWeather: function(){
