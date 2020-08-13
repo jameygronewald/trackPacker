@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 
 const Profile = () => {
   const [excursions, setExcursions] = useState([]);
-  const [weather, setWeather] = useState([]);
+  const [weather, setWeather] = useState('');
   useEffect(() => {
     showExcursions();
     showWeather();
@@ -21,8 +21,8 @@ const Profile = () => {
   function showWeather () {
     API.getWeather()
     .then(res => {
-      setWeather(res.data);
-      console.log(res.data);
+      setWeather(res.data.main);
+      console.log(res.data.main);
     })
   }
 
@@ -43,31 +43,18 @@ const Profile = () => {
           <img
             src="https://www.svgrepo.com/show/44183/male-user.svg"
             alt="User"
+            width='300'
           />
         </Grid>
-        <Grid item xs={6} sm={4}></Grid>
+        <Grid item xs={6} sm={4}>
+        <Typography>Brad Williams</Typography>
+        </Grid>
         <Grid item xs={12} sm={6}>
-          {weather.name}
+          {weather.temp}
+          
         </Grid>
         <Grid item xs={6} sm={3}>
-          <Typography>First: Brad</Typography>
-          <Typography>Last: Williams</Typography>
-          <Typography>
-            Bio: Hello there, and thanks for stopping by! My name is Brad
-            Williams and I was born and raised right here in Atlanta, Ga. I
-            graduated from high school in 2008, where I then went on to study
-            Spanish at Auburn University. War Eagle! After graduation, I taught
-            Spanish for 2 years in Atlanta, and then picked up my things and
-            moved a few thousand miles south to Santiago, Chile! While in Chile,
-            I taught English to both children and adults, improving both my
-            Spanish language skills and broadening my cultural perspective.
-            While it was at times jarring, I loved my time in Chile, the people
-            I met and the experiences I gained while living there. After a year,
-            I decided to head back to the U.S. where I would go on to work for
-            Teach for America in Denver, Colorado. In Denver, I taught math in
-            an English as a second language classroom to first generation
-            hispanic immigrants.
-          </Typography>
+          
         </Grid>
         <Grid item xs={6} sm={3}></Grid>
         <Grid item xs={6} sm={6}>

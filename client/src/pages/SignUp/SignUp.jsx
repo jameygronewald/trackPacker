@@ -5,14 +5,18 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import "./SignUp.css";
+import { useState } from "react";
+import axios from "axios";
 
 const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div>
       <Container maxWidth="sm">
         <Box m="2rem" p={2} mx="auto">
-        <Box
+          <Box
             alignItems="center"
             justifyContent="center"
             display="flex"
@@ -21,7 +25,7 @@ const SignUp = () => {
           >
             <Typography variant="h4">Welcome To TrackPacker!</Typography>
           </Box>
-          
+
           <Box
             alignItems="center"
             justifyContent="center"
@@ -48,7 +52,15 @@ const SignUp = () => {
               p={2}
               mx="auto"
             >
-              <TextField id="standard-basic" label="Email" />
+              <TextField
+                id="standard-basic"
+                name="email"
+                label="Email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </Box>
             <Box
               alignItems="center"
@@ -57,7 +69,15 @@ const SignUp = () => {
               p={2}
               mx="auto"
             >
-              <TextField id="standard-basic" label="Password" />
+              <TextField
+                id="standard-basic"
+                name="password"
+                label="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
             </Box>
             <Box
               alignItems="center"
