@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/API";
 import { useParams } from "react-router-dom";
+import Favorite from "@material-ui/icons/Favorite";
 
 const ExcursionInventory = props => {
   const { id } = useParams();
@@ -49,7 +50,7 @@ const ExcursionInventory = props => {
           <ul>
             {inventory.map(item => (
               <>
-                <li>{item.name}</li>
+                <li>{item.name}{item.status === "Wishlist" && <span><Favorite></Favorite></span>}</li>
                 <button
                   onClick={() => {
                     addToExcursion(item._id);
@@ -75,7 +76,7 @@ const ExcursionInventory = props => {
           {excursion.items &&
               excursion.items
                 .filter(item => item.status === "Wishlist")
-                .map(item => <li>{item.name}</li>)}
+          .map(item => <li>{item.name}{item.status === "Wishlist" && <span><Favorite></Favorite></span>}</li>)}
           </ul>
         </Grid>
       </Grid>
