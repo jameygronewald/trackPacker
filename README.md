@@ -24,7 +24,9 @@ This code can be forked and cloned onto one's local device through GitHub. Pleas
 The primary usage of this code is to build a digital inventory of excursion items.
 
 ## Links
-TBA
+[GitHub Repository](https://github.com/jameygronewald/trackPacker "Repository")
+
+[Heroku Deployed](https://trackpacker.herokuapp.com/ "Heroku")
 
 
 ## License
