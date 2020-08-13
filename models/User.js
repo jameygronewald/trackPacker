@@ -13,6 +13,16 @@ const UserSchema = new Schema({
     trim: true,
     required: "Password is required.",
   },
+  firstName: {
+    type: String,
+    trim: true,
+    required: "Email is required.",
+  },
+  lastName: {
+    type: String,
+    trim: true,
+    required: "Email is required.",
+  },
   items: [
     {
       type: Schema.Types.ObjectId,
