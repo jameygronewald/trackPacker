@@ -9,7 +9,6 @@ const ExcursionInventory = props => {
   const [excursion, setExcursion] = useState({});
   const [inventory, setInventory] = useState([]);
 
-
   useEffect(() => {
     API.getExcursion(id)
       .then(response => {
