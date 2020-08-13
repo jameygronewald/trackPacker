@@ -113,13 +113,9 @@ const Inventory = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={4}></Grid>
-        <Grid item xs={12} sm={1}></Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={6}>
           <InventoryList deleteItem={deleteItem} inventory={items} />
-        </Grid>
-        <Grid item xs={12} sm={2}></Grid>
-        <Grid item xs={12} sm={4}>
-          <h3>Wishlist</h3>
         </Grid>
       </Grid>
     </div>

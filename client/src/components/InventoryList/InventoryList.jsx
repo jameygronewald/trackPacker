@@ -30,7 +30,7 @@ export default function InteractiveList(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={5}>
           <Typography variant="h6" className={classes.title}>
             Inventory
           </Typography>
@@ -57,7 +57,8 @@ export default function InteractiveList(props) {
             </List>
           </div>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={2}></Grid>
+          <Grid item xs={12} sm={5}>
           <Typography variant="h6" className={classes.title}>
             Wishlist
           </Typography>
