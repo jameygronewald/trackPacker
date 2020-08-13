@@ -77,7 +77,7 @@ const Inventory = () => {
         <Grid item xs={12} sm={4}></Grid>
         <Grid item xs={12} sm={4}>
           <Box style={{marginTop: "10px"}}>
-            <form onSubmit={handleSubmit} style={{ paddingLeft: "25px", borderStyle: "outset", borderColor: "#a1a1a1"}}>
+            <form onSubmit={handleSubmit} style={{ paddingLeft: "25px", backgroundColor: "whitesmoke", borderStyle: "outset", borderColor: "#a1a1a1"}}>
               <TextField
                 id="standard-basic"
                 label="Add New Item"
@@ -113,8 +113,8 @@ const Inventory = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={4}></Grid>
-        <Grid item xs={12} sm={3}></Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}></Grid>
+        <Grid item xs={12} sm={4}>
           <InventoryList deleteItem={deleteItem} inventory={items} />
         </Grid>
       </Grid>
