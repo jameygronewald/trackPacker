@@ -8,11 +8,15 @@ import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import Checkbox from "@material-ui/core/Checkbox";
 import API from "../../utils/API";
 import InventoryList from "../../components/InventoryList/InventoryList";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState("");
-  const [owned, setOwned] = useState("Inventory");
+  const [newItem, setNewItem] = useState({
+    name: '',
+    status: 'Inventory'
+  });
 
   useEffect(() => {
     showItems();
@@ -20,44 +24,43 @@ const Inventory = () => {
 
   const showItems = () => {
     API.getItems()
-      .then(res => {
+      .then((res) => {
         setItems(res.data.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   const handleChange = ({ target: { value } }) => {
-    setNewItem(value);
+    setNewItem({...newItem, name: value});
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    API.addItem(newItem).then(response => {
+    API.addItem(newItem).then((response) => {
       setItems([...items, response.data.data]);
     });
   };
 
   const toggleChecked = e => {
-    e.target.checked ? setOwned("Wishlist") : setOwned("Inventory");
-    console.log(owned);
+    e.target.checked ? setNewItem({...newItem, status: "Wishlist"}) : setNewItem({...newItem, status: "Inventory"});
   };
 
-  const deleteItem = id => {
+  const deleteItem = (id) => {
     API.deleteItem(id)
       .then(response => {
-        console.log(response);
+        console.log('Item deleted.');
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     API.getItems()
-      .then(res => {
+      .then((res) => {
         setItems(res.data.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
     },
@@ -70,38 +73,51 @@ const Inventory = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          id="outlined-basic"
-          label="Add New Item"
-          variant="outlined"
-          name="newItem"
-          placeholder="Add an Item"
-          onChange={handleChange}
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          size="large"
-          color="secondary"
-          className={classes.margin}
-        >
-          Add to Inventory
-        </Button>
-        <FormControlLabel
-          control={
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite />}
-              name="wishlist"
-              id="wishlist"
-              onChange={toggleChecked}
-            />
-          }
-          label="Add to Wishlist"
-        />
-      </form>
-      <InventoryList deleteItem={deleteItem} inventory={items} />
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={4}></Grid>
+        <Grid item xs={12} sm={4}>
+          <Box style={{marginTop: "10px"}}>
+            <form onSubmit={handleSubmit} style={{ paddingLeft: "25px", backgroundColor: "whitesmoke", borderStyle: "outset", borderColor: "#a1a1a1"}}>
+              <TextField
+                id="standard-basic"
+                label="Add New Item"
+                name="newItem"
+                placeholder="Add an Item"
+                onChange={handleChange}
+                style={{ color: "#13160e", borderColor: "#13160e" }}
+              />
+              <Button
+                type="submit"
+                variant="outlined"
+                size="large"
+                color="default"
+                style={{ color: "#13160e", borderColor: "#13160e" }}
+                className={classes.margin}
+              >
+                Add to Inventory
+              </Button>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                    name="wishlist"
+                    id="wishlist"
+                    style={{ color: "#832d33", borderColor: "#13160e" }}
+                    onChange={toggleChecked}
+                  />
+                }
+                label="Add to Wishlist"
+              />
+            </form>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4}></Grid>
+        <Grid item xs={12} sm={4}></Grid>
+        <Grid item xs={12} sm={4}>
+          <InventoryList deleteItem={deleteItem} inventory={items} />
+        </Grid>
+      </Grid>
     </div>
   );
 };

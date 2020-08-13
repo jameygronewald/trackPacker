@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/API";
 import { useParams } from "react-router-dom";
+import Favorite from "@material-ui/icons/Favorite";
 
 const ExcursionInventory = props => {
   const { id } = useParams();
@@ -28,7 +29,7 @@ const ExcursionInventory = props => {
 
   const addToExcursion = id => {
     excursion.items.push(id);
-    let itemObj = {items: excursion.items};
+    let itemObj = { items: excursion.items };
     API.updateExcursionInventory(excursion._id, itemObj)
       .then(response => {
         setExcursion(response.data.data);
@@ -49,7 +50,7 @@ const ExcursionInventory = props => {
           <ul>
             {inventory.map(item => (
               <>
-                <li>{item.name}</li>
+                <li>{item.name}{item.status === "Wishlist" && <span><Favorite></Favorite></span>}</li>
                 <button
                   onClick={() => {
                     addToExcursion(item._id);
@@ -64,15 +65,18 @@ const ExcursionInventory = props => {
         <Grid item xs={12} sm={6}>
           <h2>Inventory for {excursion.name}</h2>
           <ul>
-          {excursion.items && excursion.items.map(item => (
-            <li>{item.name}</li>
-          ))}
+            {excursion.items &&
+              excursion.items
+                .filter(item => item.status === "Inventory")
+                .map(item => <li>{item.name}</li>)}
           </ul>
           <br></br>
           <h2>Wishlist for {excursion.name}</h2>
           <ul>
-            <li>Wishlist Item 1</li>
-            <li>Wishlist Item 2</li>
+          {excursion.items &&
+              excursion.items
+                .filter(item => item.status === "Wishlist")
+          .map(item => <li>{item.name}{item.status === "Wishlist" && <span><Favorite></Favorite></span>}</li>)}
           </ul>
         </Grid>
       </Grid>
