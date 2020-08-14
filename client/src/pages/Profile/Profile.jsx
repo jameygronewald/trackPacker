@@ -10,7 +10,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
 
-
 const Profile = () => {
   const [excursions, setExcursions] = useState([]);
   const [weather, setWeather] = useState("");
@@ -38,7 +37,7 @@ const Profile = () => {
   return (
     <div>
       <Grid container spacing={1}>
-       <Grid item xs={12}></Grid> 
+        <Grid item xs={12}></Grid>
         <Grid item xs={12} sm={3}>
           <Box
             alignItems="center"
@@ -47,7 +46,6 @@ const Profile = () => {
             p={2}
             mx="auto"
           >
-          
             <img
               src="https://www.svgrepo.com/show/44183/male-user.svg"
               alt="User"
@@ -71,9 +69,10 @@ const Profile = () => {
             p={1}
             mx="auto"
           >
-             <Link to='/Profile'>
-                  <Button>Home</Button>
-                </Link>
+            <Link to="/Profile">
+              
+              <Button>Home</Button>
+            </Link>
           </Box>
           <Box
             alignItems="center"
@@ -82,9 +81,9 @@ const Profile = () => {
             p={1}
             mx="auto"
           >
-             <Link to='/Inventory'>
-                  <Button>Inventory</Button>
-                </Link>
+            <Link to="/Inventory">
+              <Button>Inventory</Button>
+            </Link>
           </Box>
           <Box
             alignItems="center"
@@ -93,16 +92,11 @@ const Profile = () => {
             p={1}
             mx="auto"
           >
-             <Link to="/Excursions">
-                  <Button>Excursions</Button>
-                </Link>
+            <Link to="/Excursions">
+              <Button>Excursions</Button>
+            </Link>
           </Box>
         </Grid>
-        {/*    <Grid item xs={12} sm={3}></Grid>
-        <Grid item xs={12} sm={3}></Grid>
-        <Grid item xs={12} sm={3}></Grid>
-        <Grid item xs={12} sm={3}></Grid> */}
-        
         <Grid item xs={12} sm={9}>
           {excursions.map((excursion) => (
             <Card variant="outlined">
