@@ -7,7 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import DeleteIcon from "@material-ui/icons/Delete";
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
@@ -43,7 +43,8 @@ export default function InteractiveList(props) {
                       <ListItemText primary={item.name} />
                       <ListItemSecondaryAction>
                         <IconButton edge="end" aria-label="delete">
-                          <DeleteIcon
+                        {item.status === "Wishlist" && (<FavoriteIcon style={{paddingRight: "10px"}}></FavoriteIcon>)}
+                          <AddBoxIcon
                             onClick={() => {
                               props.addToExcursion(item._id);
                             }}
