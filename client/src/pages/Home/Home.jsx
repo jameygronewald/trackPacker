@@ -7,7 +7,7 @@ import Link from "@material-ui/core/Link";
 import {UserContext} from "../../utils/UserContext";
 import API from "../../utils/API";
 
-const Home = () => {
+const Home = ({ history }) => {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: ""
@@ -24,6 +24,7 @@ const Home = () => {
     API.loginUser(userInfo).then(response => {
       console.log(response)
       setUser(response.data.data._id);
+      history.push('/Profile');
     })
     .catch(err => {
       console.log(err);
@@ -61,7 +62,7 @@ const Home = () => {
               mx="auto"
             >
               <Button type="submit">
-                LOGIN{/* <Link href="/Profile">Log In</Link> */}
+                LOGIN{/*<Link href="/Profile">Log In</Link> */}
               </Button>
             </Box>
             <Box

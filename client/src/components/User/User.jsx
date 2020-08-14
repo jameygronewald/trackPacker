@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ProfileLink from "../ProfileLink/ProfileLink";
+import {UserContext} from "../../utils/UserContext";
 
 const User = () => {
+  const { user, setUser } = useContext(UserContext);
+  
   return (
     <>
       <Box
@@ -27,7 +30,7 @@ const User = () => {
         p={2}
         mx="auto"
       >
-        <Typography variant="h5">Jamey Gronewald</Typography>
+        <Typography variant="h5">{user}</Typography>
       </Box>
       <Divider variant="middle" />
       <ProfileLink link="Profile" />
