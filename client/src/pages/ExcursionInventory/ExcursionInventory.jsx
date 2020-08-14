@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import { useParams } from "react-router-dom";
 import Favorite from "@material-ui/icons/Favorite";
 import Box from "@material-ui/core/Box";
+import ExcursionInventoryListAdd from "../../components/ExcursionInventoryListAdd/ExcursionInventoryListAdd";
 import ExcursionInventoryList from "../../components/ExcursionInventoryList/ExcursionInventoryList";
 import User from "../../components/User/User";
 
@@ -60,10 +61,11 @@ const ExcursionInventory = (props) => {
           <h1>{excursion.name}</h1>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
-              <ExcursionInventoryList inventory={inventory} addToExcursion={addToExcursion}>
-              </ExcursionInventoryList>
+              <ExcursionInventoryListAdd inventory={inventory} addToExcursion={addToExcursion}>
+              </ExcursionInventoryListAdd>
             </Grid>
             <Grid item xs={12} sm={6}>
+              {/* <ExcursionInventoryList excursionInventory={excursion}></ExcursionInventoryList> */}
               <h2>Inventory for {excursion.name}</h2>
               <ul>
                 {excursion.items &&
