@@ -19,6 +19,7 @@ function App() {
         <UserContext.Provider value={{ user, setUser }}>
           <Nav />
           <Route exact path="/" component={Home} />
+          <Route exact path="/Home" component={Home} />
           <Route exact path="/SignUp" component={SignUP} />
           <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Excursions" component={Excursions} />
