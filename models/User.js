@@ -16,12 +16,10 @@ const UserSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    required: "Email is required.",
   },
   lastName: {
     type: String,
     trim: true,
-    required: "Email is required.",
   },
   items: [
     {

@@ -58,6 +58,25 @@ router.post("/api/users", (req, res) => {
       });
     });
 });
+// Login
+router.post("/api/login", (req, res) => {
+  console.log(req.body)
+  db.User.findOne({email: req.body.email})
+    .then(newUserData => {
+      res.json({
+        error: false,
+        data: newUserData,
+        message: "Successfully added new user.",
+      });
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: true,
+        data: null,
+        message: "Error adding new user to database.",
+      });
+    });
+});
 
 router.put("/api/users/:id", (req, res) => {
     db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
