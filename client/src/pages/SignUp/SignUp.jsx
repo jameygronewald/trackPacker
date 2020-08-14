@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import { useState } from "react";
-import axios from "axios";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");

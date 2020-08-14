@@ -9,9 +9,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import Divider from "@material-ui/core/Divider";
+import User from '../../components/User/User'
 
 const ExcursionInventory = (props) => {
   const { id } = useParams();
@@ -51,63 +49,9 @@ const ExcursionInventory = (props) => {
   return (
     <div>
       <Grid container spacing={1}>
+      <Grid item xs={12}></Grid>
         <Grid item xs={12} sm={3}>
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            p={2}
-            mx="auto"
-          >
-            <img
-              src="https://www.svgrepo.com/show/44183/male-user.svg"
-              alt="User"
-              width="150"
-            />
-          </Box>
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            p={2}
-            mx="auto"
-          >
-            <Typography variant="h5">Jamey Gronewald</Typography>
-          </Box>
-          <Divider variant="middle" />
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            p={1}
-            mx="auto"
-          >
-            <Link to="/Profile">
-              <Button>Home</Button>
-            </Link>
-          </Box>
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            p={1}
-            mx="auto"
-          >
-            <Link to="/Inventory">
-              <Button>Inventory</Button>
-            </Link>
-          </Box>
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            p={1}
-            mx="auto"
-          >
-            <Link to="/Excursions">
-              <Button>Excursions</Button>
-            </Link>
-          </Box>
+        <User/>
         </Grid>
         <Grid item xs={12} sm={9}>
         <Box
@@ -124,14 +68,11 @@ const ExcursionInventory = (props) => {
 
               <h2>Inventory</h2>
               <Box
-                /*   alignItems="center"
-            justifyContent="center" */
                 display="flex"
                 p={2}
                 mx="auto"
                 flexDirection="row"
                 flexWrap="wrap"
-                p={1}
                 m={1}
               >
                 <Accordion>

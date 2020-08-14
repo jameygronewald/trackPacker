@@ -48,6 +48,7 @@ const Excursions = () => {
   return (
     <div>
       <Grid container spacing={1}>
+      <Grid item xs={12}></Grid>
         <Grid item xs={12} sm={3}>
           <User />
         </Grid>
