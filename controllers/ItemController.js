@@ -42,7 +42,6 @@ router.post("/api/items", (req, res) => {
 
 // Update an item
 router.put("/api/items", (req, res) => {
-  console.log(req.body);
   db.Item.findOneAndUpdate({ _id: req.body._id }, req.body)
     .then((itemData) => {
       res.json({

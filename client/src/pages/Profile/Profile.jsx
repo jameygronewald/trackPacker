@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Button from '@material-ui/core/Button';
+import {UserContext} from "../../utils/UserContext";
 
 const Profile = () => {
   const [excursions, setExcursions] = useState([]);
@@ -17,6 +18,8 @@ const Profile = () => {
     showExcursions();
     showWeather();
   }, []);
+
+  const { user, setUser } = useContext(UserContext);
 
   function showWeather () {
     API.getWeather()
@@ -30,7 +33,6 @@ const Profile = () => {
     API.getExcursions()
       .then((res) => {
         setExcursions(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => console.log(err));
   }
@@ -47,7 +49,7 @@ const Profile = () => {
           />
         </Grid>
         <Grid item xs={6} sm={4}>
-        <Typography>Brad Williams</Typography>
+        <Typography>{user}</Typography>
         </Grid>
         <Grid item xs={12} sm={6}>
           {weather.temp}
