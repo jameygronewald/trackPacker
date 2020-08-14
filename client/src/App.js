@@ -12,7 +12,7 @@ import { UserContext } from "./utils/UserContext";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState("test");
+  const [user, setUser] = useState();
   return (
     <div>
       <Router>
