@@ -19,6 +19,11 @@ export default {
     return axios.post("/api/items", item);
   },
 
+  addUserItem: function(item) {
+    return axios.post("/api/items/:id", item);
+  },
+
+
   updateItem: function(item) {
     return axios.put('/api/items', item);
   },

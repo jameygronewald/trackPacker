@@ -28,13 +28,13 @@ const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
           <Link to={`/Excursions/${excursionId}`}>
             <Button>View Excursion</Button>
           </Link>
-          <button
+          <Button
             onClick={() => {
               deleteExcursion(excursionId);
             }}
           >
             Remove Excursion
-          </button>
+          </Button>
         </CardActions>
       </Card>
     </>

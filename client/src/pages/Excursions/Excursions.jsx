@@ -5,6 +5,7 @@ import ExcursionCard from "../../components/ExcursionCard/ExcursionCard";
 import User from "../../components/User/User";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 
 const Excursions = () => {
   const [excursions, setExcursions] = useState([]);
@@ -63,12 +64,21 @@ const Excursions = () => {
             ></TextField>
             <Button type="submit">Submit</Button>
           </form>
+
           {excursions.map((excursion) => (
-            <ExcursionCard
-              excursionId={excursion._id}
-              excursionName={excursion.name}
-              deleteExcursion={deleteExcursion}
-            />
+            <Box
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+              p={1}
+              mx="auto"
+            >
+              <ExcursionCard
+                excursionId={excursion._id}
+                excursionName={excursion.name}
+                deleteExcursion={deleteExcursion}
+              />
+            </Box>
           ))}
         </Grid>
       </Grid>

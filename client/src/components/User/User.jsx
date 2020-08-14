@@ -30,7 +30,7 @@ const User = () => {
         p={2}
         mx="auto"
       >
-        <Typography variant="h5">{user}</Typography>
+        <Typography variant="h5">{user}Jamey Gronewald</Typography>
       </Box>
       <Divider variant="middle" />
       <ProfileLink link="Profile" />
