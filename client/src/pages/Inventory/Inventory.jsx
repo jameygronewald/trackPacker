@@ -96,12 +96,16 @@ const Inventory = () => {
         <Grid item xs={12} sm={3}>
           <User />
         </Grid>
-        <Grid item xs={12} sm={9}>
-          <Box style={{ marginTop: "10px" }}>
+        <Grid item xs={12} sm={5}>
+          <Box
+            style={{
+              marginTop: "10px",
+            }}
+          >
             <form
+              align="center"
               onSubmit={handleSubmit}
               style={{
-                paddingLeft: "25px",
                 borderStyle: "outset",
                 borderColor: "#a1a1a1",
               }}
