@@ -37,60 +37,15 @@ export default function InteractiveList(props) {
           <div className={classes.demo}>
             <List>
               {props.inventory
-                .filter((item) => item.status === "Inventory")
                 .map((item) => (
                   <>
                     <ListItem>
                       <ListItemText primary={item.name} />
                       <ListItemSecondaryAction>
                         <IconButton edge="end" aria-label="delete">
-                          <FavoriteBorderIcon
-                          style={{ color: "#832d33", borderColor: "#13160e" }}
-                            onClick={() => {
-                              props.updateItem(item);
-                            }}
-                          />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="delete">
                           <DeleteIcon
                             onClick={() => {
-                              props.deleteItem(item._id);
-                            }}
-                          />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </>
-                ))}
-            </List>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={2}></Grid>
-        <Grid item xs={12} sm={5}>
-          <Typography variant="h6" className={classes.title}>
-            Wishlist
-          </Typography>
-          <div className={classes.demo}>
-            <List>
-              {props.inventory
-                .filter((item) => item.status === "Wishlist")
-                .map((item) => (
-                  <>
-                    <ListItem>
-                      <ListItemText primary={item.name} />
-                      <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete">
-                          <FavoriteIcon
-                            style={{ color: "#832d33", borderColor: "#13160e" }}
-                            onClick={() => {
-                              props.updateItem(item);
-                            }}
-                          />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="delete">
-                          <DeleteIcon
-                            onClick={() => {
-                              props.deleteItem(item._id);
+                              props.addToExcursion(item._id);
                             }}
                           />
                         </IconButton>
