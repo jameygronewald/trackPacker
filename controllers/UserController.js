@@ -20,7 +20,6 @@ router.get("/api/users", (req, res) => {
       });
     });
 });
-
 // Find one user and all items in their inventory
 router.get('/api/users/:id', (req, res) => {
   db.User.findOne({ _id: req.params.id })
