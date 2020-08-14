@@ -9,6 +9,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
+import ExcursionCard from "../../components/ExcursionCard/ExcursionCard";
 
 const Excursions = () => {
   const [excursions, setExcursions] = useState([]);
@@ -112,23 +113,6 @@ const Excursions = () => {
             </Link>
           </Box>
         </Grid>
-        {/*       <ul>
-        {excursions.map(excursion => (
-          <div>
-            <li>{excursion.name}</li>
-            <Link to={`/Excursions/${excursion._id}`}>
-              <button>View Details</button>
-            </Link>
-            <button
-              onClick={() => {
-                deleteExcursion(excursion._id);
-              }}
-            >
-              Remove Excursion
-            </button>
-          </div>
-        ))}
-      </ul> */}
         <Grid item xs={12} sm={9}>
           <form onSubmit={handleSubmit}>
             <input
@@ -139,34 +123,7 @@ const Excursions = () => {
             <button type="submit">Submit</button>
           </form>
           {excursions.map((excursion) => (
-            <Card variant="outlined">
-              <CardContent>
-                <Typography variant="h3" color="textSecondary">
-                  {excursion.name} January 10, 2020
-                </Typography>
-                <Typography variant="h5" component="h2"></Typography>
-                <Typography color="textSecondary"></Typography>
-                <Typography variant="body2" component="p">
-                  A world-renowned ski resort, Squaw Valley was the site of the
-                  1960 Olympic Winter Games and offers some of the best ski runs
-                  in Lake Tahoe. The resort has 3,600 acres of skiable terrain,
-                  29 ski lifts, and more than 170 trails, with the longest run
-                  extending for 3.2 miles.
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Link to={`/Excursions/${excursion._id}`}>
-                  <Button>View Excursion</Button>
-                </Link>
-                <button
-                  onClick={() => {
-                    deleteExcursion(excursion._id);
-                  }}
-                >
-                  Remove Excursion
-                </button>
-              </CardActions>
-            </Card>
+            <ExcursionCard excursionId={excursion._id} excursionName={excursion.name} deleteExcursion={deleteExcursion} />
           ))}
         </Grid>
       </Grid>

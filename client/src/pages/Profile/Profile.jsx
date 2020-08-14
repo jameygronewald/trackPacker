@@ -98,7 +98,7 @@ const Profile = () => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={9}>
-          {excursions.map((excursion) => (
+{/*           {excursions.map((excursion) => (
             <Card variant="outlined">
               <CardContent>
                 <Typography variant="h3" color="textSecondary">
@@ -120,7 +120,7 @@ const Profile = () => {
                 </Link>
               </CardActions>
             </Card>
-          ))}
+          ))} */}
         </Grid>
       </Grid>
     </div>
