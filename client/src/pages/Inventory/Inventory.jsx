@@ -10,6 +10,7 @@ import API from "../../utils/API";
 import InventoryList from "../../components/InventoryList/InventoryList";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import User from "../../components/User/User";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
@@ -24,58 +25,60 @@ const Inventory = () => {
 
   const showItems = () => {
     API.getItems()
-      .then(res => {
+      .then((res) => {
         setItems(res.data.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    API.addItem(newItem).then(response => {
+    API.addItem(newItem).then((response) => {
       setItems([...items, response.data.data]);
       console.log(event.target);
       setNewItem({ name: "", status: "Inventory" });
     });
   };
 
-  const toggleChecked = e => {
+  const toggleChecked = (e) => {
     e.target.checked
       ? setNewItem({ ...newItem, status: "Wishlist" })
       : setNewItem({ ...newItem, status: "Inventory" });
   };
 
-  const updateItem = item => {
-    item.status === "Wishlist" ? item.status = "Inventory" : item.status = "Wishlist";
+  const updateItem = (item) => {
+    item.status === "Wishlist"
+      ? (item.status = "Inventory")
+      : (item.status = "Wishlist");
     API.updateItem(item)
-      .then(response => {
+      .then((response) => {
         showItems();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  const deleteItem = id => {
+  const deleteItem = (id) => {
     API.deleteItem(id)
-      .then(response => {
+      .then((response) => {
         showItems();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     API.getItems()
-      .then(res => {
+      .then((res) => {
         setItems(res.data.data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles((theme) => ({
     margin: {
       margin: theme.spacing(1),
     },
@@ -88,9 +91,12 @@ const Inventory = () => {
 
   return (
     <div>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={4}></Grid>
-        <Grid item xs={12} sm={4}>
+      <Grid container spacing={1}>
+        <Grid item xs={12}></Grid>
+        <Grid item xs={12} sm={3}>
+          <User />
+        </Grid>
+        <Grid item xs={12} sm={9}>
           <Box style={{ marginTop: "10px" }}>
             <form
               onSubmit={handleSubmit}
@@ -132,16 +138,12 @@ const Inventory = () => {
                 label="Add to Wishlist"
               />
             </form>
+            <InventoryList
+              updateItem={updateItem}
+              deleteItem={deleteItem}
+              inventory={items}
+            />
           </Box>
-        </Grid>
-        <Grid item xs={12} sm={4}></Grid>
-        <Grid item xs={12} sm={3}></Grid>
-        <Grid item xs={12} sm={6}>
-          <InventoryList
-            updateItem={updateItem}
-            deleteItem={deleteItem}
-            inventory={items}
-          />
         </Grid>
       </Grid>
     </div>
