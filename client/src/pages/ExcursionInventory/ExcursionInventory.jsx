@@ -78,7 +78,7 @@ const ExcursionInventory = (props) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Brad's Inventory</Typography>
+          <Typography>Inventory</Typography>
         </AccordionSummary>
         <AccordionDetails>
         <ul>

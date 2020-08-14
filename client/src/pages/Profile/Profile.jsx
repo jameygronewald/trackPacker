@@ -3,27 +3,27 @@ import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Divider from "@material-ui/core/Divider";
+
 
 const Profile = () => {
   const [excursions, setExcursions] = useState([]);
-  const [weather, setWeather] = useState('');
+  const [weather, setWeather] = useState("");
   useEffect(() => {
     showExcursions();
     showWeather();
   }, []);
 
-  function showWeather () {
-    API.getWeather()
-    .then(res => {
+  function showWeather() {
+    API.getWeather().then((res) => {
       setWeather(res.data.main);
       console.log(res.data.main);
-    })
+    });
   }
 
   function showExcursions() {
@@ -38,46 +38,94 @@ const Profile = () => {
   return (
     <div>
       <Grid container spacing={1}>
-        <Grid item xs={12}></Grid>
-        <Grid item xs={12} sm={2}>
-          <img
-            src="https://www.svgrepo.com/show/44183/male-user.svg"
-            alt="User"
-            width='300'
-          />
-        </Grid>
-        <Grid item xs={6} sm={4}>
-        <Typography>Brad Williams</Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          {weather.temp}
+       <Grid item xs={12}></Grid> 
+        <Grid item xs={12} sm={3}>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={2}
+            mx="auto"
+          >
           
+            <img
+              src="https://www.svgrepo.com/show/44183/male-user.svg"
+              alt="User"
+              width="150"
+            />
+          </Box>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={2}
+            mx="auto"
+          >
+            <Typography variant="h5">Jamey Gronewald</Typography>
+          </Box>
+          <Divider variant="middle" />
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={1}
+            mx="auto"
+          >
+             <Link to='/Profile'>
+                  <Button>Home</Button>
+                </Link>
+          </Box>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={1}
+            mx="auto"
+          >
+             <Link to='/Inventory'>
+                  <Button>Inventory</Button>
+                </Link>
+          </Box>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={1}
+            mx="auto"
+          >
+             <Link to="/Excursions">
+                  <Button>Excursions</Button>
+                </Link>
+          </Box>
         </Grid>
-        <Grid item xs={6} sm={3}>
-          
-        </Grid>
-        <Grid item xs={6} sm={3}></Grid>
-        <Grid item xs={6} sm={6}>
+        {/*    <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={3}></Grid>
+        <Grid item xs={12} sm={3}></Grid> */}
+        
+        <Grid item xs={12} sm={9}>
           {excursions.map((excursion) => (
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <Avatar
-                      alt="Mountain"
-                      src="https://i.guim.co.uk/img/media/6088d89032f8673c3473567a91157080840a7bb8/413_955_2808_1685/master/2808.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=412cc526a799b2d3fff991129cb8f030"
-                    />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={excursion.name}
-                  secondary="Jan 9, 2014"
-                />
+            <Card variant="outlined">
+              <CardContent>
+                <Typography variant="h3" color="textSecondary">
+                  {excursion.name} January 10, 2020
+                </Typography>
+                <Typography variant="h5" component="h2"></Typography>
+                <Typography color="textSecondary"></Typography>
+                <Typography variant="body2" component="p">
+                  A world-renowned ski resort, Squaw Valley was the site of the
+                  1960 Olympic Winter Games and offers some of the best ski runs
+                  in Lake Tahoe. The resort has 3,600 acres of skiable terrain,
+                  29 ski lifts, and more than 170 trails, with the longest run
+                  extending for 3.2 miles.
+                </Typography>
+              </CardContent>
+              <CardActions>
                 <Link to={`/Excursions/${excursion._id}`}>
                   <Button>View Excursion</Button>
                 </Link>
-              </ListItem>
-            </List>
+              </CardActions>
+            </Card>
           ))}
         </Grid>
       </Grid>
