@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import ProfileLink from "../ProfileLink/ProfileLink";
+
 const User = () => {
   return (
     <>
@@ -52,17 +54,7 @@ const User = () => {
           <Button>Inventory</Button>
         </Link>
       </Box>
-      <Box
-        alignItems="center"
-        justifyContent="center"
-        display="flex"
-        p={1}
-        mx="auto"
-      >
-        <Link to="/Excursions">
-          <Button>Excursions</Button>
-        </Link>
-      </Box>
+      <ProfileLink link='Excursions'/>
     </>
   );
 };
