@@ -6,7 +6,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -31,9 +31,6 @@ export default function InteractiveList(props) {
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" className={classes.title}>
-            Inventory
-          </Typography>
           <div className={classes.demo}>
             <List>
               {props.inventory

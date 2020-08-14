@@ -20,11 +20,12 @@ const Profile = () => {
 
   function showWeather() {
     API.getWeather().then((res) => {
-       setFeelsLike(res.data.main.feels_like); 
-      setMainTemp(res.data.main.temp);
-       setDescription(res.data.weather[0].description);
+      console.log(res.data)
+ /*      setFeelsLike(res.data.main.feels_like); */
+      setMainTemp(res.data.list[0].main.temp);
+   /*    setDescription(res.data.weather[0].description);
       setMain(res.data.weather[0].main);
-      setIconID(res.data.weather[0].icon); 
+      setIconID(res.data.weather[0].icon); */
     });
   }
 
@@ -45,10 +46,10 @@ const Profile = () => {
         </Grid>
         <Grid item xs={12} sm={9}>
           <h1>{mainTemp}</h1>
-          <h1>{feelsLike}</h1>
+        {/*   <h1>{feelsLike}</h1>
           <h1>{main}</h1>
           <h1>{description}</h1>
-          <img src={'http://openweathermap.org/img/wn/' + iconID + '@2x.png'}/>
+          <img src={"http://openweathermap.org/img/wn/" + iconID + "@2x.png"} /> */}
         </Grid>
       </Grid>
     </div>

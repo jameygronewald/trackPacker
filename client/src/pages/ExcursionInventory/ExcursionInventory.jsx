@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/API";
 import { useParams } from "react-router-dom";
-import Favorite from "@material-ui/icons/Favorite";
 import Box from "@material-ui/core/Box";
 import ExcursionInventoryListAdd from "../../components/ExcursionInventoryListAdd/ExcursionInventoryListAdd";
 import ExcursionInventoryList from "../../components/ExcursionInventoryList/ExcursionInventoryList";
 import User from "../../components/User/User";
+import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
 
 const ExcursionInventory = (props) => {
   const { id } = useParams();
@@ -61,35 +61,36 @@ const ExcursionInventory = (props) => {
           <h1>{excursion.name}</h1>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
-              <ExcursionInventoryListAdd inventory={inventory} addToExcursion={addToExcursion}>
-              </ExcursionInventoryListAdd>
+              <h2>Inventory</h2>
+              <ExcursionInventoryListAdd
+                inventory={inventory}
+                addToExcursion={addToExcursion}
+              ></ExcursionInventoryListAdd>
             </Grid>
             <Grid item xs={12} sm={6}>
-              {/* <ExcursionInventoryList excursionInventory={excursion}></ExcursionInventoryList> */}
               <h2>Inventory for {excursion.name}</h2>
-              <ul>
-                {excursion.items &&
-                  excursion.items
-                    .filter((item) => item.status === "Inventory")
-                    .map((item) => <li>{item.name}</li>)}
-              </ul>
+              {excursion.items &&
+                excursion.items
+                  .filter((item) => item.status === "Inventory")
+                  .map((item) => (
+                    <ExcursionInventoryList
+                      itemName={item.name}
+                      itemId={item._id}
+                      addToExcursion={addToExcursion}
+                    ></ExcursionInventoryList>
+                  ))}
               <br></br>
               <h2>Wishlist for {excursion.name}</h2>
-              <ul>
-                {excursion.items &&
-                  excursion.items
-                    .filter((item) => item.status === "Wishlist")
-                    .map((item) => (
-                      <li>
-                        {item.name}
-                        {item.status === "Wishlist" && (
-                          <span>
-                            <Favorite></Favorite>
-                          </span>
-                        )}
-                      </li>
-                    ))}
-              </ul>
+              {excursion.items &&
+                excursion.items
+                  .filter((item) => item.status === "Wishlist")
+                  .map((item) => (
+                    <ExcursionInventoryWishList
+                      wishListName={item.name}
+                      wishListId={item._id}
+                      addToExcursion={addToExcursion}
+                    ></ExcursionInventoryWishList>
+                  ))}
             </Grid>
           </Grid>
         </Grid>
