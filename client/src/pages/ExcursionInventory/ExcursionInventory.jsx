@@ -67,12 +67,12 @@ const ExcursionInventory = (props) => {
             <Grid item xs={12} sm={6}>
               {/* <ExcursionInventoryList excursionInventory={excursion}></ExcursionInventoryList> */}
               <h2>Inventory for {excursion.name}</h2>
-              <ul>
-                {excursion.items &&
+              <ExcursionInventoryList 
+                inventory={excursion.items &&
                   excursion.items
                     .filter((item) => item.status === "Inventory")
-                    .map((item) => <li>{item.name}</li>)}
-              </ul>
+                    .map((item) => <li>{item.name}</li>)}>
+              </ExcursionInventoryList>
               <br></br>
               <h2>Wishlist for {excursion.name}</h2>
               <ul>
