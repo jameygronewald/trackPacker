@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
+const { verifyToken } = require("../client/src/utils/tokenHelper");
 
 // Find all excursions
-router.get("/api/excursions", (req, res) => {
+router.get("/api/excursions/all", (req, res) => {
   db.Excursion.find({})
     .then(excursionData => {
       res.json({
@@ -20,6 +21,34 @@ router.get("/api/excursions", (req, res) => {
       });
     });
 });
+
+router.get("/api/excursions", (req, res) => {
+  try {
+    verifyToken(req.headers.auth);
+    let userId = verifyToken(req.headers.auth).data;
+    db.User.findOne({ _id: userId })
+      .populate("excursions")
+      .then(userData => {
+        console.log(userData);
+        res.json({
+          error: false,
+          data: userData,
+          message: "Successfully retrieved user's excursions.",
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: true,
+          data: null,
+          message: "Error retrieving user's excursions.",
+        });
+      });
+  } catch (error) {
+    console.error(error);
+    res.status(401).redirect("/");
+  }
+});
+
 
 // Find an excursion and populate existing excursions
 router.get("/api/excursions/:id", (req, res) => {

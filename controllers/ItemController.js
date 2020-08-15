@@ -21,24 +21,6 @@ router.get("/api/items", (req, res) => {
     });
 });
 
-router.post("/api/items/:id", (req, res) => {
-  db.Item.create(req.body)
-    .then((newItemData) => {
-      res.json({
-        error: false,
-        data: newItemData,
-        message: "Successfully added new item.",
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error adding new item to database.",
-      });
-    });
-});
-
 // Create new item
 router.post("/api/items", (req, res) => {
   db.Item.create(req.body)
