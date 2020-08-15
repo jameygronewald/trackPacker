@@ -70,21 +70,39 @@ router.get("/api/excursions/:id", (req, res) => {
 
 // Create new excursion
 router.post("/api/excursions", (req, res) => {
-  db.Excursion.create(req.body)
-    .then(newExcursionData => {
-      res.json({
-        error: false,
-        data: newExcursionData,
-        message: "Successfully added new excursion.",
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error adding new excursion to database.",
+  try {
+    verifyToken(req.headers.auth);
+    let userId = verifyToken(req.headers.auth).data;
+    db.Excursion.create(req.body).then(newExcursionData => {
+      const newExcursionId = newExcursionData._id;
+      db.User.findOne({ _id: userId }).then(data => {
+        const userExcursions = data.excursions;
+        userExcursions.push(newExcursionId);
+        const newExcursionList = { excursions: userExcursions };
+        db.User.findOneAndUpdate({ _id: userId }, newExcursionList, {
+          new: true,
+          useFindAndModify: false,
+        })
+          .then(data => {
+            res.json({
+              error: false,
+              data: newExcursionData,
+              message: "Successfully added new excursion.",
+            });
+          })
+          .catch(err => {
+            res.status(500).json({
+              error: true,
+              data: null,
+              message: "Error adding new excursion to database.",
+            });
+          });
       });
     });
+  } catch (error) {
+    console.error(error);
+    res.status(401).redirect("/");
+  }
 });
 
 router.put("/api/excursions/:id", (req, res) => {

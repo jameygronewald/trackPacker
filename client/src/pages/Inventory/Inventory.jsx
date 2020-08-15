@@ -25,12 +25,6 @@ const Inventory = () => {
 
   let textInput = useRef(null);
 
-  // const authConfig = {
-  //   headers: {
-  //     auth: userToken,
-  //   },
-  // };
-
   useEffect(() => {
     showItems(authConfig);
   }, []);
@@ -65,7 +59,6 @@ const Inventory = () => {
     item.status === "Wishlist"
       ? (item.status = "Inventory")
       : (item.status = "Wishlist");
-      console.log(item);
     API.updateItem(item, authConfig)
       .then(response => {
         showItems(authConfig);
@@ -83,11 +76,6 @@ const Inventory = () => {
       .catch(err => {
         console.log(err);
       });
-    // API.getItems()
-    //   .then(res => {
-    //     setItems(res.data.data);
-    //   })
-    //   .catch(err => console.log(err));
   };
 
   const useStyles = makeStyles(theme => ({

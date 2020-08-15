@@ -50,8 +50,8 @@ export default {
     return axios.get("/api/excursions/" + id);
   },
 
-  addExcursion: function (name) {
-    return axios.post("/api/excursions", { name });
+  addExcursion: function (excursion, config) {
+    return axios.post("/api/excursions", excursion, config);
   },
 
   deleteExcursion: function (id) {
