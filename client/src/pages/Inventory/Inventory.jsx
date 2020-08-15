@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import User from "../../components/User/User";
 import { UserContext } from "../../utils/UserContext";
+import { useEventCallback } from "@material-ui/core";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
@@ -27,6 +28,8 @@ const Inventory = () => {
       auth: userToken,
     },
   };
+
+  let textInput = useRef(null);
 
   useEffect(() => {
     showItems(authConfig);
@@ -47,11 +50,15 @@ const Inventory = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.addItem(newItem).then((response) => {
-      setItems([...items, response.data.data]);
-      console.log(event.target);
-      setNewItem({ name: "", status: "Inventory" });
-    });
+    API.addItem(newItem)
+      .then((response) => {
+        setItems([...items, response.data.data]);
+        // console.log(event);
+        setNewItem({ name: "", status: "Inventory" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const toggleChecked = (e) => {
@@ -124,11 +131,18 @@ const Inventory = () => {
                 id="standard-basic"
                 label="Add New Item"
                 name="newItem"
+                refs="textEl"
+                inputRef={textInput}
                 placeholder="Add an Item"
                 onChange={handleChange}
                 style={{ color: "#13160e", borderColor: "#13160e" }}
               />
               <Button
+                onClick={() => {
+                  setTimeout(() => {
+                    textInput.current.value = "";
+                  }, 100);
+                }}
                 type="submit"
                 variant="outlined"
                 size="large"
