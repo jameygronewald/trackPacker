@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/API";
 import { useParams } from "react-router-dom";
-import Favorite from "@material-ui/icons/Favorite";
 import Box from "@material-ui/core/Box";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import User from '../../components/User/User'
+import ExcursionInventoryListAdd from "../../components/ExcursionInventoryListAdd/ExcursionInventoryListAdd";
+import ExcursionInventoryList from "../../components/ExcursionInventoryList/ExcursionInventoryList";
+import User from "../../components/User/User";
+import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
 
 const ExcursionInventory = (props) => {
   const { id } = useParams();
@@ -49,91 +46,51 @@ const ExcursionInventory = (props) => {
   return (
     <div>
       <Grid container spacing={1}>
-      <Grid item xs={12}></Grid>
+        <Grid item xs={12}></Grid>
         <Grid item xs={12} sm={3}>
-        <User/>
+          <User />
         </Grid>
         <Grid item xs={12} sm={9}>
-        <Box
-                alignItems="center"
-                justifyContent="center"
-                display="flex"
-                p={2}
-                mx="auto"
-              >
-                <h1>{excursion.name}</h1>
-              </Box>
-        <Grid container spacing={1}>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={2}
+            mx="auto"
+          ></Box>
+          <h1>{excursion.name}</h1>
+          <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
-
               <h2>Inventory</h2>
-              <Box
-                display="flex"
-                p={2}
-                mx="auto"
-                flexDirection="row"
-                flexWrap="wrap"
-                m={1}
-              >
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography>Inventory</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <ul>
-                      {inventory.map((item) => (
-                        <>
-                          <li>
-                            {item.name}
-                            {item.status === "Wishlist" && (
-                              <span>
-                                <Favorite></Favorite>
-                              </span>
-                            )}
-                          </li>
-                          <button
-                            onClick={() => {
-                              addToExcursion(item._id);
-                            }}
-                          >
-                            Add to Excursion
-                          </button>
-                        </>
-                      ))}
-                    </ul>
-                  </AccordionDetails>
-                </Accordion>
-              </Box>
+              <ExcursionInventoryListAdd
+                inventory={inventory}
+                addToExcursion={addToExcursion}
+              ></ExcursionInventoryListAdd>
             </Grid>
             <Grid item xs={12} sm={6}>
               <h2>Inventory for {excursion.name}</h2>
-              <ul>
-                {excursion.items &&
-                  excursion.items
-                    .filter((item) => item.status === "Inventory")
-                    .map((item) => <li>{item.name}</li>)}
-              </ul>
+              {excursion.items &&
+                excursion.items
+                  .filter((item) => item.status === "Inventory")
+                  .map((item) => (
+                    <ExcursionInventoryList
+                      itemName={item.name}
+                      itemId={item._id}
+                      addToExcursion={addToExcursion}
+                    ></ExcursionInventoryList>
+                  ))}
               <br></br>
               <h2>Wishlist for {excursion.name}</h2>
-              <ul>
-                {excursion.items &&
-                  excursion.items
-                    .filter((item) => item.status === "Wishlist")
-                    .map((item) => (
-                      <li>
-                        {item.name}
-                        {item.status === "Wishlist" && (
-                          <span>
-                            <Favorite></Favorite>
-                          </span>
-                        )}
-                      </li>
-                    ))}
-              </ul>
+              {excursion.items &&
+                excursion.items
+                  .filter((item) => item.status === "Wishlist")
+                  .map((item) => (
+                    <ExcursionInventoryWishList
+                      wishListName={item.name}
+                      wishListId={item._id}
+                      addToExcursion={addToExcursion}
+                    ></ExcursionInventoryWishList>
+                  ))}
             </Grid>
           </Grid>
         </Grid>
