@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import API from "../../utils/API";
 import Grid from "@material-ui/core/Grid";
 import ExcursionCard from "../../components/ExcursionCard/ExcursionCard";
@@ -6,46 +6,61 @@ import User from "../../components/User/User";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import { UserContext } from "../../utils/UserContext";
 
 const Excursions = () => {
   const [excursions, setExcursions] = useState([]);
   const [newExcursion, setNewExcursion] = useState("");
+
+  const { userToken } = useContext(UserContext);
+
+  const authConfig = {
+    headers: {
+      auth: userToken,
+    },
+  };
+
   useEffect(() => {
-    showExcursions();
+    showUserExcursions(authConfig);
   }, []);
 
-  const showExcursions = () => {
-    API.getExcursions()
-      .then((res) => {
-        setExcursions(res.data.data);
+  const showUserExcursions = config => {
+    API.getExcursions(config)
+      .then(response => {
+        console.log(response.data.data);
+        setExcursions(response.data.data.excursions);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    API.addExcursion(newExcursion).then((res) => {
-      setExcursions([...excursions, res.data.data]);
-    });
+    API.addExcursion(newExcursion)
+      .then(response => {
+        setExcursions([...excursions, response.data.data]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
-  const deleteExcursion = (id) => {
+  const deleteExcursion = id => {
     API.deleteExcursion(id)
-      .then((response) => {
+      .then(response => {
         console.log(response);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     API.getExcursions()
-      .then((res) => {
+      .then(res => {
         setExcursions(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   return (
@@ -65,7 +80,7 @@ const Excursions = () => {
             <Button type="submit">Submit</Button>
           </form>
 
-          {excursions.map((excursion) => (
+          {excursions.map(excursion => (
             <Box
               alignItems="center"
               justifyContent="center"

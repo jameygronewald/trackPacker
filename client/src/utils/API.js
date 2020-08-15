@@ -20,7 +20,7 @@ export default {
   getItems: function () {
     return axios.get("/api/items");
   },
-  
+
   getUserItem: function () {
     return axios.get("/api/items/:id");
   },
@@ -37,8 +37,8 @@ export default {
     return axios.delete("/api/items/" + id);
   },
 
-  getExcursions: function () {
-    return axios.get("/api/excursions");
+  getExcursions: function (config) {
+    return axios.get("/api/excursions", config);
   },
 
   getExcursion: function (id) {
