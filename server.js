@@ -4,6 +4,8 @@ const path = require("path");
 const ItemController = require('./controllers/ItemController');
 const ExcursionController = require('./controllers/ExcursionController');
 const UserController = require('./controllers/UserController');
+const AuthController = require('./controllers/AuthController');
+const InventoryController = require('./controllers/InventoryController');
 
 const app = express();
 
@@ -19,6 +21,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(ItemController);
 app.use(ExcursionController);
 app.use(UserController);
+app.use(AuthController);
+app.use(InventoryController);
 
 app.get("/api/config", (req, res) => {
   res.json({ success: true });
