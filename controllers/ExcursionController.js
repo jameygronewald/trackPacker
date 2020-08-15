@@ -48,7 +48,6 @@ router.get("/api/excursions", (req, res) => {
   }
 });
 
-
 // Find an excursion and populate existing items
 router.get("/api/excursions/:id", (req, res) => {
   db.Excursion.findOne({ _id: req.params.id })

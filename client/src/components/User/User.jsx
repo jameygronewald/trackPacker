@@ -5,19 +5,20 @@ import Divider from "@material-ui/core/Divider";
 import ProfileLink from "../ProfileLink/ProfileLink";
 import { UserContext } from "../../utils/UserContext";
 import API from "../../utils/API";
+import authConfig from "../../utils/authConfigHelper";
 
 const User = () => {
   const { userToken, userData, setUserData } = useContext(UserContext);
 
-  const authConfig = {
-    headers: {
-      auth: userToken,
-    },
-  };
-
   useEffect(() => {
     getUserData(authConfig);
   }, []);
+
+  // const authConfig = {
+  //   headers: {
+  //     auth: userToken,
+  //   },
+  // };
 
   const getUserData = config => {
     API.getUserInfo(config)

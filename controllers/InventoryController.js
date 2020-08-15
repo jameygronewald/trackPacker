@@ -10,7 +10,6 @@ router.get("/api/inventory", (req, res) => {
     db.User.findOne({ _id: userId })
       .populate("items")
       .then(userData => {
-        console.log(userData);
         res.json({
           error: false,
           data: userData,

@@ -21,6 +21,7 @@ const SignUp = ({ history }) => {
     const userInfo = { email: formattedEmail, password: password };
     API.signUpUser(userInfo)
       .then(response => {
+        localStorage.setItem("sessionToken", response.data.data.sessionToken);
         setUserToken(response.data.data.sessionToken);
         history.push("/Profile");
       })

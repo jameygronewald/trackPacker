@@ -28,7 +28,7 @@ router.post("/api/items", (req, res) => {
     verifyToken(req.headers.auth);
     let userId = verifyToken(req.headers.auth).data;
     db.Item.create(req.body).then(newItemData => {
-      let newItemId = newItemData._id
+      let newItemId = newItemData._id;
       db.User.findOne({ _id: userId }).then(data => {
         let userItems = data.items;
         userItems.push(newItemId);
@@ -38,7 +38,6 @@ router.post("/api/items", (req, res) => {
           useFindAndModify: false,
         })
           .then(data => {
-            console.log(data);
             res.json({
               error: false,
               data: newItemData,
@@ -81,21 +80,42 @@ router.put("/api/items", (req, res) => {
 
 // Delete an item
 router.delete("/api/items/:id", (req, res) => {
-  db.Item.deleteOne({ _id: req.params.id })
-    .then(itemData => {
-      res.json({
-        error: false,
-        data: itemData,
-        message: "Successfully deleted item data.",
+  try {
+    verifyToken(req.headers.auth);
+    const userId = verifyToken(req.headers.auth).data;
+    db.Item.findOneAndDelete({ _id: req.params.id })
+      .then(itemData => {
+        const deletedItem = itemData._id;
+        db.User.findOne({ _id: userId })
+        .then(userData => {
+          const userInventory = userData.items;
+          const newInventory = userInventory.filter(item => JSON.stringify(item) != JSON.stringify(deletedItem));
+          const updatedInventory = { items: newInventory };
+          db.User.findOneAndUpdate({ _id: userId }, updatedInventory, {
+            new: true,
+            useFindAndModify: false,
+          })
+          .then(response => {
+            console.log(response);
+          })
+        })
+        res.json({
+          error: false,
+          data: itemData,
+          message: "Successfully deleted item data.",
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: true,
+          data: null,
+          message: "Error deleting item data.",
+        });
       });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error deleting item data.",
-      });
-    });
+  } catch (error) {
+    console.error(error);
+    res.status(401).redirect("/");
+  }
 });
 
 module.exports = router;

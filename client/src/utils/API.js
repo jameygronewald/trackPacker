@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+
   addUser: function (user) {
     return axios.post("/api/users", user);
   },
@@ -37,8 +38,8 @@ export default {
     return axios.put("/api/items", item);
   },
 
-  deleteItem: function (id) {
-    return axios.delete("/api/items/" + id);
+  deleteItem: function (id, config) {
+    return axios.delete("/api/items/" + id, config);
   },
 
   getExcursions: function (config) {
