@@ -35,7 +35,6 @@ const Inventory = () => {
   const showItems = (config) => {
     API.getUserInventory(config)
       .then((res) => {
-        console.log(res.data.data.items);
         setItems(res.data.data.items);
       })
       .catch((err) => console.log(err));
@@ -47,9 +46,8 @@ const Inventory = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.addItem(newItem).then((response) => {
+    API.addItem(newItem, authConfig).then((response) => {
       setItems([...items, response.data.data]);
-      console.log(event.target);
       setNewItem({ name: "", status: "Inventory" });
     });
   };

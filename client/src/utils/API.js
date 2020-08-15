@@ -25,8 +25,8 @@ export default {
     return axios.get("/api/items/:id");
   },
 
-  addItem: function (item) {
-    return axios.post("/api/items", item);
+  addItem: function (item, config) {
+    return axios.post("/api/items", item, config);
   },
 
   updateItem: function (item) {
