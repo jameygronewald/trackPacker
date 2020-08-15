@@ -3,7 +3,6 @@ import User from "../../components/User/User";
 import ExcursionCard from "../../components/ExcursionCard/ExcursionCard";
 import API from "../../utils/API";
 import Grid from "@material-ui/core/Grid";
-import {UserContext} from "../../utils/UserContext";
 
 const Profile = () => {
   const [excursions, setExcursions] = useState([]);
@@ -13,9 +12,7 @@ const Profile = () => {
     showWeather();
   }, []);
 
-  const { user, setUser } = useContext(UserContext);
-
-  function showWeather () {
+  const showWeather = () => {
     API.getWeather()
     .then(res => {
       setWeather(res.data.main);
@@ -23,7 +20,7 @@ const Profile = () => {
     })
   }
 
-  function showExcursions() {
+  const showExcursions = () => {
     API.getExcursions()
       .then((res) => {
         setExcursions(res.data.data);

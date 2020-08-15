@@ -4,31 +4,31 @@ import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
-import {UserContext} from "../../utils/UserContext";
+import { UserContext } from "../../utils/UserContext";
 import API from "../../utils/API";
 
 const Home = ({ history }) => {
   const [userInfo, setUserInfo] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
-  const { user, setUser } = useContext(UserContext);
+  const { userToken, setUserToken } = useContext(UserContext);
 
-  const handleChange = ({ target: { name, value }}) => {
-    setUserInfo({ ...userInfo, [name]: value })
+  const handleChange = ({ target: { name, value } }) => {
+    setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
-    API.loginUser(userInfo).then(response => {
-      console.log(response)
-      setUser(response.data.data._id);
-      history.push('/Profile');
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    API.loginUser(userInfo)
+      .then(response => {
+        setUserToken(response.data.data.sessionToken);
+        history.push("/Profile");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
@@ -43,7 +43,13 @@ const Home = ({ history }) => {
               p={2}
               mx="auto"
             >
-              <TextField onChange={handleChange} value={userInfo.email} name="email" id="standard-basic" label="Email" />
+              <TextField
+                onChange={handleChange}
+                value={userInfo.email}
+                name="email"
+                id="standard-basic"
+                label="Email"
+              />
             </Box>
             <Box
               alignItems="center"
@@ -52,7 +58,13 @@ const Home = ({ history }) => {
               p={2}
               mx="auto"
             >
-              <TextField onChange={handleChange} value={userInfo.password} name="password" id="standard-basic" label="Password" />
+              <TextField
+                onChange={handleChange}
+                value={userInfo.password}
+                name="password"
+                id="standard-basic"
+                label="Password"
+              />
             </Box>
             <Box
               alignItems="center"

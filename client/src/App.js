@@ -12,11 +12,12 @@ import { UserContext } from "./utils/UserContext";
 import "./App.css";
 
 function App() {
-  const [user, setUser] = useState();
+  const [userToken, setUserToken] = useState();
+  const[userData, setUserData] = useState({});
   return (
     <div>
       <Router>
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ userToken, setUserToken, userData, setUserData }}>
           <Nav />
           <Route exact path="/" component={Home} />
           <Route exact path="/Home" component={Home} />

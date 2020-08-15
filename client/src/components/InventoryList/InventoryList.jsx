@@ -34,7 +34,7 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {props.inventory
+              {props.inventory && props.inventory
                 .filter(item => item.status === "Inventory")
                 .map(item => (
                   <>
@@ -69,7 +69,7 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {props.inventory
+              {props.inventory && props.inventory
                 .filter(item => item.status === "Wishlist")
                 .map(item => (
                   <>
