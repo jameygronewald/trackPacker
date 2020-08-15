@@ -36,9 +36,9 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {props.inventory
-                .filter((item) => item.status === "Inventory")
-                .map((item) => (
+              {props.inventory && props.inventory
+                .filter(item => item.status === "Inventory")
+                .map(item => (
                   <>
                     <ListItem>
                       <ListItemText primary={item.name} />
@@ -72,9 +72,9 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {props.inventory
-                .filter((item) => item.status === "Wishlist")
-                .map((item) => (
+              {props.inventory && props.inventory
+                .filter(item => item.status === "Wishlist")
+                .map(item => (
                   <>
                     <ListItem>
                       <ListItemText primary={item.name} />

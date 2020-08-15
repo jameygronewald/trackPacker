@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -11,6 +11,7 @@ import InventoryList from "../../components/InventoryList/InventoryList";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import User from "../../components/User/User";
+import { UserContext } from "../../utils/UserContext";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
@@ -19,14 +20,23 @@ const Inventory = () => {
     status: "Inventory",
   });
 
+  const { userToken } = useContext(UserContext);
+
+  const authConfig = {
+    headers: {
+      auth: userToken,
+    },
+  };
+
   useEffect(() => {
-    showItems();
+    showItems(authConfig);
   }, []);
 
-  const showItems = () => {
-    API.getItems()
+  const showItems = (config) => {
+    API.getUserInventory(config)
       .then((res) => {
-        setItems(res.data.data);
+        console.log(res.data.data.items);
+        setItems(res.data.data.items);
       })
       .catch((err) => console.log(err));
   };
