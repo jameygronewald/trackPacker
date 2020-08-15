@@ -29,8 +29,7 @@ router.get("/api/excursions", (req, res) => {
     db.User.findOne({ _id: userId })
       .populate("excursions")
       .then(userData => {
-        console.log(userData);
-        res.json({
+        res.status(200).json({
           error: false,
           data: userData,
           message: "Successfully retrieved user's excursions.",
@@ -50,7 +49,7 @@ router.get("/api/excursions", (req, res) => {
 });
 
 
-// Find an excursion and populate existing excursions
+// Find an excursion and populate existing items
 router.get("/api/excursions/:id", (req, res) => {
   db.Excursion.findOne({ _id: req.params.id })
     .populate("items")

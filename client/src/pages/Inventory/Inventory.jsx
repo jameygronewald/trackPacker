@@ -12,7 +12,6 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import User from "../../components/User/User";
 import { UserContext } from "../../utils/UserContext";
-import { useEventCallback } from "@material-ui/core";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
@@ -35,67 +34,61 @@ const Inventory = () => {
     showItems(authConfig);
   }, []);
 
-  const showItems = (config) => {
+  const showItems = config => {
     API.getUserInventory(config)
-      .then((res) => {
-        console.log(res.data.data.items);
-        setItems(res.data.data.items);
-      })
-      .catch((err) => console.log(err));
+      .then(response => setItems(response.data.data.items))
+      .catch(err => console.log(err));
   };
 
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
-    API.addItem(newItem)
-      .then((response) => {
+    API.addItem(newItem, authConfig)
+      .then(response => {
         setItems([...items, response.data.data]);
-        // console.log(event);
         setNewItem({ name: "", status: "Inventory" });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
   };
 
-  const toggleChecked = (e) => {
+  const toggleChecked = e => {
     e.target.checked
       ? setNewItem({ ...newItem, status: "Wishlist" })
       : setNewItem({ ...newItem, status: "Inventory" });
   };
 
-  const updateItem = (item) => {
+  const updateItem = item => {
     item.status === "Wishlist"
       ? (item.status = "Inventory")
       : (item.status = "Wishlist");
     API.updateItem(item)
-      .then((response) => {
+      .then(response => {
         showItems();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  const deleteItem = (id) => {
+  const deleteItem = id => {
     API.deleteItem(id)
-      .then((response) => {
+      .then(response => {
         showItems();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     API.getItems()
-      .then((res) => {
+      .then(res => {
         setItems(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles(theme => ({
     margin: {
       margin: theme.spacing(1),
     },

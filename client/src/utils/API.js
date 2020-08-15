@@ -17,6 +17,10 @@ export default {
     return axios.post("/api/login", user);
   },
 
+  signUpUser: function (user) {
+    return axios.post("/api/signup", user)
+  },
+
   getItems: function () {
     return axios.get("/api/items");
   },
@@ -25,8 +29,8 @@ export default {
     return axios.get("/api/items/:id");
   },
 
-  addItem: function (item) {
-    return axios.post("/api/items", item);
+  addItem: function (item, config) {
+    return axios.post("/api/items", item, config);
   },
 
   updateItem: function (item) {

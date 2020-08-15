@@ -27,7 +27,6 @@ const Excursions = () => {
   const showUserExcursions = config => {
     API.getExcursions(config)
       .then(response => {
-        console.log(response.data.data);
         setExcursions(response.data.data.excursions);
       })
       .catch(err => console.log(err));
