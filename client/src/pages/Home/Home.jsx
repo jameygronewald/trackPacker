@@ -13,7 +13,7 @@ const Home = ({ history }) => {
     password: "",
   });
 
-  const { userToken, setUserToken } = useContext(UserContext);
+  const { setUserToken } = useContext(UserContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setUserInfo({ ...userInfo, [name]: value });

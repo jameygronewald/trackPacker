@@ -5,11 +5,29 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../../utils/UserContext";
+import API from "../../utils/API";
 
-const SignUp = () => {
+const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { setUserToken } = useContext(UserContext);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const formattedEmail = email.toLowerCase();
+    const userInfo = { email: formattedEmail, password: password };
+    API.signUpUser(userInfo)
+      .then(response => {
+        setUserToken(response.data.data.sessionToken);
+        history.push("/Profile");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -43,7 +61,7 @@ const SignUp = () => {
           >
             <TextField id="standard-basic" label="Last" />
           </Box>
-          <form className="login">
+          <form onSubmit={handleSubmit} className="login">
             <Box
               alignItems="center"
               justifyContent="center"
@@ -56,7 +74,7 @@ const SignUp = () => {
                 name="email"
                 label="Email"
                 value={email}
-                onChange={(e) => {
+                onChange={e => {
                   setEmail(e.target.value);
                 }}
               />
@@ -73,7 +91,7 @@ const SignUp = () => {
                 name="password"
                 label="Password"
                 value={password}
-                onChange={(e) => {
+                onChange={e => {
                   setPassword(e.target.value);
                 }}
               />
@@ -86,7 +104,7 @@ const SignUp = () => {
               mx="auto"
             >
               <Button type="submit">
-                <Link href="/Profile">Create Account</Link>
+                Create Account
               </Button>
             </Box>
             <Box
