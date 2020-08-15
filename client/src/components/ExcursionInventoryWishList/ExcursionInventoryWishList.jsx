@@ -6,7 +6,6 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InteractiveList({ addToExcursion, itemName, itemId }) {
+const ExcursionInventoryWishList = ({ wishListName, wishListStatus }) => {
   const classes = useStyles();
 
   return (
@@ -29,16 +28,16 @@ export default function InteractiveList({ addToExcursion, itemName, itemId }) {
         <Grid item xs={12} sm={6}>
           <div className={classes.demo}>
             <List>
-              <>
-                <ListItem>
-                  <ListItemText primary={itemName} />
-                  <ListItemSecondaryAction></ListItemSecondaryAction>
-                </ListItem>
-              </>
+              <ListItem>
+                <ListItemText primary={wishListName} />
+                <ListItemSecondaryAction></ListItemSecondaryAction>
+              </ListItem>
             </List>
           </div>
         </Grid>
       </Grid>
     </div>
   );
-}
+};
+
+export default ExcursionInventoryWishList;
