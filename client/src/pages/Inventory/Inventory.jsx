@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import User from "../../components/User/User";
 import { UserContext } from "../../utils/UserContext";
+import authConfig from "../../utils/authConfigHelper";
 
 const Inventory = () => {
   const [items, setItems] = useState([]);
@@ -20,13 +21,7 @@ const Inventory = () => {
     status: "Inventory",
   });
 
-  const { userToken } = useContext(UserContext);
-
-  const authConfig = {
-    headers: {
-      auth: userToken,
-    },
-  };
+  const { userToken, userData, setUserData } = useContext(UserContext);
 
   let textInput = useRef(null);
 
@@ -43,7 +38,7 @@ const Inventory = () => {
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });
   };
-
+// ADD ITEM TO INVENTORY
   const handleSubmit = event => {
     event.preventDefault();
     API.addItem(newItem, authConfig)
@@ -64,9 +59,9 @@ const Inventory = () => {
     item.status === "Wishlist"
       ? (item.status = "Inventory")
       : (item.status = "Wishlist");
-    API.updateItem(item)
+    API.updateItem(item, authConfig)
       .then(response => {
-        showItems();
+        showItems(authConfig);
       })
       .catch(err => {
         console.log(err);
@@ -74,18 +69,13 @@ const Inventory = () => {
   };
 
   const deleteItem = id => {
-    API.deleteItem(id)
+    API.deleteItem(id, authConfig)
       .then(response => {
-        showItems();
+        showItems(authConfig);
       })
       .catch(err => {
         console.log(err);
       });
-    API.getItems()
-      .then(res => {
-        setItems(res.data.data);
-      })
-      .catch(err => console.log(err));
   };
 
   const useStyles = makeStyles(theme => ({

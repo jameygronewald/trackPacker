@@ -23,6 +23,7 @@ const Home = ({ history }) => {
     event.preventDefault();
     API.loginUser(userInfo)
       .then(response => {
+        localStorage.setItem("sessionToken", response.data.data.sessionToken);
         setUserToken(response.data.data.sessionToken);
         history.push("/Profile");
       })

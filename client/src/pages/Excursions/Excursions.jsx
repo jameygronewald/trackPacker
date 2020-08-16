@@ -7,18 +7,13 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { UserContext } from "../../utils/UserContext";
+import authConfig from "../../utils/authConfigHelper";
 
 const Excursions = () => {
   const [excursions, setExcursions] = useState([]);
   const [newExcursion, setNewExcursion] = useState("");
 
   const { userToken } = useContext(UserContext);
-
-  const authConfig = {
-    headers: {
-      auth: userToken,
-    },
-  };
 
   useEffect(() => {
     showUserExcursions(authConfig);
@@ -38,8 +33,10 @@ const Excursions = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    API.addExcursion(newExcursion)
+    const excursionObj = { name: newExcursion }
+    API.addExcursion(excursionObj, authConfig)
       .then(response => {
+        console.log(response.data);
         setExcursions([...excursions, response.data.data]);
       })
       .catch(err => {
@@ -55,11 +52,7 @@ const Excursions = () => {
       .catch(err => {
         console.log(err);
       });
-    API.getExcursions()
-      .then(res => {
-        setExcursions(res.data.data);
-      })
-      .catch(err => console.log(err));
+    showUserExcursions(authConfig);
   };
 
   return (
@@ -79,21 +72,22 @@ const Excursions = () => {
             <Button type="submit">Submit</Button>
           </form>
 
-          {excursions.map(excursion => (
-            <Box
-              alignItems="center"
-              justifyContent="center"
-              display="flex"
-              p={1}
-              mx="auto"
-            >
-              <ExcursionCard
-                excursionId={excursion._id}
-                excursionName={excursion.name}
-                deleteExcursion={deleteExcursion}
-              />
-            </Box>
-          ))}
+          {excursions &&
+            excursions.map(excursion => (
+              <Box
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+                p={1}
+                mx="auto"
+              >
+                <ExcursionCard
+                  excursionId={excursion._id}
+                  excursionName={excursion.name}
+                  deleteExcursion={deleteExcursion}
+                />
+              </Box>
+            ))}
         </Grid>
       </Grid>
     </div>
