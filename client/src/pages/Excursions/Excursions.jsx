@@ -15,17 +15,9 @@ const Excursions = ({ history }) => {
 
   const { userToken, userData, setUserData } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   showUserExcursions(authConfig);
-  // }, []);
-
-  // const showUserExcursions = config => {
-  //   API.getExcursions(config)
-  //     .then(response => {
-  //       setExcursions(response.data.data.excursions);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  useEffect(() => {
+    setExcursions(userData.excursions)
+  }, [excursions]);
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
@@ -36,7 +28,11 @@ const Excursions = ({ history }) => {
     const excursionObj = { name: newExcursion }
     API.addExcursion(excursionObj, authConfig)
       .then(response => {
-        setExcursions([...excursions, response.data.data]);
+        console.log(response.data.data);
+        const updatedUser = userData;
+        updatedUser.excursions.push(response.data.data);
+        setUserData({ ...updatedUser, isAuthenticated: true });
+        setExcursions(updatedUser.excursions);
       })
       .catch((err) => console.log(err));
   };
@@ -44,18 +40,17 @@ const Excursions = ({ history }) => {
   const deleteExcursion = id => {
     API.deleteExcursion(id, authConfig)
       .then(response => {
-        console.log(response.data.data);
+        const updatedExcursions = userData.excursions.filter(excursion => excursion._id != response.data.data._id);
         const updatedUser = userData;
-        const updatedExcursions = userData.excursions.filter(excursion => excursion != response.data.data);
-        console.log(updatedExcursions);
         updatedUser.excursions = updatedExcursions;
-        console.log(updatedUser);
-        setUserData({ ...updatedUser, isAuthenticated: true })
+        const newExcursion = [];
+        newExcursion.push(response.data.data);
+        setUserData({ ...updatedUser, isAuthenticated: true });
+        setExcursions(updatedUser.excursions);
       })
       .catch(err => {
         console.log(err);
       });
-    // showUserExcursions(authConfig);
   };
 
   return (
