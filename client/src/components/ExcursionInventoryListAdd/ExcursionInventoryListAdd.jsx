@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import { UserContext } from "../../utils/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,13 +28,15 @@ const useStyles = makeStyles((theme) => ({
 export default function InteractiveList(props) {
   const classes = useStyles();
 
+  const { userData } = useContext(UserContext);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <div className={classes.demo}>
             <List>
-              {props.inventory
+              {userData.items
                 .map((item) => (
                   <>
                     <ListItem>

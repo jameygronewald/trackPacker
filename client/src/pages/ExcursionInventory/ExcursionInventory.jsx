@@ -10,32 +10,31 @@ import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishL
 import { UserContext } from "../../utils/UserContext";
 
 const ExcursionInventory = (props) => {
+  const { userData, setUserData } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
+  
+  const currentExcursionData = userData.excursions.reduce((excursionObject, excursion)=> excursion._id == excursionId ? excursionObject = {...excursion} : excursionObject = excursionObject, {});
 
-  const [excursion, setExcursion] = useState({});
-  const [inventory, setInventory] = useState([]);
+  const [currentExcursion, setCurrentExcursion] = useState({});
 
-  const { userData } = useContext(UserContext);
-
-  const currentExcursion = userData.excursions.reduce((excursionObject, excursion)=> excursion._id == excursionId ? excursionObject = {...excursion} : excursionObject = excursionObject, {});
-
-  // useEffect(() => {
-  //   API.getExcursion(id)
-  //     .then((response) => {
-  //       setExcursion(response.data.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [excursion]);
+  useEffect(() => {
+    API.getExcursion(id)
+      .then((response) => {
+        setCurrentExcursion(response.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const addToExcursion = (id) => {
-    currentExcursion.items.push(id);
-    let itemObj = { items: currentExcursion.items };
-    API.updateExcursionInventory(currentExcursion._id, itemObj)
+    currentExcursionData.items.push(id);
+    let itemObj = { items: currentExcursionData.items };
+    API.updateExcursionInventory(currentExcursionData._id, itemObj)
       .then((response) => {
-        setExcursion(response.data.data);
+        setCurrentExcursion(response.data.data);
+        setUserData({ ...userData, isAuthenticated: true });
       })
       .catch((err) => {
         console.log(err);
@@ -62,7 +61,6 @@ const ExcursionInventory = (props) => {
             <Grid item xs={12} sm={6}>
               <h2>Inventory</h2>
               <ExcursionInventoryListAdd
-                inventory={userData.items}
                 addToExcursion={addToExcursion}
               ></ExcursionInventoryListAdd>
             </Grid>

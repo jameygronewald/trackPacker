@@ -110,6 +110,7 @@ router.put("/api/excursions/:id", (req, res) => {
     new: true,
     useFindAndModify: false,
   })
+    .populate("items")
     .then(excursionData => {
       res.json({
         error: false,
