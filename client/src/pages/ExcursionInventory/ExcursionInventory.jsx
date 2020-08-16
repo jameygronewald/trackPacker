@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/API";
 import { useParams } from "react-router-dom";
@@ -7,36 +7,34 @@ import ExcursionInventoryListAdd from "../../components/ExcursionInventoryListAd
 import ExcursionInventoryList from "../../components/ExcursionInventoryList/ExcursionInventoryList";
 import User from "../../components/User/User";
 import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
+import { UserContext } from "../../utils/UserContext";
 
 const ExcursionInventory = (props) => {
+  const { userData, setUserData } = useContext(UserContext);
   const { id } = useParams();
+  const excursionId = id;
+  
+  const currentExcursionData = userData.excursions.reduce((excursionObject, excursion)=> excursion._id == excursionId ? excursionObject = {...excursion} : excursionObject = excursionObject, {});
 
-  const [excursion, setExcursion] = useState({});
-  const [inventory, setInventory] = useState([]);
+  const [currentExcursion, setCurrentExcursion] = useState({});
 
   useEffect(() => {
     API.getExcursion(id)
       .then((response) => {
-        setExcursion(response.data.data);
+        setCurrentExcursion(response.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-    API.getItems()
-      .then((response) => {
-        setInventory(response.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [excursion]);
+  }, []);
 
   const addToExcursion = (id) => {
-    excursion.items.push(id);
-    let itemObj = { items: excursion.items };
-    API.updateExcursionInventory(excursion._id, itemObj)
+    currentExcursionData.items.push(id);
+    let itemObj = { items: currentExcursionData.items };
+    API.updateExcursionInventory(currentExcursionData._id, itemObj)
       .then((response) => {
-        setExcursion(response.data.data);
+        setCurrentExcursion(response.data.data);
+        setUserData({ ...userData, isAuthenticated: true });
       })
       .catch((err) => {
         console.log(err);
@@ -58,19 +56,18 @@ const ExcursionInventory = (props) => {
             p={2}
             mx="auto"
           ></Box>
-          <h1>{excursion.name}</h1>
+          <h1>{currentExcursion.name}</h1>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <h2>Inventory</h2>
               <ExcursionInventoryListAdd
-                inventory={inventory}
                 addToExcursion={addToExcursion}
               ></ExcursionInventoryListAdd>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <h2>Inventory for {excursion.name}</h2>
-              {excursion.items &&
-                excursion.items
+              <h2>Inventory for {currentExcursion.name}</h2>
+              {currentExcursion.items &&
+                currentExcursion.items
                   .filter((item) => item.status === "Inventory")
                   .map((item) => (
                     <ExcursionInventoryList
@@ -80,9 +77,9 @@ const ExcursionInventory = (props) => {
                     ></ExcursionInventoryList>
                   ))}
               <br></br>
-              <h2>Wishlist for {excursion.name}</h2>
-              {excursion.items &&
-                excursion.items
+              <h2>Wishlist for {currentExcursion.name}</h2>
+              {currentExcursion.items &&
+                currentExcursion.items
                   .filter((item) => item.status === "Wishlist")
                   .map((item) => (
                     <ExcursionInventoryWishList

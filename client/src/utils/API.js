@@ -46,16 +46,16 @@ export default {
     return axios.get("/api/excursions", config);
   },
 
-  getExcursion: function (id) {
-    return axios.get("/api/excursions/" + id);
+  getExcursion: function (id, config) {
+    return axios.get("/api/excursions/" + id, config);
   },
 
   addExcursion: function (excursion, config) {
     return axios.post("/api/excursions", excursion, config);
   },
 
-  deleteExcursion: function (id) {
-    return axios.delete("/api/excursions/" + id);
+  deleteExcursion: function (id, config) {
+    return axios.delete("/api/excursions/" + id, config);
   },
 
   updateExcursionInventory: function (id, item) {

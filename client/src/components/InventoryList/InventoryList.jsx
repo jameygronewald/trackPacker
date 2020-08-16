@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -10,8 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import { UserContext } from "../../utils/UserContext";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     maxWidth: 752,
@@ -27,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 export default function InteractiveList(props) {
   const classes = useStyles();
 
+  const { userData } = useContext(UserContext);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
@@ -36,32 +39,41 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {props.inventory && props.inventory
-                .filter(item => item.status === "Inventory")
-                .map(item => (
-                  <>
-                    <ListItem>
-                      <ListItemText primary={item.name} />
-                      <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete">
-                          <FavoriteBorderIcon
-                          style={{ color: "#832d33", borderColor: "#13160e" }}
+              {userData.items &&
+                userData.items
+                  .filter(item => item.status === "Inventory")
+                  .map((item, index) => (
+                    <>
+                      <ListItem key={index}>
+                        <ListItemText primary={item.name} />
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            edge="end"
+                            aria-label="update"
                             onClick={() => {
                               props.updateItem(item);
                             }}
-                          />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="delete">
-                          <DeleteIcon
+                          >
+                            <FavoriteBorderIcon
+                              style={{
+                                color: "#832d33",
+                                borderColor: "#13160e",
+                              }}
+                            />
+                          </IconButton>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
                             onClick={() => {
                               props.deleteItem(item._id);
                             }}
-                          />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </>
-                ))}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </>
+                  ))}
             </List>
           </div>
         </Grid>
@@ -72,32 +84,41 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {props.inventory && props.inventory
-                .filter(item => item.status === "Wishlist")
-                .map(item => (
-                  <>
-                    <ListItem>
-                      <ListItemText primary={item.name} />
-                      <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete">
-                          <FavoriteIcon
-                            style={{ color: "#832d33", borderColor: "#13160e" }}
+              {userData.items &&
+                userData.items
+                  .filter(item => item.status === "Wishlist")
+                  .map((item, index) => (
+                    <>
+                      <ListItem key={index}>
+                        <ListItemText primary={item.name} />
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            edge="end"
+                            aria-label="update"
                             onClick={() => {
                               props.updateItem(item);
                             }}
-                          />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="delete">
-                          <DeleteIcon
+                          >
+                            <FavoriteIcon
+                              style={{
+                                color: "#832d33",
+                                borderColor: "#13160e",
+                              }}
+                            />
+                          </IconButton>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
                             onClick={() => {
                               props.deleteItem(item._id);
                             }}
-                          />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </>
-                ))}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </>
+                  ))}
             </List>
           </div>
         </Grid>

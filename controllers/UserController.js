@@ -18,19 +18,29 @@ router.get("/api/users/all", (req, res) => {
 router.get("/api/users", (req, res) => {
   try {
     verifyToken(req.headers.auth);
-    let userId = verifyToken(req.headers.auth).data;
+    const userId = verifyToken(req.headers.auth).data;
     db.User.find({ _id: userId })
+      .populate("items")
+      .populate("excursions")
       .then(userData => {
+        console.log("FIRST", userData);
+        const userObject = {
+          firstName: userData[0].firstName,
+          lastName: userData[0].lastName,
+          items: userData[0].items,
+          excursions: userData[0].excursions,
+        };
+        console.log("SECOND", userObject);
         res.json({
           error: false,
-          data: userData,
+          body: { userObject },
           message: "Successfully retrieved all user data.",
         });
       })
       .catch(err => {
         res.status(500).json({
           error: true,
-          data: null,
+          body: null,
           message: "Error retrieving user data.",
         });
       });

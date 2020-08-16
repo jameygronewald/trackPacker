@@ -7,12 +7,21 @@ const { generateToken } = require("../client/src/utils/tokenHelper");
 router.post("/api/login", (req, res) => {
   const formattedEmail = req.body.email.toLowerCase();
   db.User.findOne({ email: formattedEmail })
+    .populate('items')
+    .populate('excursions')
     .then(userData => {
       if (userData.password === req.body.password) {
         const token = generateToken(userData._id);
+        const userObject = {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          items: userData.items,
+          excursions: userData.excursions,
+        };
+        console.log(userObject)
         res.status(201).json({
           error: false,
-          data: token,
+          body: { userObject, token },
           message: "Successfully logged in.",
         });
       } else {
@@ -22,7 +31,7 @@ router.post("/api/login", (req, res) => {
     .catch(err => {
       res.status(401).json({
         error: true,
-        data: null,
+        body: null,
         message: "Incorrect login credentials.",
       });
     });
@@ -33,16 +42,22 @@ router.post("/api/signup", (req, res) => {
   db.User.create(req.body)
     .then(userData => {
       const token = generateToken(userData._id);
+      const userObject = {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        items: userData.items,
+        excursions: userData.excursions,
+      };
       res.status(201).json({
         error: false,
-        data: token,
+        body: { userObject, token },
         message: "Successfully created account.",
       });
     })
     .catch(err => {
       res.status(400).json({
         error: true,
-        data: null,
+        body: null,
         message: "Unable to create account.",
       });
     });

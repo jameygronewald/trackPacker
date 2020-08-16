@@ -101,7 +101,7 @@ router.post("/api/excursions", (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(401).redirect("/");
+    res.status(401).send("Error :" + error);
   }
 });
 
@@ -110,6 +110,7 @@ router.put("/api/excursions/:id", (req, res) => {
     new: true,
     useFindAndModify: false,
   })
+    .populate("items")
     .then(excursionData => {
       res.json({
         error: false,
@@ -128,21 +129,43 @@ router.put("/api/excursions/:id", (req, res) => {
 
 // Delete an excursion
 router.delete("/api/excursions/:id", (req, res) => {
-  db.Excursion.deleteOne({ _id: req.params.id })
-    .then(excursionData => {
-      res.json({
-        error: false,
-        data: excursionData,
-        message: "Successfully deleted excursion data.",
+  try {
+    verifyToken(req.headers.auth);
+    let userId = verifyToken(req.headers.auth).data;
+    db.Excursion.findOneAndDelete({ _id: req.params.id })
+      .then(excursionData => {
+        const deletedExcursion = excursionData._id;
+        db.User.findOne({ _id: userId }).then(userData => {
+          const excursionList = userData.excursions;
+          const newExcursionList = excursionList.filter(
+            excursion =>
+              JSON.stringify(excursion) != JSON.stringify(deletedExcursion)
+          );
+          const updatedExcursionList = { excursions: newExcursionList };
+          db.User.findOneAndUpdate({ _id: userId }, updatedExcursionList, {
+            new: true,
+            useFindAndModify: false,
+          }).then(response => {
+            console.log(response);
+          });
+        });
+        res.json({
+          error: false,
+          data: excursionData,
+          message: "Successfully deleted excursion data.",
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: true,
+          data: null,
+          message: "Error deleting excursion data.",
+        });
       });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error deleting excursion data.",
-      });
-    });
+  } catch (error) {
+    console.error(error);
+    res.status(401).send("Error :" + error);
+  }
 });
 
 module.exports = router;

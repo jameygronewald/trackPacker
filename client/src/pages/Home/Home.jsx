@@ -13,7 +13,7 @@ const Home = ({ history }) => {
     password: "",
   });
 
-  const { setUserToken } = useContext(UserContext);
+  const { setUserToken, setUserData, userData } = useContext(UserContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setUserInfo({ ...userInfo, [name]: value });
@@ -23,8 +23,10 @@ const Home = ({ history }) => {
     event.preventDefault();
     API.loginUser(userInfo)
       .then(response => {
-        localStorage.setItem("sessionToken", response.data.data.sessionToken);
-        setUserToken(response.data.data.sessionToken);
+        localStorage.setItem("sessionToken", response.data.body.token.sessionToken);
+        setUserToken(response.data.body.token.sessionToken);
+        const loggedInUser = response.data.body.userObject;
+        setUserData({ /* ...userData, */ ...loggedInUser, isAuthenticated: true });
         history.push("/Profile");
       })
       .catch(err => {

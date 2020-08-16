@@ -12,17 +12,21 @@ import API from "../../utils/API";
 const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-  const { setUserToken } = useContext(UserContext);
+  const { setUserToken, setUserData, userData } = useContext(UserContext);
 
   const handleSubmit = event => {
     event.preventDefault();
     const formattedEmail = email.toLowerCase();
-    const userInfo = { email: formattedEmail, password: password };
+    const userInfo = { email: formattedEmail, password: password, firstName: firstName, lastName: lastName };
     API.signUpUser(userInfo)
       .then(response => {
-        localStorage.setItem("sessionToken", response.data.data.sessionToken);
-        setUserToken(response.data.data.sessionToken);
+        localStorage.setItem("sessionToken", response.data.body.token.sessionToken);
+        setUserToken(response.data.body.token.sessionToken);
+        const newUser = response.data.body.userObject;
+        setUserData({ /* ...userData, */ ...newUser, isAuthenticated: true });
         history.push("/Profile");
       })
       .catch(err => {
@@ -43,26 +47,29 @@ const SignUp = ({ history }) => {
           >
             <Typography variant="h4">Welcome To TrackPacker!</Typography>
           </Box>
-
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            p={2}
-            mx="auto"
-          >
-            <TextField id="standard-basic" label="First" />
-          </Box>
-          <Box
-            alignItems="center"
-            justifyContent="center"
-            display="flex"
-            p={2}
-            mx="auto"
-          >
-            <TextField id="standard-basic" label="Last" />
-          </Box>
           <form onSubmit={handleSubmit} className="login">
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={2}
+            mx="auto"
+          >
+            <TextField id="standard-basic" name="firstName" label="First" value={firstName} onChange={e => {
+                  setFirstName(e.target.value);
+                }}/>
+          </Box>
+          <Box
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+            p={2}
+            mx="auto"
+          >
+            <TextField id="standard-basic" name="lastName" label="Last" value={lastName} onChange={e => {
+                  setLastName(e.target.value);
+                }}/>
+          </Box>
             <Box
               alignItems="center"
               justifyContent="center"

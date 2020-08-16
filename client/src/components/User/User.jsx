@@ -1,34 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import ProfileLink from "../ProfileLink/ProfileLink";
 import { UserContext } from "../../utils/UserContext";
-import API from "../../utils/API";
-import authConfig from "../../utils/authConfigHelper";
 
 const User = () => {
-  const { userToken, userData, setUserData } = useContext(UserContext);
-
-  useEffect(() => {
-    getUserData(authConfig);
-  }, []);
-
-  // const authConfig = {
-  //   headers: {
-  //     auth: userToken,
-  //   },
-  // };
-
-  const getUserData = config => {
-    API.getUserInfo(config)
-      .then(response => {
-        setUserData(response.data.data[0]);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  const { userData } = useContext(UserContext);
 
   return (
     <>
@@ -52,7 +30,7 @@ const User = () => {
         p={2}
         mx="auto"
       >
-        <Typography variant="h5">{userData.email}</Typography>
+        <Typography variant="h5">{`${userData.firstName} ${userData.lastName}`}</Typography>
       </Box>
       <Divider variant="middle" />
       <ProfileLink link="Profile" />
