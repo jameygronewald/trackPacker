@@ -140,7 +140,7 @@ router.delete("/api/excursions/:id", (req, res) => {
             excursion =>
               JSON.stringify(excursion) != JSON.stringify(deletedExcursion)
           );
-          const updatedExcursionList = { excursions: newExcursion };
+          const updatedExcursionList = { excursions: newExcursionList };
           db.User.findOneAndUpdate({ _id: userId }, updatedExcursionList, {
             new: true,
             useFindAndModify: false,

@@ -18,23 +18,29 @@ function App() {
     isAuthenticated: false,
   });
 
+const getUserData = config => {
+  API.getUserInfo(config)
+  .then(response => {
+      const userResponse = response.data.body.userObject || undefined;
+      userResponse.isAuthenticated = true;
+      console.log(userResponse);
+      console.log(userData);
+      // if (userResponse.firstName === userData.firstName || userResponse.lastName === userData.lastName || userResponse.items === userData.items || userResponse.exursions === userData.excursions) {
+      //   return;
+      //   } else {
+        setUserData({ ...userResponse, isAuthenticated: true });
+      // }
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+};
+
   useEffect(() => {
     if (localStorage.getItem("sessionToken")) {
-      const getUserData = config => {
-        API.getUserInfo(config)
-        .then(response => {
-          console.log(response)
-            const userResponse = response.data.body.userObject || undefined;
-            setUserData({ ...userResponse, isAuthenticated: true });
-          })
-          .catch((err) => {
-            console.log(err)
-          });
-      };
       getUserData(authConfig);
     }
-  }, [userData]);
-
+  }, [userData.isAuthenticated]);
 
   return (
     <div>

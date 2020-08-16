@@ -13,7 +13,7 @@ const Excursions = ({ history }) => {
   const [excursions, setExcursions] = useState([]);
   const [newExcursion, setNewExcursion] = useState("");
 
-  const { userToken, userData } = useContext(UserContext);
+  const { userToken, userData, setUserData } = useContext(UserContext);
 
   // useEffect(() => {
   //   showUserExcursions(authConfig);
@@ -44,7 +44,13 @@ const Excursions = ({ history }) => {
   const deleteExcursion = id => {
     API.deleteExcursion(id, authConfig)
       .then(response => {
-        console.log(response);
+        console.log(response.data.data);
+        const updatedUser = userData;
+        const updatedExcursions = userData.excursions.filter(excursion => excursion != response.data.data);
+        console.log(updatedExcursions);
+        updatedUser.excursions = updatedExcursions;
+        console.log(updatedUser);
+        setUserData({ ...updatedUser, isAuthenticated: true })
       })
       .catch(err => {
         console.log(err);
