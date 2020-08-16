@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import API from "../../utils/API";
 import Grid from "@material-ui/core/Grid";
 import ExcursionCard from "../../components/ExcursionCard/ExcursionCard";
@@ -10,14 +10,9 @@ import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
 
 const Excursions = ({ history }) => {
-  const [excursions, setExcursions] = useState([]);
   const [newExcursion, setNewExcursion] = useState("");
 
   const { userToken, userData, setUserData } = useContext(UserContext);
-
-  useEffect(() => {
-    setExcursions(userData.excursions)
-  }, [excursions]);
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
@@ -28,11 +23,10 @@ const Excursions = ({ history }) => {
     const excursionObj = { name: newExcursion }
     API.addExcursion(excursionObj, authConfig)
       .then(response => {
-        console.log(response.data.data);
         const updatedUser = userData;
         updatedUser.excursions.push(response.data.data);
         setUserData({ ...updatedUser, isAuthenticated: true });
-        setExcursions(updatedUser.excursions);
+        setNewExcursion({ name: "" });
       })
       .catch((err) => console.log(err));
   };
@@ -43,10 +37,7 @@ const Excursions = ({ history }) => {
         const updatedExcursions = userData.excursions.filter(excursion => excursion._id != response.data.data._id);
         const updatedUser = userData;
         updatedUser.excursions = updatedExcursions;
-        const newExcursion = [];
-        newExcursion.push(response.data.data);
         setUserData({ ...updatedUser, isAuthenticated: true });
-        setExcursions(updatedUser.excursions);
       })
       .catch(err => {
         console.log(err);

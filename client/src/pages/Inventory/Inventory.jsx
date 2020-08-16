@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -15,7 +15,6 @@ import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
 
 const Inventory = () => {
-  const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({
     name: "",
     status: "Inventory",
@@ -25,16 +24,6 @@ const Inventory = () => {
 
   let textInput = useRef(null);
 
-  // useEffect(() => {
-  //   showItems(authConfig);
-  // }, []);
-
-  // const showItems = config => {
-  //   API.getUserInventory(config)
-  //     .then(response => setItems(response.data.data.items))
-  //     .catch(err => console.log(err));
-  // };
-
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });
   };
@@ -43,7 +32,9 @@ const Inventory = () => {
     event.preventDefault();
     API.addItem(newItem, authConfig)
       .then(response => {
-        setItems([...items, response.data.data]);
+        const updatedUser = userData;
+        updatedUser.items.push(response.data.data);
+        setUserData({ ...updatedUser, isAuthenticated: true});
         setNewItem({ name: "", status: "Inventory" });
       })
       .catch(err => console.log(err));
@@ -61,7 +52,7 @@ const Inventory = () => {
       : (item.status = "Wishlist");
     API.updateItem(item, authConfig)
       .then(response => {
-        // showItems(authConfig);
+        setUserData({ ...userData, isAuthenticated: true });
       })
       .catch(err => {
         console.log(err);
@@ -71,7 +62,10 @@ const Inventory = () => {
   const deleteItem = id => {
     API.deleteItem(id, authConfig)
       .then(response => {
-        // showItems(authConfig);
+        const updatedInventory = userData.items.filter(item => item._id != response.data.data._id);
+        const updatedUser = userData;
+        updatedUser.items = updatedInventory;
+        setUserData({ ...updatedUser, isAuthenticated: true });
       })
       .catch(err => {
         console.log(err);
@@ -152,7 +146,6 @@ const Inventory = () => {
             <InventoryList
               updateItem={updateItem}
               deleteItem={deleteItem}
-              // inventory={userData.items}
             />
           </Box>
         </Grid>
