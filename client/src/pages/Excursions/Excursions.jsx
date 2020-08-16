@@ -9,23 +9,23 @@ import Box from "@material-ui/core/Box";
 import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
 
-const Excursions = () => {
+const Excursions = ({ history }) => {
   const [excursions, setExcursions] = useState([]);
   const [newExcursion, setNewExcursion] = useState("");
 
-  const { userToken } = useContext(UserContext);
+  const { userToken, userData } = useContext(UserContext);
 
-  useEffect(() => {
-    showUserExcursions(authConfig);
-  }, []);
+  // useEffect(() => {
+  //   showUserExcursions(authConfig);
+  // }, []);
 
-  const showUserExcursions = config => {
-    API.getExcursions(config)
-      .then(response => {
-        setExcursions(response.data.data.excursions);
-      })
-      .catch(err => console.log(err));
-  };
+  // const showUserExcursions = config => {
+  //   API.getExcursions(config)
+  //     .then(response => {
+  //       setExcursions(response.data.data.excursions);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
@@ -36,23 +36,20 @@ const Excursions = () => {
     const excursionObj = { name: newExcursion }
     API.addExcursion(excursionObj, authConfig)
       .then(response => {
-        console.log(response.data);
         setExcursions([...excursions, response.data.data]);
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   };
 
   const deleteExcursion = id => {
-    API.deleteExcursion(id)
+    API.deleteExcursion(id, authConfig)
       .then(response => {
         console.log(response);
       })
       .catch(err => {
         console.log(err);
       });
-    showUserExcursions(authConfig);
+    // showUserExcursions(authConfig);
   };
 
   return (
@@ -72,8 +69,8 @@ const Excursions = () => {
             <Button type="submit">Submit</Button>
           </form>
 
-          {excursions &&
-            excursions.map(excursion => (
+          {userData.excursions &&
+            userData.excursions.map(excursion => (
               <Box
                 alignItems="center"
                 justifyContent="center"

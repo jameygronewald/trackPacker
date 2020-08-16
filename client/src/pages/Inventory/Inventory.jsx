@@ -25,15 +25,15 @@ const Inventory = () => {
 
   let textInput = useRef(null);
 
-  useEffect(() => {
-    showItems(authConfig);
-  }, []);
+  // useEffect(() => {
+  //   showItems(authConfig);
+  // }, []);
 
-  const showItems = config => {
-    API.getUserInventory(config)
-      .then(response => setItems(response.data.data.items))
-      .catch(err => console.log(err));
-  };
+  // const showItems = config => {
+  //   API.getUserInventory(config)
+  //     .then(response => setItems(response.data.data.items))
+  //     .catch(err => console.log(err));
+  // };
 
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });
@@ -61,7 +61,7 @@ const Inventory = () => {
       : (item.status = "Wishlist");
     API.updateItem(item, authConfig)
       .then(response => {
-        showItems(authConfig);
+        // showItems(authConfig);
       })
       .catch(err => {
         console.log(err);
@@ -71,7 +71,7 @@ const Inventory = () => {
   const deleteItem = id => {
     API.deleteItem(id, authConfig)
       .then(response => {
-        showItems(authConfig);
+        // showItems(authConfig);
       })
       .catch(err => {
         console.log(err);
@@ -152,7 +152,7 @@ const Inventory = () => {
             <InventoryList
               updateItem={updateItem}
               deleteItem={deleteItem}
-              inventory={items}
+              // inventory={userData.items}
             />
           </Box>
         </Grid>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "../src/components/Nav/Nav";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "../src/pages/Home/Home";
@@ -8,16 +8,40 @@ import Excursions from "../src/pages/Excursions/Excursions";
 import Inventory from "../src/pages/Inventory/Inventory";
 import ExcursionInventory from "../src/pages/ExcursionInventory/ExcursionInventory";
 import { UserContext } from "./utils/UserContext";
-
+import authConfig from "./utils/authConfigHelper";
+import API from "./utils/API";
 import "./App.css";
 
 function App() {
   const [userToken, setUserToken] = useState();
-  const[userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    isAuthenticated: false,
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("sessionToken")) {
+      const getUserData = config => {
+        API.getUserInfo(config)
+        .then(response => {
+          console.log(response)
+            const userResponse = response.data.body.userObject || undefined;
+            setUserData({ ...userResponse, isAuthenticated: true });
+          })
+          .catch((err) => {
+            console.log(err)
+          });
+      };
+      getUserData(authConfig);
+    }
+  }, [userData]);
+
+
   return (
     <div>
       <Router>
-        <UserContext.Provider value={{ userToken, setUserToken, userData, setUserData }}>
+        <UserContext.Provider
+          value={{ userToken, setUserToken, userData, setUserData }}
+        >
           <Nav />
           <Route exact path="/" component={Home} />
           <Route exact path="/Home" component={Home} />
