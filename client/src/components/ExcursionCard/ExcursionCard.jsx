@@ -8,6 +8,7 @@ import CardActions from "@material-ui/core/CardActions";
 import { makeStyles } from "@material-ui/core/styles";
 import Grow from "@material-ui/core/Grow";
 import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,54 +20,54 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     fontFamily: "Montserrat",
     textAlign: "center",
-     color: 'whitesmoke' 
+    color: "whitesmoke",
   },
   button: {
     justifyContent: "center",
   },
   media: {
-    
-     backgroundImage: `url(${"https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"})`, 
-     /* backgroundRepeat: "no-repeat", */
-   /*  objectFit: 'cover', */
+    backgroundImage: `url(${"https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"})`,
+    /* backgroundRepeat: "no-repeat", */
+    /*  objectFit: 'cover', */
     /* paddingTop: '40.25%',  // 16:9, */
   },
 }));
-const ExcursionCard = ({
-  deleteExcursion,
-  excursionId,
-  excursionName,
-}) => {
+const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
   const classes = useStyles();
   return (
     <>
-      <Grow in="true">
-        <Card className={`${classes.root} ${classes.media}`} variant="outlined">
-          <CardContent>
-            <Typography
-              className={classes.title}
-              variant="h3"
-              color="textSecondary"
-            >
-              {excursionName}
-            </Typography>
-            <Divider className={classes.title} variant="middle" />
-          </CardContent>
-          <CardActions>
-            <Link to={`/Excursions/${excursionId}`}>
-              <Button className={classes.title}>View </Button>
-            </Link>
-            <Button
-            className={classes.title}
-              onClick={() => {
-                deleteExcursion(excursionId);
-              }}
-            >
-              Remove
-            </Button>
-          </CardActions>
-        </Card>
-      </Grow>
+      <Grid item xs={12} sm={4}>
+        <Grow in="true">
+          <Card
+            className={`${classes.root} ${classes.media}`}
+            variant="outlined"
+          >
+            <CardContent>
+              <Typography
+                className={classes.title}
+                variant="h3"
+                color="textSecondary"
+              >
+                {excursionName} Excursion
+              </Typography>
+              <Divider className={classes.title} variant="middle" />
+            </CardContent>
+            <CardActions>
+              <Link to={`/Excursions/${excursionId}`}>
+                <Button className={classes.title}>View </Button>
+              </Link>
+              <Button
+                className={classes.title}
+                onClick={() => {
+                  deleteExcursion(excursionId);
+                }}
+              >
+                Remove
+              </Button>
+            </CardActions>
+          </Card>
+        </Grow>
+      </Grid>
     </>
   );
 };

@@ -35,8 +35,10 @@ const Excursions = ({ history }) => {
 
   const deleteExcursion = (id) => {
     API.deleteExcursion(id, authConfig)
-      .then(response => {
-        const updatedExcursions = userData.excursions.filter(excursion => excursion._id !== response.data.data._id);
+      .then((response) => {
+        const updatedExcursions = userData.excursions.filter(
+          (excursion) => excursion._id !== response.data.data._id
+        );
         const updatedUser = userData;
         updatedUser.excursions = updatedExcursions;
         setUserData({ ...updatedUser, isAuthenticated: true });
@@ -63,7 +65,7 @@ const Excursions = ({ history }) => {
           >
             <form onSubmit={handleSubmit}>
               <TextField
-              size="small"
+                size="small"
                 name="newExcursion"
                 placeholder="Add an Excursion"
                 onChange={handleChange}
@@ -72,26 +74,19 @@ const Excursions = ({ history }) => {
             </form>
           </Box>
           <Divider variant="middle" />
-
-          {userData.excursions &&
-            userData.excursions.map((excursion) => (
-              <Grid item xs={12} sm={12}>
-                <Box
-                  /*  alignItems="center"
-                  justifyContent="center"  */
-                  display="flex"
-                  p={1}
-                  mx="auto"
-                >
-                  <ExcursionCard
-                   randomImg='https://source.unsplash.com/1600x900/?nature,Utah'
-                    excursionId={excursion._id}
-                    excursionName={excursion.name}
-                    deleteExcursion={deleteExcursion}
-                  />
-                </Box>
-              </Grid>
-            ))}
+            <Grid item xs={12} sm={12}>
+              {userData.excursions &&
+                userData.excursions.map((excursion) => (
+                  <Box display="flex" p={1} mx="1px">
+                    <ExcursionCard
+                      randomImg="https://source.unsplash.com/1600x900/?nature,Utah"
+                      excursionId={excursion._id}
+                      excursionName={excursion.name}
+                      deleteExcursion={deleteExcursion}
+                    />
+                  </Box>
+                ))}
+            </Grid>
         </Grid>
       </Grid>
     </div>
