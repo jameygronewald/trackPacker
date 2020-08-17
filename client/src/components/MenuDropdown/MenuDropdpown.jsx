@@ -35,6 +35,8 @@ export default function MenuListComposition() {
   const handleLogout = () => {
     localStorage.clear();
     setUserData({ isAuthenticated: false });
+
+    setOpen(false);
   };
 
   const handleToggle = () => {
