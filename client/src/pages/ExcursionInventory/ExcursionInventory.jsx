@@ -16,9 +16,9 @@ const ExcursionInventory = () => {
 
   let currentExcursionData = userData.excursions.reduce(
     (excursionObject, excursion) =>
-      excursion._id == excursionId
+      excursion._id === excursionId
         ? (excursionObject = { ...excursion })
-        : (excursionObject = excursionObject),
+        : (excursionObject),
     {}
   );
 

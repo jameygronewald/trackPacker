@@ -37,10 +37,12 @@ router.post("/api/items", (req, res) => {
           new: true,
           useFindAndModify: false,
         })
-          .then(data => {
+        .populate("items")
+        .populate("excursions")
+          .then(updatedUser => {
             res.json({
               error: false,
-              data: newItemData,
+              data: updatedUser,
               message: "Successfully added new item to inventory.",
             });
           })
@@ -55,7 +57,11 @@ router.post("/api/items", (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(401).redirect("/");
+    res.status(401).json({
+      error: true,
+      data: null,
+      message: "Invalid jwt",
+    });
   }
 });
 
@@ -86,10 +92,11 @@ router.delete("/api/items/:id", (req, res) => {
     db.Item.findOneAndDelete({ _id: req.params.id })
       .then(itemData => {
         const deletedItem = itemData._id;
-        db.User.findOne({ _id: userId })
-        .then(userData => {
+        db.User.findOne({ _id: userId }).then(userData => {
           const userInventory = userData.items;
-          const newInventory = userInventory.filter(item => JSON.stringify(item) != JSON.stringify(deletedItem));
+          const newInventory = userInventory.filter(
+            item => JSON.stringify(item) != JSON.stringify(deletedItem)
+          );
           const updatedInventory = { items: newInventory };
           db.User.findOneAndUpdate({ _id: userId }, updatedInventory, {
             new: true,
@@ -97,8 +104,8 @@ router.delete("/api/items/:id", (req, res) => {
           })
           .then(response => {
             console.log(response);
-          })
-        })
+          });
+        });
         res.json({
           error: false,
           data: itemData,
@@ -114,7 +121,11 @@ router.delete("/api/items/:id", (req, res) => {
       });
   } catch (error) {
     console.error(error);
-    res.status(401).redirect("/");
+    res.status(401).json({
+      error: true,
+      data: null,
+      message: "Invalid jwt",
+    });
   }
 });
 

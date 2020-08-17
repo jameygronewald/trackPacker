@@ -28,7 +28,6 @@ const User = () => {
       <Typography className={classes.title} variant="h5">{`${userData.firstName} ${userData.lastName}`}</Typography>
       </Box>
       <Divider variant="middle" />
-     {/*  <ProfileLink link="Profile" /> */}
       <ProfileLink link="Inventory" />
       <ProfileLink link="Excursions" />
     </>
