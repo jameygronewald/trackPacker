@@ -33,16 +33,22 @@ const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
   const classes = useStyles();
   return (
     <>
-      <Grow in="true">
-        <Card style={{opacity: '0.8', boxShadow: '10px 10px 5px grey'}} className={`${classes.root} ${classes.media}`} variant="outlined">
+      <Grow
+       in={true}
+     
+      >
+        <Card
+          style={{ opacity: "0.8", boxShadow: "10px 10px 5px grey" }}
+          className={`${classes.root} ${classes.media}`}
+          variant="outlined"
+        >
           <CardContent>
-            
             <Typography
               className={classes.title}
               variant="h3"
               color="textSecondary"
             >
-              Justin's { excursionName } Excursion
+              Justin's {excursionName} Excursion
             </Typography>
             <Divider className={classes.title} variant="middle" />
           </CardContent>
