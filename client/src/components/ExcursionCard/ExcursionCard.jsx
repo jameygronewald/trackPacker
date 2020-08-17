@@ -12,7 +12,8 @@ import Divider from "@material-ui/core/Divider";
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 400,
-    height: '100%'
+    height: 500,
+    /* margin: 'auto' */
   },
   title: {
     flexGrow: 1,
@@ -24,10 +25,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   media: {
+    
      backgroundImage: `url(${"https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"})`, 
-     backgroundRepeat: "no-repeat",
-    objectFit: 'cover',
-    paddingTop: '40.25%',  // 16:9,
+     /* backgroundRepeat: "no-repeat", */
+   /*  objectFit: 'cover', */
+    /* paddingTop: '40.25%',  // 16:9, */
   },
 }));
 const ExcursionCard = ({

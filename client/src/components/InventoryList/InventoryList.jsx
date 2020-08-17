@@ -38,8 +38,7 @@ export default function InteractiveList(props) {
             Inventory
           </Typography>
           <div className={classes.demo}>
-            <List>
-               
+            <List> 
               {userData.items &&
                 userData.items
                   .filter(item => item.status === "Inventory")

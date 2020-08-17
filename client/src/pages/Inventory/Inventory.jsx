@@ -23,7 +23,7 @@ const Inventory = () => {
 
   const { userData, setUserData } = useContext(UserContext);
 
-  let textInput = useRef("");
+  let textInput = useRef('');
 
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });
@@ -63,7 +63,7 @@ const Inventory = () => {
   const deleteItem = id => {
     API.deleteItem(id, authConfig)
       .then(response => {
-        const updatedInventory = userData.items.filter(item => item._id != response.data.data._id);
+        const updatedInventory = userData.items.filter(item => item._id !== response.data.data._id);
         const updatedUser = userData;
         updatedUser.items = updatedInventory;
         setUserData({ ...updatedUser, isAuthenticated: true });
@@ -117,11 +117,11 @@ const Inventory = () => {
                 style={{ color: "#13160e", borderColor: "#13160e" }}
               />
               <Button
-                onClick={() => {
-                  setTimeout(() => {
-                    textInput.current.value = '';
-                  }, 100);
-                }}
+               onClick={() => {
+                setTimeout(() => {
+                  textInput.current.value = "";
+                }, 1000);
+              }}
                 type="submit"
                 variant="outlined"
                 size="large"

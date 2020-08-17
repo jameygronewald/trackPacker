@@ -79,8 +79,8 @@ const Excursions = ({ history }) => {
             userData.excursions.map((excursion) => (
               <Grid item xs={12} sm={12}>
                 <Box
-                   alignItems="center"
-                  justifyContent="center" 
+                  /*  alignItems="center"
+                  justifyContent="center"  */
                   display="flex"
                   p={1}
                   mx="auto"
