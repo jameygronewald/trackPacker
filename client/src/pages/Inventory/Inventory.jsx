@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import User from "../../components/User/User";
 import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
+import { useEffect } from "react";
 
 const Inventory = () => {
   const [newItem, setNewItem] = useState({
@@ -87,7 +88,7 @@ const Inventory = () => {
     <div>
       <Grid container spacing={1}>
         <Grid item xs={12}></Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <User />
         </Grid>
         <Grid item xs={12} sm={5}>
@@ -108,8 +109,9 @@ const Inventory = () => {
                 id="standard-basic"
                 label="Add New Item"
                 name="newItem"
-                refs="textEl"
+                refs="textEl" 
                 inputRef={textInput}
+                type='text'
                 placeholder="Add an Item"
                 onChange={handleChange}
                 style={{ color: "#13160e", borderColor: "#13160e" }}
