@@ -34,7 +34,7 @@ const Excursions = ({ history }) => {
   const deleteExcursion = id => {
     API.deleteExcursion(id, authConfig)
       .then(response => {
-        const updatedExcursions = userData.excursions.filter(excursion => excursion._id != response.data.data._id);
+        const updatedExcursions = userData.excursions.filter(excursion => excursion._id !== response.data.data._id);
         const updatedUser = userData;
         updatedUser.excursions = updatedExcursions;
         setUserData({ ...updatedUser, isAuthenticated: true });

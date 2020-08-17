@@ -62,7 +62,7 @@ const Inventory = () => {
   const deleteItem = id => {
     API.deleteItem(id, authConfig)
       .then(response => {
-        const updatedInventory = userData.items.filter(item => item._id != response.data.data._id);
+        const updatedInventory = userData.items.filter(item => item._id !== response.data.data._id);
         const updatedUser = userData;
         updatedUser.items = updatedInventory;
         setUserData({ ...updatedUser, isAuthenticated: true });
