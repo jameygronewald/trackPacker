@@ -40,7 +40,6 @@ const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
       <Grow in={true}>
         <Card style={{opacity: '0.8', boxShadow: '10px 10px 5px grey'}} className={`${classes.root} ${classes.media}`} variant="outlined">
           <CardContent>
-            
             <Typography
               className={classes.title}
               variant="h3"
