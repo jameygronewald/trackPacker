@@ -7,7 +7,7 @@ const ProfileLink = ({ link }) => {
   return (
     <Box
       alignItems="center"
-      justifyContent="center"
+      /* justifyContent="center" */
       display="flex"
       p={1}
       mx="auto"
