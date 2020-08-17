@@ -11,53 +11,47 @@ import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 400,
-    height: 500,
+    width: "100%",
     /* margin: 'auto' */
   },
   title: {
     flexGrow: 1,
     fontFamily: "Montserrat",
-    textAlign: "center",
-     color: 'whitesmoke' 
+    /* textAlign: "center", */
+    /* color: 'whitesmoke'  */
   },
   button: {
     justifyContent: "center",
   },
   media: {
-    
-     backgroundImage: `url(${"https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"})`, 
-     /* backgroundRepeat: "no-repeat", */
-   /*  objectFit: 'cover', */
-    /* paddingTop: '40.25%',  // 16:9, */
+    /*   backgroundImage: `url(${"https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"})`, 
+     backgroundRepeat: "no-repeat", 
+    objectFit: 'cover',  */
   },
 }));
-const ExcursionCard = ({
-  deleteExcursion,
-  excursionId,
-  excursionName,
-}) => {
+const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
   const classes = useStyles();
   return (
     <>
       <Grow in="true">
-        <Card className={`${classes.root} ${classes.media}`} variant="outlined">
+        <Card style={{opacity: '0.8', boxShadow: '10px 10px 5px grey'}} className={`${classes.root} ${classes.media}`} variant="outlined">
           <CardContent>
+            
             <Typography
               className={classes.title}
               variant="h3"
               color="textSecondary"
             >
-              {excursionName}
+              Justin's { excursionName } Excursion
             </Typography>
             <Divider className={classes.title} variant="middle" />
           </CardContent>
           <CardActions>
             <Link to={`/Excursions/${excursionId}`}>
-              <Button className={classes.title}>View </Button>
+              <Button /* className={classes.title} */>View </Button>
             </Link>
             <Button
-            className={classes.title}
+              /* className={classes.title} */
               onClick={() => {
                 deleteExcursion(excursionId);
               }}
