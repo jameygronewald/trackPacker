@@ -5,6 +5,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +32,17 @@ const ExcursionInventoryWishList = ({ wishListName, wishListStatus }) => {
             <List>
               <ListItem>
                 <ListItemText primary={wishListName} />
-                <ListItemSecondaryAction></ListItemSecondaryAction>
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => {
+                      console.log("Click!")
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
               </ListItem>
             </List>
           </div>
