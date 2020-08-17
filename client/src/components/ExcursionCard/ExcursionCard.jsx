@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
@@ -8,7 +8,7 @@ import CardActions from "@material-ui/core/CardActions";
 import { makeStyles } from "@material-ui/core/styles";
 import Grow from "@material-ui/core/Grow";
 import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
+import { UserContext } from "../../utils/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,9 +32,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
   const classes = useStyles();
+
+  const { userData } = useContext(UserContext);
+
   return (
     <>
-      <Grow in="true">
+      <Grow in={true}>
         <Card style={{opacity: '0.8', boxShadow: '10px 10px 5px grey'}} className={`${classes.root} ${classes.media}`} variant="outlined">
           <CardContent>
             
@@ -43,7 +46,7 @@ const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
               variant="h3"
               color="textSecondary"
             >
-              Justin's { excursionName } Excursion
+              {userData.firstName}'s { excursionName } Excursion
             </Typography>
             <Divider className={classes.title} variant="middle" />
           </CardContent>
