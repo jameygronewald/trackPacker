@@ -6,7 +6,7 @@ const { verifyToken } = require("../client/src/utils/tokenHelper");
 router.get("/api/inventory", (req, res) => {
   try {
     verifyToken(req.headers.auth);
-    let userId = verifyToken(req.headers.auth).data;
+    const userId = verifyToken(req.headers.auth).data;
     db.User.findOne({ _id: userId })
       .populate("items")
       .then(userData => {
