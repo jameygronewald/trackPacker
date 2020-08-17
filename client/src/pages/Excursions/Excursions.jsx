@@ -79,13 +79,14 @@ const Excursions = ({ history }) => {
             userData.excursions.map((excursion) => (
               <Grid item xs={12} sm={12}>
                 <Box
-                  alignItems="center"
-                  justifyContent="center"
+                   alignItems="center"
+                  justifyContent="center" 
                   display="flex"
                   p={1}
                   mx="auto"
                 >
                   <ExcursionCard
+                   randomImg='https://source.unsplash.com/1600x900/?nature,Utah'
                     excursionId={excursion._id}
                     excursionName={excursion.name}
                     deleteExcursion={deleteExcursion}

@@ -13,12 +13,14 @@ import Box from "@material-ui/core/Box";
 import User from "../../components/User/User";
 import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
+import { useEffect } from "react";
 
 const Inventory = () => {
   const [newItem, setNewItem] = useState({
     name: "",
     status: "Inventory",
   });
+
 
   const { userToken, userData, setUserData } = useContext(UserContext);
 
@@ -108,8 +110,9 @@ const Inventory = () => {
                 id="standard-basic"
                 label="Add New Item"
                 name="newItem"
-                refs="textEl"
+                refs="textEl" 
                 inputRef={textInput}
+                type='text'
                 placeholder="Add an Item"
                 onChange={handleChange}
                 style={{ color: "#13160e", borderColor: "#13160e" }}
@@ -117,7 +120,7 @@ const Inventory = () => {
               <Button
                 onClick={() => {
                   setTimeout(() => {
-                    textInput.current.value = "";
+                    textInput.current.value = '';
                   }, 100);
                 }}
                 type="submit"
