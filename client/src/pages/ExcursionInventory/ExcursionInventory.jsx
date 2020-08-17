@@ -27,10 +27,10 @@ const ExcursionInventory = () => {
   useEffect(() => {
     API.getExcursion(id)
       .then(response => {
-        console.log(response.data.data);
+        // console.log(response.data.data);
         const excursionState = response.data.data;
         setCurrentExcursion(excursionState);
-        console.log(currentExcursion);
+        // console.log(currentExcursion);
       })
       .catch(err => {
         console.log(err);
@@ -42,11 +42,11 @@ const ExcursionInventory = () => {
     const itemObj = { items: currentExcursionData.items };
     API.updateExcursionInventory(currentExcursionData._id, itemObj)
       .then(response => {
-        console.log("back data: ", response.data.data);
+        // console.log("back data: ", response.data.data);
         setCurrentExcursion(response.data.data);
-        console.log("state set", currentExcursion);
+        // console.log("state set", currentExcursion);
         currentExcursionData = response.data.data;
-        console.log("mutated var", currentExcursionData);
+        // console.log("mutated var", currentExcursionData);
         setUserData({ ...userData, isAuthenticated: true });
       })
       .catch(err => {
@@ -54,25 +54,25 @@ const ExcursionInventory = () => {
       });
   };
 
-  const deleteFromExcursion = id => {
-    console.log(id);
-    console.log(currentExcursionData.items);
-    const updatedExcursionData = currentExcursionData.items.filter(itemId => itemId != id);
-    console.log(updatedExcursionData);
-    const excursionItemObj = { items: updatedExcursionData };
-    API.updateExcursionInventory(currentExcursionData._id, excursionItemObj)
-      .then(response => {
-        console.log("back data: ", response.data.data);
-        setCurrentExcursion(response.data.data);
-        console.log("state set", currentExcursion);
-        currentExcursionData = response.data.data;
-        console.log("mutated var", currentExcursionData);
-        setUserData({ ...userData, isAuthenticated: true });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  // const deleteFromExcursion = id => {
+  //   console.log(id);
+  //   console.log(currentExcursionData.items);
+  //   const updatedExcursionData = currentExcursionData.items.filter(itemId => itemId != id);
+  //   console.log(updatedExcursionData);
+  //   const excursionItemObj = { items: updatedExcursionData };
+  //   API.updateExcursionInventory(currentExcursionData._id, excursionItemObj)
+  //     .then(response => {
+  //       console.log("back data: ", response.data.data);
+  //       setCurrentExcursion(response.data.data);
+  //       console.log("state set", currentExcursion);
+  //       currentExcursionData = response.data.data;
+  //       console.log("mutated var", currentExcursionData);
+  //       setUserData({ ...userData, isAuthenticated: true });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <div>
@@ -104,9 +104,10 @@ const ExcursionInventory = () => {
                   .filter(item => item.status === "Inventory")
                   .map(item => (
                     <ExcursionInventoryList
+                      key={item._id}
                       itemName={item.name}
                       itemId={item._id}
-                      deleteFromExcursion={deleteFromExcursion}
+                      // deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryList>
                   ))}
               <br></br>
@@ -116,9 +117,10 @@ const ExcursionInventory = () => {
                   .filter(item => item.status === "Wishlist")
                   .map(item => (
                     <ExcursionInventoryWishList
+                      key={item._id}
                       itemName={item.name}
                       itemId={item._id}
-                      deleteFromExcursion={deleteFromExcursion}
+                      // deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryWishList>
                   ))}
             </Grid>
