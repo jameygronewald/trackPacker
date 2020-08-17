@@ -15,7 +15,7 @@ const SignUp = ({ history }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const { setUserToken, setUserData, handleLogin } = useContext(UserContext);
+  const { handleLogin } = useContext(UserContext);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -26,10 +26,6 @@ const SignUp = ({ history }) => {
         const newUser = response.data.body.userObject;
         newUser.isAuthenticated = true;
         handleLogin(response.data.body.token.sessionToken, newUser)
-        // localStorage.setItem("sessionToken", response.data.body.token.sessionToken);
-        // setUserToken(response.data.body.token.sessionToken);
-        
-        // setUserData({ ...newUser, isAuthenticated: true });
         history.push("/Inventory");
       })
       .catch(err => {

@@ -13,7 +13,6 @@ import Box from "@material-ui/core/Box";
 import User from "../../components/User/User";
 import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
-import { useEffect } from "react";
 
 const Inventory = () => {
   const [newItem, setNewItem] = useState({
@@ -31,7 +30,7 @@ const Inventory = () => {
   // ADD ITEM TO INVENTORY
   const handleSubmit = event => {
     event.preventDefault();
-    API.addItem(newItem, { headers: { auth: userToken } })
+    API.addItem(newItem, authConfig(userToken))
       .then(response => {
         setUserData({ ...response.data.data, isAuthenticated: true });
         setNewItem({ name: "", status: "Inventory" });
@@ -49,7 +48,7 @@ const Inventory = () => {
     item.status === "Wishlist"
       ? (item.status = "Inventory")
       : (item.status = "Wishlist");
-    API.updateItem(item, authConfig)
+    API.updateItem(item, authConfig(userToken))
       .then(response => {
         setUserData({ ...userData, isAuthenticated: true });
       })
@@ -59,14 +58,9 @@ const Inventory = () => {
   };
 
   const deleteItem = id => {
-    API.deleteItem(id, authConfig)
+    API.deleteItem(id, authConfig(userToken))
       .then(response => {
-        const updatedInventory = userData.items.filter(
-          item => item._id !== response.data.data._id
-        );
-        const updatedUser = userData;
-        updatedUser.items = updatedInventory;
-        setUserData({ ...updatedUser, isAuthenticated: true });
+        setUserData({ ...response.data.data, isAuthenticated: true });
       })
       .catch(err => {
         console.log(err);
@@ -120,7 +114,7 @@ const Inventory = () => {
                 onClick={() => {
                   setTimeout(() => {
                     textInput.current.value = "";
-                  }, 300);
+                  }, 100);
                 }}
                 type="submit"
                 variant="outlined"
