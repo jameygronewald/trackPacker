@@ -9,7 +9,7 @@ import User from "../../components/User/User";
 import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
 import { UserContext } from "../../utils/UserContext";
 
-const ExcursionInventory = (props) => {
+const ExcursionInventory = () => {
   const { userData, setUserData } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
