@@ -30,12 +30,12 @@ export default function MenuListComposition() {
   const anchorRef = React.useRef(null);
 
 
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData, setUserToken } = useContext(UserContext);
 
   const handleLogout = () => {
     localStorage.clear();
     setUserData({ isAuthenticated: false });
-
+    setUserToken("");
     setOpen(false);
   };
 

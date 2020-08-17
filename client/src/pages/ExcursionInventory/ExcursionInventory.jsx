@@ -26,46 +26,50 @@ const ExcursionInventory = () => {
 
   useEffect(() => {
     API.getExcursion(id)
-      .then((response) => {
-        const excursionInventoryView = response.data.data
-        setCurrentExcursion(excursionInventoryView);
-        console.log(currentExcursion)
+      .then(response => {
+        console.log(response.data.data);
+        const excursionState = response.data.data;
+        setCurrentExcursion(excursionState);
+        console.log(currentExcursion);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }, []);
 
-  const addToExcursion = (id) => {
+  const addToExcursion = id => {
     currentExcursionData.items.push(id);
     const itemObj = { items: currentExcursionData.items };
     API.updateExcursionInventory(currentExcursionData._id, itemObj)
-      .then((response) => {
+      .then(response => {
+        console.log("back data: ", response.data.data);
         setCurrentExcursion(response.data.data);
-        currentExcursionData = currentExcursion;
-        console.log(currentExcursionData);
-
+        console.log("state set", currentExcursion);
+        currentExcursionData = response.data.data;
+        console.log("mutated var", currentExcursionData);
         setUserData({ ...userData, isAuthenticated: true });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  const deleteFromExcursion = (id) => {
-    const updatedExcursionData = currentExcursionData.items.filter(
-      (item) => item._id == id
-    );
+  const deleteFromExcursion = id => {
+    console.log(id);
+    console.log(currentExcursionData.items);
+    const updatedExcursionData = currentExcursionData.items.filter(itemId => itemId != id);
+    console.log(updatedExcursionData);
     const excursionItemObj = { items: updatedExcursionData };
     API.updateExcursionInventory(currentExcursionData._id, excursionItemObj)
-      .then((response) => {
-        // console.log(response.data.data.items)
+      .then(response => {
+        console.log("back data: ", response.data.data);
         setCurrentExcursion(response.data.data);
-        currentExcursionData = currentExcursion;
-        console.log(currentExcursionData);
+        console.log("state set", currentExcursion);
+        currentExcursionData = response.data.data;
+        console.log("mutated var", currentExcursionData);
         setUserData({ ...userData, isAuthenticated: true });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -97,8 +101,8 @@ const ExcursionInventory = () => {
               <h2>Inventory for {currentExcursion.name}</h2>
               {currentExcursion.items &&
                 currentExcursion.items
-                  .filter((item) => item.status === "Inventory")
-                  .map((item) => (
+                  .filter(item => item.status === "Inventory")
+                  .map(item => (
                     <ExcursionInventoryList
                       itemName={item.name}
                       itemId={item._id}
@@ -109,8 +113,8 @@ const ExcursionInventory = () => {
               <h2>Wishlist for {currentExcursion.name}</h2>
               {currentExcursion.items &&
                 currentExcursion.items
-                  .filter((item) => item.status === "Wishlist")
-                  .map((item) => (
+                  .filter(item => item.status === "Wishlist")
+                  .map(item => (
                     <ExcursionInventoryWishList
                       itemName={item.name}
                       itemId={item._id}

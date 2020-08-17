@@ -23,14 +23,12 @@ router.get("/api/users", (req, res) => {
       .populate("items")
       .populate("excursions")
       .then(userData => {
-        console.log("FIRST", userData);
         const userObject = {
           firstName: userData[0].firstName,
           lastName: userData[0].lastName,
           items: userData[0].items,
           excursions: userData[0].excursions,
         };
-        console.log("SECOND", userObject);
         res.json({
           error: false,
           body: { userObject },
