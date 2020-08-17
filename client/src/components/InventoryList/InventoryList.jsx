@@ -75,7 +75,7 @@ export default function InteractiveList(props) {
                         </ListItemSecondaryAction>
                       </ListItem>
                     </>
-                  ))}
+                  )) || <Typography>No items currently stored in Inventory.</Typography>}
                   
             </List>
           </div>
@@ -123,7 +123,7 @@ export default function InteractiveList(props) {
                         </ListItemSecondaryAction>
                       </ListItem>
                     </>
-                  ))}
+                  )) || <Typography>No items currently stored in Wishlist.</Typography>}
             </List>
           </div>
         </Grid>
