@@ -59,7 +59,7 @@ const ExcursionInventory = () => {
     const excursionItemObj = { items: updatedExcursionData };
     API.updateExcursionInventory(currentExcursionData._id, excursionItemObj)
       .then((response) => {
-        // console.log(response.data.data.items)
+
         setCurrentExcursion(response.data.data);
         currentExcursionData = currentExcursion;
         console.log(currentExcursionData);
