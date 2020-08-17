@@ -13,8 +13,14 @@ const ExcursionInventory = (props) => {
   const { userData, setUserData } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
-  
-  const currentExcursionData = userData.excursions.reduce((excursionObject, excursion)=> excursion._id == excursionId ? excursionObject = {...excursion} : excursionObject = excursionObject, {});
+
+  const currentExcursionData = userData.excursions.reduce(
+    (excursionObject, excursion) =>
+      excursion._id == excursionId
+        ? (excursionObject = { ...excursion })
+        : (excursionObject = excursionObject),
+    {}
+  );
 
   const [currentExcursion, setCurrentExcursion] = useState({});
 
