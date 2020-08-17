@@ -9,6 +9,7 @@ import Box from "@material-ui/core/Box";
 import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
 import { Typography } from "@material-ui/core";
+import Divider from "@material-ui/core/Divider";
 
 const Excursions = ({ history }) => {
   const [newExcursion, setNewExcursion] = useState("");
@@ -59,11 +60,12 @@ const Excursions = ({ history }) => {
             alignItems="right"
             justifyContent="right"
             display="flex"
-            p={1}
+            p={2}
             mx="auto"
           >
             <form onSubmit={handleSubmit}>
               <TextField
+              size="small"
                 name="newExcursion"
                 placeholder="Add an Excursion"
                 onChange={handleChange}
@@ -71,15 +73,24 @@ const Excursions = ({ history }) => {
               <Button type="submit">Submit</Button>
             </form>
           </Box>
+          <Divider variant="middle" />
 
           {userData.excursions &&
             userData.excursions.map((excursion) => (
               <Grid item xs={12} sm={12}>
-                <ExcursionCard
-                  excursionId={excursion._id}
-                  excursionName={excursion.name}
-                  deleteExcursion={deleteExcursion}
-                />
+                <Box
+                  alignItems="center"
+                  justifyContent="center"
+                  display="flex"
+                  p={1}
+                  mx="auto"
+                >
+                  <ExcursionCard
+                    excursionId={excursion._id}
+                    excursionName={excursion.name}
+                    deleteExcursion={deleteExcursion}
+                  />
+                </Box>
               </Grid>
             ))}
         </Grid>

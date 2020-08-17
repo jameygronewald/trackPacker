@@ -40,12 +40,13 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
-              {/* <Slide direction="up" in={checked}> */}
+               
               {userData.items &&
                 userData.items
                   .filter(item => item.status === "Inventory")
                   .map((item, index) => (
                     <>
+                    <Slide direction="right" in='true'> 
                       <ListItem key={index}>
                         <ListItemText primary={item.name} />
                         <ListItemSecondaryAction>
@@ -74,8 +75,10 @@ export default function InteractiveList(props) {
                           </IconButton>
                         </ListItemSecondaryAction>
                       </ListItem>
+                      </Slide>
                     </>
                   ))}
+                  
             </List>
           </div>
         </Grid>

@@ -8,18 +8,24 @@ import CardActions from "@material-ui/core/CardActions";
 import { makeStyles } from "@material-ui/core/styles";
 import Grow from "@material-ui/core/Grow";
 
+
+
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     fontFamily: "Montserrat",
   },
+  card: {
+    /* backgroundColor: 'transparent', */
+    opacity: 0.9,
+  }
 }));
 const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
   const classes = useStyles();
   return (
     <>
       <Grow in="true">
-        <Card variant="outlined">
+        <Card className={classes.card} variant="outlined">
           <CardContent>
             <Typography
               className={classes.title}
@@ -53,6 +59,7 @@ const ExcursionCard = ({ deleteExcursion, excursionId, excursionName }) => {
           </CardActions>
         </Card>
       </Grow>
+
     </>
   );
 };
