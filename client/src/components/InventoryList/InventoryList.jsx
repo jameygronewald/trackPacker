@@ -41,7 +41,7 @@ export default function InteractiveList(props) {
             <List>
               {userData &&
                 userData.items &&
-                userData.items.length > 0 &&
+                userData.items.length > 0 ?
                 userData.items
                   .filter(item => item.status === "Inventory")
                   .map(item => (
@@ -75,7 +75,7 @@ export default function InteractiveList(props) {
                         </ListItemSecondaryAction>
                       </ListItem>
                     </>
-                  ))}
+                  )) : <Typography>No items currently stored in Inventory.</Typography>}
                   
             </List>
           </div>
@@ -89,7 +89,7 @@ export default function InteractiveList(props) {
             <List>
               {userData &&
                 userData.items &&
-                userData.items.length > 0 &&
+                userData.items.length > 0 ?
                 userData.items
                   .filter(item => item.status === "Wishlist")
                   .map(item => (
@@ -123,7 +123,7 @@ export default function InteractiveList(props) {
                         </ListItemSecondaryAction>
                       </ListItem>
                     </>
-                  ))}
+                  )) : <Typography>No items currently stored in Wishlist.</Typography>}
             </List>
           </div>
         </Grid>
