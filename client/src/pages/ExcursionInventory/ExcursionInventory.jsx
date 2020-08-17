@@ -24,6 +24,7 @@ const ExcursionInventory = () => {
   const { userData, setUserData, userToken } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
+  const classes = useStyles();
 
   const [currentExcursion, setCurrentExcursion] = useState({});
 
