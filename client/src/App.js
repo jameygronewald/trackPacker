@@ -24,8 +24,10 @@ function App() {
   };
 
   const getUserData = config => {
+    console.log(config);
     API.getUserInfo(config)
       .then(response => {
+        console.log(response);
         const userResponse = response.data.body.userObject;
         userResponse.isAuthenticated = true;
         setUserData(userResponse);
@@ -39,7 +41,7 @@ function App() {
     const token = localStorage.getItem("sessionToken");
     if (token) {
       setUserToken(token);
-      getUserData({headers: {auth: token}});
+      getUserData(authConfig(token));
     }
   }, []);
 

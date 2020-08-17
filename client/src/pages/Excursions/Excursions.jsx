@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { UserContext } from "../../utils/UserContext";
 import authConfig from "../../utils/authConfigHelper";
-import { Typography } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 
 const Excursions = () => {
@@ -79,13 +78,10 @@ const Excursions = () => {
             </form>
           </Box>
           <Divider variant="middle" />
-
           {userData.excursions &&
             userData.excursions.map((excursion) => (
-              <Grid item xs={12} sm={12}>
+              <Grid item xs={12} sm={12} key={excursion._id}>
                 <Box
-                  /*   alignItems="center"
-                  justifyContent="center"  */ 
                   display="flex"
                   p={1}
                   mx="auto"

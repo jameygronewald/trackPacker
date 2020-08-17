@@ -26,13 +26,13 @@ router.get("/api/items", (req, res) => {
 router.post("/api/items", (req, res) => {
   try {
     verifyToken(req.headers.auth);
-    let userId = verifyToken(req.headers.auth).data;
+    const userId = verifyToken(req.headers.auth).data;
     db.Item.create(req.body).then(newItemData => {
-      let newItemId = newItemData._id;
+      const newItemId = newItemData._id;
       db.User.findOne({ _id: userId }).then(data => {
-        let userItems = data.items;
+        const userItems = data.items;
         userItems.push(newItemId);
-        let userInventory = { items: userItems };
+        const userInventory = { items: userItems };
         db.User.findOneAndUpdate({ _id: userId }, userInventory, {
           new: true,
           useFindAndModify: false,

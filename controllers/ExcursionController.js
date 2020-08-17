@@ -3,73 +3,31 @@ const router = express.Router();
 const db = require("../models");
 const { verifyToken } = require("../client/src/utils/tokenHelper");
 
-// Find all excursions
-router.get("/api/excursions/all", (req, res) => {
-  db.Excursion.find({})
-    .then(excursionData => {
-      res.json({
-        error: false,
-        data: excursionData,
-        message: "Successfully retrieved all excursion data.",
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error retrieving excursion data.",
-      });
-    });
-});
-
-router.get("/api/excursions", (req, res) => {
+// Find an excursion and populate existing items
+router.get("/api/excursions/:id", (req, res) => {
   try {
     verifyToken(req.headers.auth);
-    let userId = verifyToken(req.headers.auth).data;
-    db.User.findOne({ _id: userId })
-      .populate("excursions")
-      .then(userData => {
-        res.status(200).json({
+    const userId = verifyToken(req.headers.auth).data;
+    db.Excursion.findOne({ _id: req.params.id })
+      .populate("items")
+      .then(excursionData => {
+        res.json({
           error: false,
-          data: userData,
-          message: "Successfully retrieved user's excursions.",
+          data: excursionData,
+          message: "Successfully retrieved excursion data.",
         });
       })
       .catch(err => {
         res.status(500).json({
           error: true,
           data: null,
-          message: "Error retrieving user's excursions.",
+          message: "Error retrieving excursion data.",
         });
       });
   } catch (error) {
     console.error(error);
-    res.status(401).json({
-      error: true,
-      data: null,
-      message: "Cannot retrieve excursions.",
-    });
+    res.status(401).send("Error :" + error);
   }
-});
-
-// Find an excursion and populate existing items
-router.get("/api/excursions/:id", (req, res) => {
-  db.Excursion.findOne({ _id: req.params.id })
-    .populate("items")
-    .then(excursionData => {
-      res.json({
-        error: false,
-        data: excursionData,
-        message: "Successfully retrieved excursion data.",
-      });
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error retrieving excursion data.",
-      });
-    });
 });
 
 // Create new excursion
@@ -116,27 +74,34 @@ router.post("/api/excursions", (req, res) => {
     res.status(401).send("Error :" + error);
   }
 });
-
+// Update excursion inventory/wishlist
 router.put("/api/excursions/:id", (req, res) => {
-  db.Excursion.findOneAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-    useFindAndModify: false,
-  })
-    .populate("items")
-    .then(excursionData => {
-      res.json({
-        error: false,
-        data: excursionData,
-        message: "Successfully updated excursion data.",
-      });
+  try {
+    verifyToken(req.headers.auth);
+    const userId = verifyToken(req.headers.auth).data;
+    db.Excursion.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+      useFindAndModify: false,
     })
-    .catch(err => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error updating excursion data.",
+      .populate("items")
+      .then(excursionData => {
+        res.json({
+          error: false,
+          data: excursionData,
+          message: "Successfully updated excursion data.",
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: true,
+          data: null,
+          message: "Error updating excursion data.",
+        });
       });
-    });
+  } catch (error) {
+    console.error(error);
+    res.status(401).send("Error :" + error);
+  }
 });
 
 // Delete an excursion

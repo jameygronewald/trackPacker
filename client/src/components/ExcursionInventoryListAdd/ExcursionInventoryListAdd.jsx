@@ -34,8 +34,8 @@ export default function InteractiveList(props) {
         <Grid item xs={12} sm={6}>
           <div className={classes.demo}>
             <List  style={{ opacity: "0.8", boxShadow: "10px 10px 5px grey" }}>
-              {userData.items.map((item) => (
-                <>
+              {userData.items && userData.items.map(item => (
+                <div key={item._id}>
                   <ListItem>
                     <ListItemText primary={item.name} />
                     <ListItemSecondaryAction>
@@ -55,7 +55,7 @@ export default function InteractiveList(props) {
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
-                </>
+                </div>
               ))}
             </List>
           </div>

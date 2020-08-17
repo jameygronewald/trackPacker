@@ -95,8 +95,9 @@ const Inventory = () => {
               align="center"
               onSubmit={handleSubmit}
               style={{
-                borderStyle: "outset",
-                borderColor: "#a1a1a1",
+                boxShadow: '10px 10px 5px grey',
+                borderStyle: "solid",
+                borderColor: "#13160e"
               }}
             >
               <TextField

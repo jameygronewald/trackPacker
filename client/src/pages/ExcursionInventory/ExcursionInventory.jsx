@@ -7,6 +7,7 @@ import ExcursionInventoryListAdd from "../../components/ExcursionInventoryListAd
 import ExcursionInventoryList from "../../components/ExcursionInventoryList/ExcursionInventoryList";
 import User from "../../components/User/User";
 import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
+import authConfig from "../../utils/authConfigHelper";
 import { UserContext } from "../../utils/UserContext";
 import Divider from "@material-ui/core/Divider";
 import { Typography } from "@material-ui/core";
@@ -20,25 +21,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExcursionInventory = () => {
-  const classes = useStyles();
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData, setUserData, userToken } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
-
-  let currentExcursionData = userData.excursions.reduce(
-    (excursionObject, excursion) =>
-      excursion._id === excursionId
-        ? (excursionObject = { ...excursion })
-        : excursionObject,
-    {}
-  );
 
   const [currentExcursion, setCurrentExcursion] = useState({});
 
   useEffect(() => {
-    API.getExcursion(id)
-      .then((response) => {
-        // console.log(response.data.data);
+    console.log(authConfig(localStorage.getItem("sessionToken")));
+    API.getExcursion(id, authConfig(localStorage.getItem("sessionToken")))
+      .then(response => {
+        console.log(response);
         const excursionState = response.data.data;
         setCurrentExcursion(excursionState);
         // console.log(currentExcursion);
@@ -48,11 +41,18 @@ const ExcursionInventory = () => {
       });
   }, []);
 
-  const addToExcursion = (id) => {
+  const addToExcursion = id => {
+    let currentExcursionData = userData.excursions.reduce(
+      (excursionObject, excursion) =>
+        excursion._id === excursionId
+          ? (excursionObject = { ...excursion })
+          : (excursionObject),
+      {}
+    );
     currentExcursionData.items.push(id);
     const itemObj = { items: currentExcursionData.items };
-    API.updateExcursionInventory(currentExcursionData._id, itemObj)
-      .then((response) => {
+    API.updateExcursionInventory(currentExcursionData._id, itemObj, authConfig(userToken))
+      .then(response => {
         // console.log("back data: ", response.data.data);
         setCurrentExcursion(response.data.data);
         // console.log("state set", currentExcursion);
@@ -71,7 +71,7 @@ const ExcursionInventory = () => {
   //   const updatedExcursionData = currentExcursionData.items.filter(itemId => itemId != id);
   //   console.log(updatedExcursionData);
   //   const excursionItemObj = { items: updatedExcursionData };
-  //   API.updateExcursionInventory(currentExcursionData._id, excursionItemObj)
+  //   API.updateExcursionInventory(currentExcursionData._id, excursionItemObj, authConfig(userToken))
   //     .then(response => {
   //       console.log("back data: ", response.data.data);
   //       setCurrentExcursion(response.data.data);

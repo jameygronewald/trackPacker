@@ -8,8 +8,24 @@ import Typography from "@material-ui/core/Typography";
 import { useState, useContext } from "react";
 import { UserContext } from "../../utils/UserContext";
 import API from "../../utils/API";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+
+    margin: theme.spacing(1),
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+  paper: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
 const SignUp = ({ history }) => {
+  const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -110,7 +126,7 @@ const SignUp = ({ history }) => {
               p={2}
               mx="auto"
             >
-              <Button type="submit">
+              <Button type="submit" className={classes.button} variant="contained">
                 Create Account
               </Button>
             </Box>
@@ -121,9 +137,11 @@ const SignUp = ({ history }) => {
               p={2}
               mx="auto"
             >
-              <Button>
-                <Link href="/">Back To Login</Link>
+                <Link href="/">
+              <Button className={classes.button} variant="contained">
+                Back To Login
               </Button>
+                </Link>
             </Box>
           </form>
         </Box>

@@ -29,7 +29,6 @@ router.get("/api/users", (req, res) => {
           items: userData[0].items,
           excursions: userData[0].excursions,
         };
-        console.log(userObject);
         res.json({
           error: false,
           body: { userObject },
