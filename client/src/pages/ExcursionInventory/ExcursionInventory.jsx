@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ExcursionInventory = () => {
+  const classes = useStyles();
+
   const { userData, setUserData, userToken } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
