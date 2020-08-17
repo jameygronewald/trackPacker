@@ -12,7 +12,7 @@ const ProfileLink = ({ link }) => {
       p={1}
       mx="auto"
     >
-      <Link underline='hover' to={`/${link}`}>
+      <Link  underline='none'  to={`/${link}`}>
         <Button>{link}</Button>
       </Link>
     </Box>
