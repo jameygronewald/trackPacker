@@ -18,7 +18,6 @@ router.post("/api/login", (req, res) => {
           items: userData.items,
           excursions: userData.excursions,
         };
-        console.log(userObject)
         res.status(201).json({
           error: false,
           body: { userObject, token },

@@ -13,7 +13,7 @@ const Home = ({ history }) => {
     password: "",
   });
 
-  const { setUserToken, setUserData, userData } = useContext(UserContext);
+  const { setUserToken, setUserData } = useContext(UserContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setUserInfo({ ...userInfo, [name]: value });
@@ -26,8 +26,8 @@ const Home = ({ history }) => {
         localStorage.setItem("sessionToken", response.data.body.token.sessionToken);
         setUserToken(response.data.body.token.sessionToken);
         const loggedInUser = response.data.body.userObject;
-        setUserData({ /* ...userData, */ ...loggedInUser, isAuthenticated: true });
-        history.push("/Profile");
+        setUserData({ ...loggedInUser, isAuthenticated: true });
+        history.push("/Inventory");
       })
       .catch(err => {
         console.log(err);
@@ -77,7 +77,7 @@ const Home = ({ history }) => {
               mx="auto"
             >
               <Button type="submit">
-                LOGIN{/*<Link href="/Profile">Log In</Link> */}
+                LOGIN
               </Button>
             </Box>
             <Box

@@ -21,10 +21,9 @@ const Inventory = () => {
     status: "Inventory",
   });
 
+  const { userData, setUserData } = useContext(UserContext);
 
-  const { userToken, userData, setUserData } = useContext(UserContext);
-
-  let textInput = useRef(null);
+  let textInput = useRef("");
 
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });

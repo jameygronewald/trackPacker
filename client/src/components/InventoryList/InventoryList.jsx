@@ -11,7 +11,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { UserContext } from "../../utils/UserContext";
-import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,10 +43,9 @@ export default function InteractiveList(props) {
               {userData.items &&
                 userData.items
                   .filter(item => item.status === "Inventory")
-                  .map((item, index) => (
+                  .map((item) => (
                     <>
-                    <Slide direction="right" in='true'> 
-                      <ListItem key={index}>
+                      <ListItem key={item._id}>
                         <ListItemText primary={item.name} />
                         <ListItemSecondaryAction>
                           <IconButton
@@ -75,7 +73,6 @@ export default function InteractiveList(props) {
                           </IconButton>
                         </ListItemSecondaryAction>
                       </ListItem>
-                      </Slide>
                     </>
                   ))}
                   
@@ -92,9 +89,9 @@ export default function InteractiveList(props) {
               {userData.items &&
                 userData.items
                   .filter(item => item.status === "Wishlist")
-                  .map((item, index) => (
+                  .map((item) => (
                     <>
-                      <ListItem key={index}>
+                      <ListItem key={item._id}>
                         <ListItemText primary={item.name} />
                         <ListItemSecondaryAction>
                           <IconButton
