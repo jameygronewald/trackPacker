@@ -33,7 +33,7 @@ export default function InteractiveList(props) {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <div className={classes.demo}>
-            <List>
+            <List  style={{ opacity: "0.8", boxShadow: "10px 10px 5px grey" }}>
               {userData.items && userData.items.map(item => (
                 <div key={item._id}>
                   <ListItem>

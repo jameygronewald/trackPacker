@@ -9,6 +9,16 @@ import User from "../../components/User/User";
 import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
 import authConfig from "../../utils/authConfigHelper";
 import { UserContext } from "../../utils/UserContext";
+import Divider from "@material-ui/core/Divider";
+import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    /*  flexGrow: 1, */
+    fontFamily: "Montserrat",
+  },
+}));
 
 const ExcursionInventory = () => {
   const { userData, setUserData, userToken } = useContext(UserContext);
@@ -26,7 +36,7 @@ const ExcursionInventory = () => {
         setCurrentExcursion(excursionState);
         // console.log(currentExcursion);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, []);
@@ -50,7 +60,7 @@ const ExcursionInventory = () => {
         // console.log("mutated var", currentExcursionData);
         setUserData({ ...userData, isAuthenticated: true });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -79,7 +89,7 @@ const ExcursionInventory = () => {
     <div>
       <Grid container spacing={1}>
         <Grid item xs={12}></Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <User />
         </Grid>
         <Grid item xs={12} sm={9}>
@@ -87,38 +97,46 @@ const ExcursionInventory = () => {
             alignItems="center"
             justifyContent="center"
             display="flex"
-            p={2}
+            p={0.8}
             mx="auto"
-          ></Box>
-          <h1>{currentExcursion.name}</h1>
+          >
+            <Typography className={classes.title} variant="h3">
+              {currentExcursion.name}
+            </Typography>
+          </Box>
+          <Divider variant="middle" />
+
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
-              <h2>Inventory</h2>
+              <Typography className={classes.title} variant="h5">
+                Inventory
+              </Typography>
               <ExcursionInventoryListAdd
                 addToExcursion={addToExcursion}
               ></ExcursionInventoryListAdd>
             </Grid>
+
             <Grid item xs={12} sm={6}>
-              <h2>Inventory for {currentExcursion.name}</h2>
+              <Typography className={classes.title} variant="h5">Inventory for {currentExcursion.name}</Typography>
               {currentExcursion.items &&
                 currentExcursion.items
-                  .filter(item => item.status === "Inventory")
-                  .map(item => (
+                  .filter((item) => item.status === "Inventory")
+                  .map((item, index) => (
                     <ExcursionInventoryList
-                      key={item._id}
+                      key={index}
                       itemName={item.name}
                       itemId={item._id}
                       // deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryList>
                   ))}
               <br></br>
-              <h2>Wishlist for {currentExcursion.name}</h2>
+              <Typography className={classes.title} variant="h5">Wishlist for {currentExcursion.name}</Typography>
               {currentExcursion.items &&
                 currentExcursion.items
-                  .filter(item => item.status === "Wishlist")
-                  .map(item => (
+                  .filter((item) => item.status === "Wishlist")
+                  .map((item, index) => (
                     <ExcursionInventoryWishList
-                      key={item._id}
+                      key={index}
                       itemName={item.name}
                       itemId={item._id}
                       // deleteFromExcursion={deleteFromExcursion}
