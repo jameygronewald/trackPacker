@@ -25,7 +25,7 @@ router.get("/api/inventory", (req, res) => {
       });
   } catch (error) {
     console.error(error);
-    res.status(401).redirect("/");
+    res.status(401);
   }
 });
 
