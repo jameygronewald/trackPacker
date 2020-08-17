@@ -14,7 +14,7 @@ const ExcursionInventory = () => {
   const { id } = useParams();
   const excursionId = id;
 
-  const currentExcursionData = userData.excursions.reduce(
+  let currentExcursionData = userData.excursions.reduce(
     (excursionObject, excursion) =>
       excursion._id == excursionId
         ? (excursionObject = { ...excursion })
@@ -27,7 +27,9 @@ const ExcursionInventory = () => {
   useEffect(() => {
     API.getExcursion(id)
       .then((response) => {
-        setCurrentExcursion(response.data.data);
+        const excursionInventoryView = response.data.data
+        setCurrentExcursion(excursionInventoryView);
+        console.log(currentExcursion)
       })
       .catch((err) => {
         console.log(err);
@@ -36,10 +38,31 @@ const ExcursionInventory = () => {
 
   const addToExcursion = (id) => {
     currentExcursionData.items.push(id);
-    let itemObj = { items: currentExcursionData.items };
+    const itemObj = { items: currentExcursionData.items };
     API.updateExcursionInventory(currentExcursionData._id, itemObj)
       .then((response) => {
         setCurrentExcursion(response.data.data);
+        currentExcursionData = currentExcursion;
+        console.log(currentExcursionData);
+
+        setUserData({ ...userData, isAuthenticated: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteFromExcursion = (id) => {
+    const updatedExcursionData = currentExcursionData.items.filter(
+      (item) => item._id == id
+    );
+    const excursionItemObj = { items: updatedExcursionData };
+    API.updateExcursionInventory(currentExcursionData._id, excursionItemObj)
+      .then((response) => {
+        // console.log(response.data.data.items)
+        setCurrentExcursion(response.data.data);
+        currentExcursionData = currentExcursion;
+        console.log(currentExcursionData);
         setUserData({ ...userData, isAuthenticated: true });
       })
       .catch((err) => {
@@ -79,6 +102,7 @@ const ExcursionInventory = () => {
                     <ExcursionInventoryList
                       itemName={item.name}
                       itemId={item._id}
+                      deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryList>
                   ))}
               <br></br>
@@ -88,8 +112,9 @@ const ExcursionInventory = () => {
                   .filter((item) => item.status === "Wishlist")
                   .map((item) => (
                     <ExcursionInventoryWishList
-                      wishListName={item.name}
-                      wishListId={item._id} 
+                      itemName={item.name}
+                      itemId={item._id}
+                      deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryWishList>
                   ))}
             </Grid>
