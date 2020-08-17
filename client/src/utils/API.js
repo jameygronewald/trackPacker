@@ -2,18 +2,6 @@ import axios from "axios";
 
 export default {
 
-  addUser: function (user) {
-    return axios.post("/api/users", user);
-  },
-
-  getUserInfo: function (config) {
-    return axios.get("api/users", config);
-  },
-
-  getUserInventory: function (config) {
-    return axios.get("api/inventory", config)
-  },
-
   loginUser: function (user) {
     return axios.post("/api/login", user);
   },
@@ -21,13 +9,9 @@ export default {
   signUpUser: function (user) {
     return axios.post("/api/signup", user)
   },
-
-  getItems: function () {
-    return axios.get("/api/items");
-  },
-
-  getUserItem: function () {
-    return axios.get("/api/items/:id");
+  
+  getUserInfo: function (config) {
+    return axios.get("api/users", config);
   },
 
   addItem: function (item, config) {

@@ -45,8 +45,8 @@ export default function InteractiveList(props) {
                 userData.items
                   .filter(item => item.status === "Inventory")
                   .map(item => (
-                    <>
-                      <ListItem key={item._id}>
+                    <div key={item._id}>
+                      <ListItem>
                         <ListItemText primary={item.name} />
                         <ListItemSecondaryAction>
                           <IconButton
@@ -74,7 +74,7 @@ export default function InteractiveList(props) {
                           </IconButton>
                         </ListItemSecondaryAction>
                       </ListItem>
-                    </>
+                    </div>
                   )) : <Typography>No items currently stored in Inventory.</Typography>}
                   
             </List>
@@ -93,8 +93,8 @@ export default function InteractiveList(props) {
                 userData.items
                   .filter(item => item.status === "Wishlist")
                   .map(item => (
-                    <>
-                      <ListItem key={item._id}>
+                    <div key={item._id}>
+                      <ListItem>
                         <ListItemText primary={item.name} />
                         <ListItemSecondaryAction>
                           <IconButton
@@ -122,7 +122,7 @@ export default function InteractiveList(props) {
                           </IconButton>
                         </ListItemSecondaryAction>
                       </ListItem>
-                    </>
+                    </div>
                   )) : <Typography>No items currently stored in Wishlist.</Typography>}
             </List>
           </div>
