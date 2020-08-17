@@ -7,12 +7,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { UserContext } from "../../utils/UserContext";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     maxWidth: 752,
@@ -36,24 +36,29 @@ export default function InteractiveList(props) {
         <Grid item xs={12} sm={6}>
           <div className={classes.demo}>
             <List>
-              {userData.items
-                .map((item) => (
-                  <>
-                    <ListItem>
-                      <ListItemText primary={item.name} />
-                      <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="delete">
-                        {item.status === "Wishlist" && (<FavoriteIcon style={{paddingRight: "10px"}}></FavoriteIcon>)}
-                          <AddBoxIcon
-                            onClick={() => {
-                              props.addToExcursion(item._id);
-                            }}
-                          />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </>
-                ))}
+              {userData.items.map(item => (
+                <>
+                  <ListItem>
+                    <ListItemText primary={item.name} />
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => {
+                          props.addToExcursion(item._id);
+                        }}
+                      >
+                        {item.status === "Wishlist" && (
+                          <FavoriteIcon
+                            style={{ paddingRight: "10px" }}
+                          ></FavoriteIcon>
+                        )}
+                        <AddBoxIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                </>
+              ))}
             </List>
           </div>
         </Grid>
