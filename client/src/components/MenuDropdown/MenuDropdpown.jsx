@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
@@ -8,6 +8,7 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
+import { UserContext } from "../../utils/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,14 @@ export default function MenuListComposition() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+
+
+  const { userData, setUserData } = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    setUserData({ isAuthenticated: false });
+  };
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -101,7 +110,9 @@ export default function MenuListComposition() {
                     <Link to="/Excursions">
                       <MenuItem onClick={handleClose}>My Excursions</MenuItem>
                     </Link>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <Link to="/">
+                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                    </Link>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
