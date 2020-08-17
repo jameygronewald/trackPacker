@@ -9,7 +9,7 @@ import User from "../../components/User/User";
 import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
 import { UserContext } from "../../utils/UserContext";
 
-const ExcursionInventory = (props) => {
+const ExcursionInventory = () => {
   const { userData, setUserData } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
@@ -73,7 +73,6 @@ const ExcursionInventory = (props) => {
                     <ExcursionInventoryList
                       itemName={item.name}
                       itemId={item._id}
-                      addToExcursion={addToExcursion}
                     ></ExcursionInventoryList>
                   ))}
               <br></br>
@@ -84,8 +83,7 @@ const ExcursionInventory = (props) => {
                   .map((item) => (
                     <ExcursionInventoryWishList
                       wishListName={item.name}
-                      wishListId={item._id}
-                      addToExcursion={addToExcursion}
+                      wishListId={item._id} 
                     ></ExcursionInventoryWishList>
                   ))}
             </Grid>
