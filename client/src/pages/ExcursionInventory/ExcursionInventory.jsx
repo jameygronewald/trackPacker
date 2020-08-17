@@ -18,7 +18,7 @@ const ExcursionInventory = () => {
     (excursionObject, excursion) =>
       excursion._id === excursionId
         ? (excursionObject = { ...excursion })
-        : (excursionObject = excursionObject),
+        : (excursionObject),
     {}
   );
 

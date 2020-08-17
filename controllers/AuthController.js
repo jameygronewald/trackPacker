@@ -7,8 +7,8 @@ const { generateToken } = require("../client/src/utils/tokenHelper");
 router.post("/api/login", (req, res) => {
   const formattedEmail = req.body.email.toLowerCase();
   db.User.findOne({ email: formattedEmail })
-    .populate('items')
-    .populate('excursions')
+    .populate("items")
+    .populate("excursions")
     .then(userData => {
       if (userData.password === req.body.password) {
         const token = generateToken(userData._id);

@@ -20,21 +20,19 @@ const Inventory = () => {
     status: "Inventory",
   });
 
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData, setUserData, userToken } = useContext(UserContext);
 
-  let textInput = useRef("");
+  let textInput = useRef(null);
 
   const handleChange = ({ target: { value } }) => {
     setNewItem({ ...newItem, name: value });
   };
-// ADD ITEM TO INVENTORY
+  // ADD ITEM TO INVENTORY
   const handleSubmit = event => {
     event.preventDefault();
-    API.addItem(newItem, authConfig)
+    API.addItem(newItem, { headers: { auth: userToken } })
       .then(response => {
-        const updatedUser = userData;
-        updatedUser.items.push(response.data.data);
-        setUserData({ ...updatedUser, isAuthenticated: true});
+        setUserData({ ...response.data.data, isAuthenticated: true });
         setNewItem({ name: "", status: "Inventory" });
       })
       .catch(err => console.log(err));
@@ -62,7 +60,9 @@ const Inventory = () => {
   const deleteItem = id => {
     API.deleteItem(id, authConfig)
       .then(response => {
-        const updatedInventory = userData.items.filter(item => item._id !== response.data.data._id);
+        const updatedInventory = userData.items.filter(
+          item => item._id !== response.data.data._id
+        );
         const updatedUser = userData;
         updatedUser.items = updatedInventory;
         setUserData({ ...updatedUser, isAuthenticated: true });
@@ -118,7 +118,7 @@ const Inventory = () => {
                 onClick={() => {
                   setTimeout(() => {
                     textInput.current.value = "";
-                  }, 100);
+                  }, 1000);
                 }}
                 type="submit"
                 variant="outlined"
@@ -143,10 +143,7 @@ const Inventory = () => {
                 label="Add to Wishlist"
               />
             </form>
-            <InventoryList
-              updateItem={updateItem}
-              deleteItem={deleteItem}
-            />
+            <InventoryList updateItem={updateItem} deleteItem={deleteItem} />
           </Box>
         </Grid>
       </Grid>
