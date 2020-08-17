@@ -17,29 +17,43 @@ function App() {
     isAuthenticated: false,
   });
 
-const getUserData = config => {
-  API.getUserInfo(config)
-  .then(response => {
-      const userResponse = response.data.body.userObject || undefined;
-      userResponse.isAuthenticated = true;
-        setUserData({ ...userResponse, isAuthenticated: true });
-    })
-    .catch((err) => {
-      console.log(err)
-    });
-};
+  const handleLogin = (token, user) => {
+    setUserToken(token);
+    localStorage.setItem("sessionToken", token);
+    setUserData(user);
+  };
+
+  const getUserData = config => {
+    API.getUserInfo(config)
+      .then(response => {
+        const userResponse = response.data.body.userObject;
+        userResponse.isAuthenticated = true;
+        setUserData(userResponse);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    if (localStorage.getItem("sessionToken")) {
-      getUserData(authConfig);
+    const token = localStorage.getItem("sessionToken");
+    if (token) {
+      setUserToken(token);
+      getUserData({headers: {auth: token}});
     }
-  }, [userData.isAuthenticated]);
+  }, []);
 
   return (
     <div>
       <Router>
         <UserContext.Provider
-          value={{ userToken, setUserToken, userData, setUserData }}
+          value={{
+            userToken,
+            setUserToken,
+            userData,
+            setUserData,
+            handleLogin,
+          }}
         >
           <Nav />
           <Route exact path="/" component={Home} />
