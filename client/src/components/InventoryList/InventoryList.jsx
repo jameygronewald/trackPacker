@@ -11,6 +11,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { UserContext } from "../../utils/UserContext";
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,6 +40,7 @@ export default function InteractiveList(props) {
           </Typography>
           <div className={classes.demo}>
             <List>
+              {/* <Slide direction="up" in={checked}> */}
               {userData.items &&
                 userData.items
                   .filter(item => item.status === "Inventory")
