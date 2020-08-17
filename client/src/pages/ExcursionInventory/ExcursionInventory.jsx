@@ -7,10 +7,11 @@ import ExcursionInventoryListAdd from "../../components/ExcursionInventoryListAd
 import ExcursionInventoryList from "../../components/ExcursionInventoryList/ExcursionInventoryList";
 import User from "../../components/User/User";
 import ExcursionInventoryWishList from "../../components/ExcursionInventoryWishList/ExcursionInventoryWishList";
+import authConfig from "../../utils/authConfigHelper";
 import { UserContext } from "../../utils/UserContext";
 
 const ExcursionInventory = () => {
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData, setUserData, userToken } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
 
@@ -25,7 +26,7 @@ const ExcursionInventory = () => {
   const [currentExcursion, setCurrentExcursion] = useState({});
 
   useEffect(() => {
-    API.getExcursion(id)
+    API.getExcursion(id, authConfig(userToken))
       .then(response => {
         // console.log(response.data.data);
         const excursionState = response.data.data;
@@ -40,7 +41,7 @@ const ExcursionInventory = () => {
   const addToExcursion = id => {
     currentExcursionData.items.push(id);
     const itemObj = { items: currentExcursionData.items };
-    API.updateExcursionInventory(currentExcursionData._id, itemObj)
+    API.updateExcursionInventory(currentExcursionData._id, itemObj, authConfig(userToken))
       .then(response => {
         // console.log("back data: ", response.data.data);
         setCurrentExcursion(response.data.data);
@@ -60,7 +61,7 @@ const ExcursionInventory = () => {
   //   const updatedExcursionData = currentExcursionData.items.filter(itemId => itemId != id);
   //   console.log(updatedExcursionData);
   //   const excursionItemObj = { items: updatedExcursionData };
-  //   API.updateExcursionInventory(currentExcursionData._id, excursionItemObj)
+  //   API.updateExcursionInventory(currentExcursionData._id, excursionItemObj, authConfig(userToken))
   //     .then(response => {
   //       console.log("back data: ", response.data.data);
   //       setCurrentExcursion(response.data.data);

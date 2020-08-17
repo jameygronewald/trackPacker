@@ -58,16 +58,7 @@ export default {
     return axios.delete("/api/excursions/" + id, config);
   },
 
-  updateExcursionInventory: function (id, item) {
-    return axios.put("/api/excursions/" + id, item);
-  },
-
-  // deleteExcursionInventory: function (id, item) {
-  //   return axios.delete("/api/excursions/" + id, item);
-  // },
-  
- /*  http://api.openweathermap.org/data/2.5/weather?q=Atlanta&appid=3f40f6c653ada73b131b1bb93e6ed9c3 */
-  getWeather: function(){
-    return axios.get('http://api.openweathermap.org/data/2.5/forecast?q=Atlanta&appid=3f40f6c653ada73b131b1bb93e6ed9c3');
+  updateExcursionInventory: function (id, item, config) {
+    return axios.put("/api/excursions/" + id, item, config);
   },
 };
