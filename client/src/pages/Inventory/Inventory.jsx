@@ -82,7 +82,7 @@ const Inventory = () => {
     <div>
       <Grid container spacing={1}>
         <Grid item xs={12}></Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={2}>
           <User />
         </Grid>
         <Grid item xs={12} sm={5}>
@@ -103,8 +103,9 @@ const Inventory = () => {
                 id="standard-basic"
                 label="Add New Item"
                 name="newItem"
-                refs="textEl"
+                refs="textEl" 
                 inputRef={textInput}
+                type='text'
                 placeholder="Add an Item"
                 onChange={handleChange}
                 style={{ color: "#13160e", borderColor: "#13160e" }}
