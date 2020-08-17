@@ -30,7 +30,6 @@ export default function MenuListComposition() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
-
   const { userData, setUserData } = useContext(UserContext);
 
   const handleLogout = () => {

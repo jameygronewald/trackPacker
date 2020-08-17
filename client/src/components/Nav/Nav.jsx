@@ -3,7 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import MenuDropdown from "../MenuDropdown/MenuDropdpown";
+import LogoutButton from "../LogoutButton/LogoutButton";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -27,7 +28,7 @@ export default function ButtonAppBar() {
           <Typography variant="h5" className={classes.title}>
             TrackPacker
           </Typography>
-          <MenuDropdown  />
+          <LogoutButton  />
         </Toolbar>
       {/* </AppBar> */}
     </div>
