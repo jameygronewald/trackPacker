@@ -44,7 +44,11 @@ router.get("/api/excursions", (req, res) => {
       });
   } catch (error) {
     console.error(error);
-    res.status(401).redirect("/");
+    res.status(401).json({
+      error: true,
+      data: null,
+      message: "Cannot retrieve excursions.",
+    });
   }
 });
 
@@ -72,7 +76,7 @@ router.get("/api/excursions/:id", (req, res) => {
 router.post("/api/excursions", (req, res) => {
   try {
     verifyToken(req.headers.auth);
-    let userId = verifyToken(req.headers.auth).data;
+    const userId = verifyToken(req.headers.auth).data;
     db.Excursion.create(req.body).then(newExcursionData => {
       const newExcursionId = newExcursionData._id;
       db.User.findOne({ _id: userId }).then(data => {
@@ -83,10 +87,18 @@ router.post("/api/excursions", (req, res) => {
           new: true,
           useFindAndModify: false,
         })
-          .then(data => {
+          .populate("items")
+          .populate("excursions")
+          .then(({ firstName, lastName, items, excursions }) => {
+            const updatedUser = {
+              firstName: firstName,
+              lastName: lastName,
+              items: items,
+              excursions: excursions,
+            };
             res.json({
               error: false,
-              data: newExcursionData,
+              data: updatedUser,
               message: "Successfully added new excursion.",
             });
           })
@@ -131,7 +143,7 @@ router.put("/api/excursions/:id", (req, res) => {
 router.delete("/api/excursions/:id", (req, res) => {
   try {
     verifyToken(req.headers.auth);
-    let userId = verifyToken(req.headers.auth).data;
+    const userId = verifyToken(req.headers.auth).data;
     db.Excursion.findOneAndDelete({ _id: req.params.id })
       .then(excursionData => {
         const deletedExcursion = excursionData._id;
@@ -145,14 +157,22 @@ router.delete("/api/excursions/:id", (req, res) => {
           db.User.findOneAndUpdate({ _id: userId }, updatedExcursionList, {
             new: true,
             useFindAndModify: false,
-          }).then(response => {
-            console.log(response);
-          });
-        });
-        res.json({
-          error: false,
-          data: excursionData,
-          message: "Successfully deleted excursion data.",
+          })
+            .populate("items")
+            .populate("excursions")
+            .then(({ firstName, lastName, items, excursions }) => {
+              const updatedUser = {
+                firstName: firstName,
+                lastName: lastName,
+                items: items,
+                excursions: excursions,
+              };
+              res.json({
+                error: false,
+                data: updatedUser,
+                message: "Successfully deleted excursion data.",
+              });
+            });
         });
       })
       .catch(err => {
