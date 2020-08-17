@@ -5,8 +5,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
-import DeleteIcon from "@material-ui/icons/Delete";
-import IconButton from "@material-ui/core/IconButton";
+// import DeleteIcon from "@material-ui/icons/Delete";
+// import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ExcursionInventoryWishList = ({ deleteFromExcursion, itemName, itemId }) => {
+const ExcursionInventoryWishList = ({ /* deleteFromExcursion, */ itemName, itemId }) => {
   const classes = useStyles();
 
   return (
@@ -33,7 +33,7 @@ const ExcursionInventoryWishList = ({ deleteFromExcursion, itemName, itemId }) =
               <ListItem>
                 <ListItemText primary={itemName} />
                 <ListItemSecondaryAction>
-                <IconButton
+                {/* <IconButton
                       edge="end"
                       aria-label="delete"
                       onClick={() => {
@@ -41,7 +41,7 @@ const ExcursionInventoryWishList = ({ deleteFromExcursion, itemName, itemId }) =
                       }}
                     >
                       <DeleteIcon />
-                    </IconButton>
+                    </IconButton> */}
                 </ListItemSecondaryAction>
               </ListItem>
             </List>

@@ -13,7 +13,7 @@ const signjwt = id => {
       data: id,
     },
     "tokenSecret",
-    { expiresIn: "1h" }
+    { expiresIn: "7d" }
   );
 };
 

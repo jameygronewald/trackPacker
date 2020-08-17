@@ -42,9 +42,9 @@ export default function InteractiveList(props) {
               {userData.items &&
                 userData.items
                   .filter(item => item.status === "Inventory")
-                  .map((item, index) => (
+                  .map((item) => (
                     <>
-                      <ListItem key={index}>
+                      <ListItem key={item._id}>
                         <ListItemText primary={item.name} />
                         <ListItemSecondaryAction>
                           <IconButton
@@ -87,9 +87,9 @@ export default function InteractiveList(props) {
               {userData.items &&
                 userData.items
                   .filter(item => item.status === "Wishlist")
-                  .map((item, index) => (
+                  .map((item) => (
                     <>
-                      <ListItem key={index}>
+                      <ListItem key={item._id}>
                         <ListItemText primary={item.name} />
                         <ListItemSecondaryAction>
                           <IconButton

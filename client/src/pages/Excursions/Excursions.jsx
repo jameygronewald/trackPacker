@@ -12,7 +12,7 @@ import authConfig from "../../utils/authConfigHelper";
 const Excursions = ({ history }) => {
   const [newExcursion, setNewExcursion] = useState("");
 
-  const { userToken, userData, setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
