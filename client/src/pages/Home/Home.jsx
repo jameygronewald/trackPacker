@@ -13,7 +13,7 @@ const Home = ({ history }) => {
     password: "",
   });
 
-  const { setUserToken, setUserData } = useContext(UserContext);
+  const { handleLogin } = useContext(UserContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setUserInfo({ ...userInfo, [name]: value });
@@ -23,10 +23,9 @@ const Home = ({ history }) => {
     event.preventDefault();
     API.loginUser(userInfo)
       .then(response => {
-        localStorage.setItem("sessionToken", response.data.body.token.sessionToken);
-        setUserToken(response.data.body.token.sessionToken);
         const loggedInUser = response.data.body.userObject;
-        setUserData({ ...loggedInUser, isAuthenticated: true });
+        loggedInUser.isAuthenticated = true;
+        handleLogin(response.data.body.token.sessionToken, loggedInUser)
         history.push("/Inventory");
       })
       .catch(err => {

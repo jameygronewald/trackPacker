@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import API from "../../utils/API";
 import Grid from "@material-ui/core/Grid";
 import ExcursionCard from "../../components/ExcursionCard/ExcursionCard";
@@ -11,10 +11,12 @@ import authConfig from "../../utils/authConfigHelper";
 import { Typography } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 
-const Excursions = ({ history }) => {
+const Excursions = () => {
   const [newExcursion, setNewExcursion] = useState("");
 
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData, setUserData, userToken } = useContext(UserContext);
+
+  let textInput = useRef(null);
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
@@ -22,24 +24,19 @@ const Excursions = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const excursionObj = { name: newExcursion };
-    API.addExcursion(excursionObj, authConfig)
-      .then((response) => {
-        const updatedUser = userData;
-        updatedUser.excursions.push(response.data.data);
-        setUserData({ ...updatedUser, isAuthenticated: true });
+    const excursionObj = { name: newExcursion }
+    API.addExcursion(excursionObj, authConfig(userToken))
+      .then(response => {
+        setUserData({ ...response.data.data, isAuthenticated: true });
         setNewExcursion({ name: "" });
       })
       .catch((err) => console.log(err));
   };
 
-  const deleteExcursion = (id) => {
-    API.deleteExcursion(id, authConfig)
+  const deleteExcursion = id => {
+    API.deleteExcursion(id, authConfig(userToken))
       .then(response => {
-        const updatedExcursions = userData.excursions.filter(excursion => excursion._id !== response.data.data._id);
-        const updatedUser = userData;
-        updatedUser.excursions = updatedExcursions;
-        setUserData({ ...updatedUser, isAuthenticated: true });
+        setUserData({ ...response.data.data, isAuthenticated: true });
       })
       .catch((err) => {
         console.log(err);
@@ -63,12 +60,22 @@ const Excursions = ({ history }) => {
           >
             <form onSubmit={handleSubmit}>
               <TextField
-              size="small"
+                size="small"
                 name="newExcursion"
+                inputRef={textInput}
                 placeholder="Add an Excursion"
                 onChange={handleChange}
               ></TextField>
-              <Button type="submit">Submit</Button>
+              <Button
+                type="submit"
+                onClick={() => {
+                  setTimeout(() => {
+                    textInput.current.value = "";
+                  }, 300);
+                }}
+              >
+                Submit
+              </Button>
             </form>
           </Box>
           <Divider variant="middle" />
@@ -84,7 +91,7 @@ const Excursions = ({ history }) => {
                   mx="auto"
                 >
                   <ExcursionCard
-                   randomImg='https://source.unsplash.com/1600x900/?nature,Utah'
+                    randomImg="https://source.unsplash.com/1600x900/?nature,Utah"
                     excursionId={excursion._id}
                     excursionName={excursion.name}
                     deleteExcursion={deleteExcursion}
