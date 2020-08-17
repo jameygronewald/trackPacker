@@ -34,8 +34,8 @@ export default {
     return axios.post("/api/items", item, config);
   },
 
-  updateItem: function (item) {
-    return axios.put("/api/items", item);
+  updateItem: function (item, config) {
+    return axios.put("/api/items", item, config);
   },
 
   deleteItem: function (id, config) {

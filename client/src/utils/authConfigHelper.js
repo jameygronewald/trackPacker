@@ -1,7 +1,10 @@
-const authConfig = {
+const authConfig = (token) => {
+  const configHeaders = {
     headers: {
-      auth: localStorage.getItem("sessionToken"),
-    },
+      auth: token
+    }
+  };  
+  return configHeaders;
   };
 
 export default authConfig;

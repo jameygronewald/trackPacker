@@ -37,9 +37,15 @@ router.post("/api/items", (req, res) => {
           new: true,
           useFindAndModify: false,
         })
-        .populate("items")
-        .populate("excursions")
-          .then(updatedUser => {
+          .populate("items")
+          .populate("excursions")
+          .then(({ firstName, lastName, items, excursions }) => {
+            const updatedUser = {
+              firstName: firstName,
+              lastName: lastName,
+              items: items,
+              excursions: excursions,
+            };
             res.json({
               error: false,
               data: updatedUser,
@@ -67,21 +73,34 @@ router.post("/api/items", (req, res) => {
 
 // Update an item
 router.put("/api/items", (req, res) => {
-  db.Item.findOneAndUpdate({ _id: req.body._id }, req.body)
-    .then(itemData => {
-      res.json({
-        error: false,
-        data: itemData,
-        message: "Successfully updated item data.",
-      });
+  try {
+    verifyToken(req.headers.auth);
+    db.Item.findOneAndUpdate({ _id: req.body._id }, req.body, {
+      new: true,
+      useFindAndModify: false,
     })
-    .catch(err => {
-      res.status(500).json({
-        error: true,
-        data: null,
-        message: "Error retrieving item data.",
+      .then(itemData => {
+        res.json({
+          error: false,
+          data: itemData,
+          message: "Successfully updated item data.",
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: true,
+          data: null,
+          message: "Error retrieving item data.",
+        });
       });
+  } catch (error) {
+    console.error(error);
+    res.status(401).json({
+      error: true,
+      data: null,
+      message: "Invalid jwt",
     });
+  }
 });
 
 // Delete an item
@@ -89,36 +108,42 @@ router.delete("/api/items/:id", (req, res) => {
   try {
     verifyToken(req.headers.auth);
     const userId = verifyToken(req.headers.auth).data;
-    db.Item.findOneAndDelete({ _id: req.params.id })
-      .then(itemData => {
-        const deletedItem = itemData._id;
-        db.User.findOne({ _id: userId }).then(userData => {
-          const userInventory = userData.items;
-          const newInventory = userInventory.filter(
-            item => JSON.stringify(item) != JSON.stringify(deletedItem)
-          );
-          const updatedInventory = { items: newInventory };
-          db.User.findOneAndUpdate({ _id: userId }, updatedInventory, {
-            new: true,
-            useFindAndModify: false,
+    db.Item.findOneAndDelete({ _id: req.params.id }).then(itemData => {
+      const deletedItem = itemData._id;
+      db.User.findOne({ _id: userId }).then(userData => {
+        const userInventory = userData.items;
+        const newInventory = userInventory.filter(
+          item => JSON.stringify(item) != JSON.stringify(deletedItem)
+        );
+        const updatedInventory = { items: newInventory };
+        db.User.findOneAndUpdate({ _id: userId }, updatedInventory, {
+          new: true,
+          useFindAndModify: false,
+        })
+          .populate("items")
+          .populate("excursions")
+          .then(({ firstName, lastName, items, excursions }) => {
+            const updatedUser = {
+              firstName: firstName,
+              lastName: lastName,
+              items: items,
+              excursions: excursions,
+            };
+            res.json({
+              error: false,
+              data: updatedUser,
+              message: "Successfully deleted item data.",
+            });
           })
-          .then(response => {
-            console.log(response);
+          .catch(err => {
+            res.status(500).json({
+              error: true,
+              data: null,
+              message: "Error deleting item data.",
+            });
           });
-        });
-        res.json({
-          error: false,
-          data: itemData,
-          message: "Successfully deleted item data.",
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: true,
-          data: null,
-          message: "Error deleting item data.",
-        });
       });
+    });
   } catch (error) {
     console.error(error);
     res.status(401).json({
