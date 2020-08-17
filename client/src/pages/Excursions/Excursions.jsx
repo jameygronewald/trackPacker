@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import API from "../../utils/API";
 import Grid from "@material-ui/core/Grid";
 import ExcursionCard from "../../components/ExcursionCard/ExcursionCard";
@@ -15,6 +15,8 @@ const Excursions = ({ history }) => {
   const [newExcursion, setNewExcursion] = useState("");
 
   const { userData, setUserData } = useContext(UserContext);
+
+  let textInput = useRef(null);
 
   const handleChange = ({ target: { value } }) => {
     setNewExcursion(value);
@@ -35,8 +37,10 @@ const Excursions = ({ history }) => {
 
   const deleteExcursion = (id) => {
     API.deleteExcursion(id, authConfig)
-      .then(response => {
-        const updatedExcursions = userData.excursions.filter(excursion => excursion._id !== response.data.data._id);
+      .then((response) => {
+        const updatedExcursions = userData.excursions.filter(
+          (excursion) => excursion._id !== response.data.data._id
+        );
         const updatedUser = userData;
         updatedUser.excursions = updatedExcursions;
         setUserData({ ...updatedUser, isAuthenticated: true });
@@ -63,12 +67,22 @@ const Excursions = ({ history }) => {
           >
             <form onSubmit={handleSubmit}>
               <TextField
-              size="small"
+                size="small"
                 name="newExcursion"
+                inputRef={textInput}
                 placeholder="Add an Excursion"
                 onChange={handleChange}
               ></TextField>
-              <Button type="submit">Submit</Button>
+              <Button
+                type="submit"
+                onClick={() => {
+                  setTimeout(() => {
+                    textInput.current.value = "";
+                  }, 300);
+                }}
+              >
+                Submit
+              </Button>
             </form>
           </Box>
           <Divider variant="middle" />
@@ -84,7 +98,7 @@ const Excursions = ({ history }) => {
                   mx="auto"
                 >
                   <ExcursionCard
-                   randomImg='https://source.unsplash.com/1600x900/?nature,Utah'
+                    randomImg="https://source.unsplash.com/1600x900/?nature,Utah"
                     excursionId={excursion._id}
                     excursionName={excursion.name}
                     deleteExcursion={deleteExcursion}

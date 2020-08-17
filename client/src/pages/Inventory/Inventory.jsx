@@ -120,7 +120,7 @@ const Inventory = () => {
                 onClick={() => {
                   setTimeout(() => {
                     textInput.current.value = "";
-                  }, 1000);
+                  }, 300);
                 }}
                 type="submit"
                 variant="outlined"
