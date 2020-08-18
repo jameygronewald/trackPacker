@@ -65,7 +65,6 @@ const Home = ({ history }) => {
                 onChange={handleChange}
                 value={userInfo.email}
                 name="email"
-                id="standard-basic"
                 label="Email"
               />
             </Box>
@@ -80,7 +79,7 @@ const Home = ({ history }) => {
                 onChange={handleChange}
                 value={userInfo.password}
                 name="password"
-                id="standard-basic"
+                type="password"
                 label="Password"
               />
             </Box>

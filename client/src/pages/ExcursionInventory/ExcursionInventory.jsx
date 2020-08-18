@@ -30,18 +30,15 @@ const ExcursionInventory = () => {
   const [currentExcursion, setCurrentExcursion] = useState({});
 
   useEffect(() => {
-    console.log(authConfig(localStorage.getItem("sessionToken")));
     API.getExcursion(id, authConfig(localStorage.getItem("sessionToken")))
       .then(response => {
-        console.log(response);
         const excursionState = response.data.data;
         setCurrentExcursion(excursionState);
-        // console.log(currentExcursion);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   const addToExcursion = id => {
     let currentExcursionData = userData.excursions.reduce(
