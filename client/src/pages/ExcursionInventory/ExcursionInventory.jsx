@@ -33,18 +33,15 @@ const ExcursionInventory = () => {
   const [currentExcursion, setCurrentExcursion] = useState({});
 
   useEffect(() => {
-    console.log(authConfig(localStorage.getItem("sessionToken")));
     API.getExcursion(id, authConfig(localStorage.getItem("sessionToken")))
-      .then((response) => {
-        console.log(response);
+      .then(response => {
         const excursionState = response.data.data;
         setCurrentExcursion(excursionState);
-        // console.log(currentExcursion);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   const addToExcursion = (id) => {
     let currentExcursionData = userData.excursions.reduce(
@@ -62,11 +59,8 @@ const ExcursionInventory = () => {
       authConfig(userToken)
     )
       .then((response) => {
-        // console.log("back data: ", response.data.data);
         setCurrentExcursion(response.data.data);
-        // console.log("state set", currentExcursion);
         currentExcursionData = response.data.data;
-        // console.log("mutated var", currentExcursionData);
         setUserData({ ...userData, isAuthenticated: true });
       })
       .catch((err) => {
@@ -117,7 +111,6 @@ const ExcursionInventory = () => {
                       key={index}
                       itemName={item.name}
                       itemId={item._id}
-                      // deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryList>
                   ))}
 
@@ -133,7 +126,6 @@ const ExcursionInventory = () => {
                       key={index}
                       itemName={item.name}
                       itemId={item._id}
-                      // deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryWishList>
                   ))}
             </Grid>
