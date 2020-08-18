@@ -24,10 +24,8 @@ function App() {
   };
 
   const getUserData = config => {
-    console.log(config);
     API.getUserInfo(config)
       .then(response => {
-        console.log(response);
         const userResponse = response.data.body.userObject;
         userResponse.isAuthenticated = true;
         setUserData(userResponse);
