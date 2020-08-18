@@ -45,7 +45,7 @@ const SignUp = ({ history }) => {
         history.push("/Inventory");
       })
       .catch(err => {
-        console.log(err);
+        window.alert("Please enter a valid email address.");
       });
   };
 

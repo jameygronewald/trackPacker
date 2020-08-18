@@ -54,11 +54,7 @@ router.post("/api/signup", (req, res) => {
       });
     })
     .catch(err => {
-      res.status(400).json({
-        error: true,
-        body: null,
-        message: "Unable to create account.",
-      });
+      res.status(400).json(err.message)
     });
 });
 
