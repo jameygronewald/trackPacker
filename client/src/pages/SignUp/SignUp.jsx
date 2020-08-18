@@ -45,7 +45,7 @@ const SignUp = ({ history }) => {
         history.push("/Inventory");
       })
       .catch(err => {
-        console.log(err);
+        window.alert("Please enter a valid email address.");
       });
   };
 
@@ -70,7 +70,7 @@ const SignUp = ({ history }) => {
             p={2}
             mx="auto"
           >
-            <TextField id="standard-basic" name="firstName" label="First" value={firstName} onChange={e => {
+            <TextField name="firstName" label="First" value={firstName} onChange={e => {
                   setFirstName(e.target.value);
                 }}/>
           </Box>
@@ -81,7 +81,7 @@ const SignUp = ({ history }) => {
             p={2}
             mx="auto"
           >
-            <TextField id="standard-basic" name="lastName" label="Last" value={lastName} onChange={e => {
+            <TextField name="lastName" label="Last" value={lastName} onChange={e => {
                   setLastName(e.target.value);
                 }}/>
           </Box>
@@ -93,7 +93,6 @@ const SignUp = ({ history }) => {
               mx="auto"
             >
               <TextField
-                id="standard-basic"
                 name="email"
                 label="Email"
                 value={email}
@@ -110,7 +109,7 @@ const SignUp = ({ history }) => {
               mx="auto"
             >
               <TextField
-                id="standard-basic"
+                type="password"
                 name="password"
                 label="Password"
                 value={password}
