@@ -74,26 +74,6 @@ const ExcursionInventory = () => {
       });
   };
 
-  // const deleteFromExcursion = id => {
-  //   console.log(id);
-  //   console.log(currentExcursionData.items);
-  //   const updatedExcursionData = currentExcursionData.items.filter(itemId => itemId != id);
-  //   console.log(updatedExcursionData);
-  //   const excursionItemObj = { items: updatedExcursionData };
-  //   API.updateExcursionInventory(currentExcursionData._id, excursionItemObj, authConfig(userToken))
-  //     .then(response => {
-  //       console.log("back data: ", response.data.data);
-  //       setCurrentExcursion(response.data.data);
-  //       console.log("state set", currentExcursion);
-  //       currentExcursionData = response.data.data;
-  //       console.log("mutated var", currentExcursionData);
-  //       setUserData({ ...userData, isAuthenticated: true });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
-
   return (
     <div>
       <Grid container spacing={1}>
@@ -103,12 +83,10 @@ const ExcursionInventory = () => {
         </Grid>
         <Grid item xs={12} sm={10}>
           <Box
-           /*  alignItems="center"
-            justifyContent="center" */
             display="flex"
             p={0.8}
             mx="auto"
-            width="100%"
+            
           >
             <Typography className={classes.title} variant="h3">
               {currentExcursion.name}
