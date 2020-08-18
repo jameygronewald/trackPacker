@@ -33,7 +33,7 @@ const Inventory = () => {
     API.addItem(newItem, authConfig(userToken))
       .then(response => {
         setUserData({ ...response.data.data, isAuthenticated: true });
-        setNewItem({ name: "", status: "Inventory" });
+        setNewItem({ ...newItem, name: ""});
       })
       .catch(err => console.log(err));
   };
@@ -129,7 +129,7 @@ const Inventory = () => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    icon={<FavoriteBorder />}
+                    icon={<FavoriteBorder/>}
                     checkedIcon={<Favorite />}
                     name="wishlist"
                     id="wishlist"
