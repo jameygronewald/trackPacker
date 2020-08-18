@@ -5,8 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import IconButton from "@material-ui/core/IconButton";
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,15 +19,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4, 0, 2),
   },
 }));
-export default function InteractiveList({ /* deleteFromExcursion, */ itemName, itemId }) {
+export default function InteractiveList({ itemName, itemId }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
         <Grid item xs={12} sm={6}>
-          <div className={classes.demo}>
-            <List>
-              <>
+          <div className={classes.demo} >
+            <List style={{opacity: '0.8'}}>
+              
+              <Slide direction="left" in={true} mountOnEnter unmountOnExit>
                 <ListItem>
                   <ListItemText primary={itemName} />
                   <ListItemSecondaryAction>
@@ -43,7 +43,8 @@ export default function InteractiveList({ /* deleteFromExcursion, */ itemName, i
                     </IconButton> */}
                   </ListItemSecondaryAction>
                 </ListItem>
-              </>
+                </Slide>
+             
             </List>
           </div>
         </Grid>

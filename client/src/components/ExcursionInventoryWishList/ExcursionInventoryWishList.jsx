@@ -5,6 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
+import Slide from '@material-ui/core/Slide';
 // import DeleteIcon from "@material-ui/icons/Delete";
 // import IconButton from "@material-ui/core/IconButton";
 
@@ -29,7 +30,8 @@ const ExcursionInventoryWishList = ({ /* deleteFromExcursion, */ itemName, itemI
       <Grid container spacing={0}>
         <Grid item xs={12} sm={6}>
           <div className={classes.demo}>
-            <List>
+            <List style={{opacity: '0.8'}}> 
+            <Slide direction="left" in={true} mountOnEnter unmountOnExit>
               <ListItem>
                 <ListItemText primary={itemName} />
                 <ListItemSecondaryAction>
@@ -44,6 +46,7 @@ const ExcursionInventoryWishList = ({ /* deleteFromExcursion, */ itemName, itemI
                     </IconButton> */}
                 </ListItemSecondaryAction>
               </ListItem>
+              </Slide>
             </List>
           </div>
         </Grid>

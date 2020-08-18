@@ -17,12 +17,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     /*  flexGrow: 1, */
     fontFamily: "Montserrat",
+    /* textAlign: "center", */
+  },
+  list: {
+    margin: theme.spacing(2, 0, 2),
   },
 }));
 
 const ExcursionInventory = () => {
-  const classes = useStyles();
-
   const { userData, setUserData, userToken } = useContext(UserContext);
   const { id } = useParams();
   const excursionId = id;
@@ -33,7 +35,7 @@ const ExcursionInventory = () => {
   useEffect(() => {
     console.log(authConfig(localStorage.getItem("sessionToken")));
     API.getExcursion(id, authConfig(localStorage.getItem("sessionToken")))
-      .then(response => {
+      .then((response) => {
         console.log(response);
         const excursionState = response.data.data;
         setCurrentExcursion(excursionState);
@@ -44,18 +46,22 @@ const ExcursionInventory = () => {
       });
   }, []);
 
-  const addToExcursion = id => {
+  const addToExcursion = (id) => {
     let currentExcursionData = userData.excursions.reduce(
       (excursionObject, excursion) =>
         excursion._id === excursionId
           ? (excursionObject = { ...excursion })
-          : (excursionObject),
+          : excursionObject,
       {}
     );
     currentExcursionData.items.push(id);
     const itemObj = { items: currentExcursionData.items };
-    API.updateExcursionInventory(currentExcursionData._id, itemObj, authConfig(userToken))
-      .then(response => {
+    API.updateExcursionInventory(
+      currentExcursionData._id,
+      itemObj,
+      authConfig(userToken)
+    )
+      .then((response) => {
         // console.log("back data: ", response.data.data);
         setCurrentExcursion(response.data.data);
         // console.log("state set", currentExcursion);
@@ -95,32 +101,36 @@ const ExcursionInventory = () => {
         <Grid item xs={12} sm={2}>
           <User />
         </Grid>
-        <Grid item xs={12} sm={9}>
+        <Grid item xs={12} sm={10}>
           <Box
-            alignItems="center"
-            justifyContent="center"
+           /*  alignItems="center"
+            justifyContent="center" */
             display="flex"
             p={0.8}
             mx="auto"
+            width="100%"
           >
             <Typography className={classes.title} variant="h3">
               {currentExcursion.name}
             </Typography>
           </Box>
           <Divider variant="middle" />
-
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={6}>
+            <Grid className={classes.list} item xs={12} sm={6}>
               <Typography className={classes.title} variant="h5">
                 Inventory
               </Typography>
+              <Divider className={classes.list} variant="middle" />
+
               <ExcursionInventoryListAdd
                 addToExcursion={addToExcursion}
               ></ExcursionInventoryListAdd>
             </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <Typography className={classes.title} variant="h5">Inventory for {currentExcursion.name}</Typography>
+            <Grid className={classes.list} item xs={12} sm={6}>
+              <Typography className={classes.title} variant="h5">
+                Inventory for {currentExcursion.name}
+              </Typography>
+              <Divider className={classes.list} variant="middle" />
               {currentExcursion.items &&
                 currentExcursion.items
                   .filter((item) => item.status === "Inventory")
@@ -132,8 +142,11 @@ const ExcursionInventory = () => {
                       // deleteFromExcursion={deleteFromExcursion}
                     ></ExcursionInventoryList>
                   ))}
-              <br></br>
-              <Typography className={classes.title} variant="h5">Wishlist for {currentExcursion.name}</Typography>
+
+              <Typography className={classes.title} variant="h5">
+                Wishlist for {currentExcursion.name}
+              </Typography>
+              <Divider className={classes.list} variant="middle" />
               {currentExcursion.items &&
                 currentExcursion.items
                   .filter((item) => item.status === "Wishlist")
