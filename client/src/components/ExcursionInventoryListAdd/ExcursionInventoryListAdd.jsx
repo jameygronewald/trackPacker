@@ -9,14 +9,17 @@ import Grid from "@material-ui/core/Grid";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { UserContext } from "../../utils/UserContext";
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    maxWidth: 752,
+    /* flexGrow: 1, */
+    width: '100%'
+    /* maxWidth: 752, */
   },
   demo: {
-    backgroundColor: theme.palette.background.paper,
+  
+    backgroundColor: 'whitesmoke',
   },
   title: {
     margin: theme.spacing(4, 0, 2),
@@ -33,9 +36,10 @@ export default function InteractiveList(props) {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <div className={classes.demo}>
-            <List  style={{ opacity: "0.8", boxShadow: "10px 10px 5px grey" }}>
+            <List >
               {userData.items && userData.items.map(item => (
                 <div key={item._id}>
+                  <Slide direction="down" in={true} mountOnEnter unmountOnExit>
                   <ListItem>
                     <ListItemText primary={item.name} />
                     <ListItemSecondaryAction>
@@ -55,6 +59,7 @@ export default function InteractiveList(props) {
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
+                  </Slide>
                 </div>
               ))}
             </List>
